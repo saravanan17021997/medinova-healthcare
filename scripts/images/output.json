@@ -1,0 +1,2446 @@
+{
+  "generatedAt": "2026-10-23T13:24:59.699Z",
+  "assets": [
+    {
+      "file": "images/hero/medinova-hero-healthcare-team.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Home page hero",
+      "description": "Four healthcare professionals standing together in a bright atrium with arched windows.",
+      "alt": "Four healthcare professionals in a bright, modern clinic atrium",
+      "outputs": [
+        {
+          "file": "images/hero/medinova-hero-healthcare-team.webp",
+          "bytes": 36632,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "14fb585b03cf3864"
+        },
+        {
+          "file": "images/hero/medinova-hero-healthcare-team-sm.webp",
+          "bytes": 16066,
+          "width": 800,
+          "height": 500,
+          "sha256": "25043d12dceead3e"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/doctor-patient-consultation.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Home appointment section; appointment page side panel",
+      "description": "A doctor and a patient talking across a consultation desk.",
+      "alt": "A doctor talking with a patient across a consultation desk",
+      "outputs": [
+        {
+          "file": "images/hero/doctor-patient-consultation.webp",
+          "bytes": 21666,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "ea005f8919534c7d"
+        },
+        {
+          "file": "images/hero/doctor-patient-consultation-sm.webp",
+          "bytes": 9256,
+          "width": 800,
+          "height": 500,
+          "sha256": "48b82a2d6f11c675"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/healthcare-professional.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Doctors directory page header",
+      "description": "A smiling nurse in teal scrubs holding a tablet.",
+      "alt": "A smiling healthcare professional holding a tablet",
+      "outputs": [
+        {
+          "file": "images/hero/healthcare-professional.webp",
+          "bytes": 18364,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "37a9dec5b42ae154"
+        },
+        {
+          "file": "images/hero/healthcare-professional-sm.webp",
+          "bytes": 8040,
+          "width": 800,
+          "height": 500,
+          "sha256": "4df63543da930d77"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/hospital-reception-welcome.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Home \"why choose us\" section; facilities page header",
+      "description": "A receptionist greeting a parent and child at a reception desk.",
+      "alt": "A receptionist welcoming a parent and child at the front desk",
+      "outputs": [
+        {
+          "file": "images/hero/hospital-reception-welcome.webp",
+          "bytes": 22488,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "25b6186f76d9921f"
+        },
+        {
+          "file": "images/hero/hospital-reception-welcome-sm.webp",
+          "bytes": 10002,
+          "width": 800,
+          "height": 500,
+          "sha256": "84b618b327c0df87"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/hospital-exterior.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Home location and contact section; contact page header",
+      "description": "A modern clinic building with a glass facade, trees and an entrance canopy.",
+      "alt": "The exterior of a modern clinic building with trees and a glass entrance",
+      "outputs": [
+        {
+          "file": "images/hero/hospital-exterior.webp",
+          "bytes": 25104,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "7773569660a059dc"
+        },
+        {
+          "file": "images/hero/hospital-exterior-sm.webp",
+          "bytes": 11808,
+          "width": 800,
+          "height": 500,
+          "sha256": "5a90b1fc8f547b1b"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/healthcare-team-collaboration.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Specialties page header",
+      "description": "A clinician presenting a chart on a wall screen to three seated colleagues.",
+      "alt": "A healthcare team reviewing charts together in a meeting room",
+      "outputs": [
+        {
+          "file": "images/hero/healthcare-team-collaboration.webp",
+          "bytes": 30852,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "9a79648db546b0b6"
+        },
+        {
+          "file": "images/hero/healthcare-team-collaboration-sm.webp",
+          "bytes": 13008,
+          "width": 800,
+          "height": 500,
+          "sha256": "9047d9a38024168f"
+        }
+      ]
+    },
+    {
+      "file": "images/hero/patient-appointment-booking.webp",
+      "kind": "webp",
+      "width": 1600,
+      "height": 1000,
+      "small": 800,
+      "section": "A. Hero",
+      "usage": "Appointment page header",
+      "description": "A person on a sofa choosing an appointment slot on a phone, with a calendar card beside them.",
+      "alt": "A person choosing an appointment time on their phone",
+      "outputs": [
+        {
+          "file": "images/hero/patient-appointment-booking.webp",
+          "bytes": 19302,
+          "width": 1600,
+          "height": 1000,
+          "sha256": "01e1465cf839df1e"
+        },
+        {
+          "file": "images/hero/patient-appointment-booking-sm.webp",
+          "bytes": 9004,
+          "width": 800,
+          "height": 500,
+          "sha256": "9b0655a9c6cd52ab"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-general-medicine.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A doctor behind a desk with a stethoscope, notes and a thermometer.",
+      "alt": "A general physician at a desk with a stethoscope and notes",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-general-medicine.webp",
+          "bytes": 19202,
+          "width": 1200,
+          "height": 900,
+          "sha256": "58d514b5329996f2"
+        },
+        {
+          "file": "images/specialties/specialty-general-medicine-sm.webp",
+          "bytes": 8094,
+          "width": 600,
+          "height": 450,
+          "sha256": "b289c9f64ac75d2e"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-cardiology.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "An illustrated heart beside an ECG monitor.",
+      "alt": "An illustrated heart next to a heart-rhythm monitor",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-cardiology.webp",
+          "bytes": 13512,
+          "width": 1200,
+          "height": 900,
+          "sha256": "ceb92a7eafac7d38"
+        },
+        {
+          "file": "images/specialties/specialty-cardiology-sm.webp",
+          "bytes": 5886,
+          "width": 600,
+          "height": 450,
+          "sha256": "424d41181e981dbb"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-orthopaedics.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A knee X-ray on a lightbox, a knee model and a crutch.",
+      "alt": "A knee X-ray on a lightbox beside a joint model and crutch",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-orthopaedics.webp",
+          "bytes": 12536,
+          "width": 1200,
+          "height": 900,
+          "sha256": "1f18735fc342d570"
+        },
+        {
+          "file": "images/specialties/specialty-orthopaedics-sm.webp",
+          "bytes": 5310,
+          "width": 600,
+          "height": 450,
+          "sha256": "913fb1c976ad8a17"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-dermatology.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A cross-section of skin layers under a magnifying glass.",
+      "alt": "Layers of skin under a magnifying glass",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-dermatology.webp",
+          "bytes": 14926,
+          "width": 1200,
+          "height": 900,
+          "sha256": "84a2cee8673598c4"
+        },
+        {
+          "file": "images/specialties/specialty-dermatology-sm.webp",
+          "bytes": 6354,
+          "width": 600,
+          "height": 450,
+          "sha256": "d272543199840f9a"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-paediatrics.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A child at a height chart with a teddy bear and building blocks.",
+      "alt": "A child beside a height chart, a teddy bear and toy blocks",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-paediatrics.webp",
+          "bytes": 14378,
+          "width": 1200,
+          "height": 900,
+          "sha256": "582bbf6230d9a36f"
+        },
+        {
+          "file": "images/specialties/specialty-paediatrics-sm.webp",
+          "bytes": 6550,
+          "width": 600,
+          "height": 450,
+          "sha256": "844233e71f5540a1"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-neurology.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A brain illustration with a network of connected nodes and two scan screens.",
+      "alt": "An illustrated brain with connected nerve pathways",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-neurology.webp",
+          "bytes": 22712,
+          "width": 1200,
+          "height": 900,
+          "sha256": "fd7d7c519c1f94fa"
+        },
+        {
+          "file": "images/specialties/specialty-neurology-sm.webp",
+          "bytes": 8910,
+          "width": 600,
+          "height": 450,
+          "sha256": "90c16bbf198bc1cc"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-ophthalmology.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A letter eye-test chart, a large eye and a pair of glasses.",
+      "alt": "An eye-test chart, an illustrated eye and glasses",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-ophthalmology.webp",
+          "bytes": 18448,
+          "width": 1200,
+          "height": 900,
+          "sha256": "b354a3ec79540900"
+        },
+        {
+          "file": "images/specialties/specialty-ophthalmology-sm.webp",
+          "bytes": 8318,
+          "width": 600,
+          "height": 450,
+          "sha256": "9310c55fc36397b0"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-dentistry.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A friendly tooth model with a toothbrush and dental mirror.",
+      "alt": "A tooth model with a toothbrush and dental mirror",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-dentistry.webp",
+          "bytes": 13282,
+          "width": 1200,
+          "height": 900,
+          "sha256": "288bb4fc2af95901"
+        },
+        {
+          "file": "images/specialties/specialty-dentistry-sm.webp",
+          "bytes": 5664,
+          "width": 600,
+          "height": 450,
+          "sha256": "4792eb4a8068c72e"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-gynaecology.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A doctor with a tablet beside an ultrasound unit and a calendar.",
+      "alt": "A doctor beside an ultrasound unit in a women’s health clinic",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-gynaecology.webp",
+          "bytes": 14728,
+          "width": 1200,
+          "height": 900,
+          "sha256": "d0b939bbc1fc75f4"
+        },
+        {
+          "file": "images/specialties/specialty-gynaecology-sm.webp",
+          "bytes": 6698,
+          "width": 600,
+          "height": 450,
+          "sha256": "992a827c5f582490"
+        }
+      ]
+    },
+    {
+      "file": "images/specialties/specialty-diagnostics.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 900,
+      "small": 600,
+      "section": "B. Specialties",
+      "usage": "Specialty cards (home, specialties page) and specialty detail header",
+      "description": "A microscope, sample tubes, petri dishes and a DNA helix.",
+      "alt": "Laboratory equipment: a microscope, sample tubes and petri dishes",
+      "outputs": [
+        {
+          "file": "images/specialties/specialty-diagnostics.webp",
+          "bytes": 14616,
+          "width": 1200,
+          "height": 900,
+          "sha256": "909f441bd89271be"
+        },
+        {
+          "file": "images/specialties/specialty-diagnostics-sm.webp",
+          "bytes": 6558,
+          "width": 600,
+          "height": 450,
+          "sha256": "0c4a5f6da6833925"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-arjun-mehta-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Arjun Mehta\" (General medicine).",
+      "alt": "Illustrated portrait of Arjun Mehta, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-arjun-mehta-demo.webp",
+          "bytes": 16986,
+          "width": 800,
+          "height": 1000,
+          "sha256": "09e168f49506879a"
+        },
+        {
+          "file": "images/doctors/doctor-arjun-mehta-demo-sm.webp",
+          "bytes": 7382,
+          "width": 400,
+          "height": 500,
+          "sha256": "aafea8758a57d64f"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-nisha-varghese-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Nisha Varghese\" (Cardiology).",
+      "alt": "Illustrated portrait of Nisha Varghese, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-nisha-varghese-demo.webp",
+          "bytes": 16694,
+          "width": 800,
+          "height": 1000,
+          "sha256": "85a99cc2fd509774"
+        },
+        {
+          "file": "images/doctors/doctor-nisha-varghese-demo-sm.webp",
+          "bytes": 7280,
+          "width": 400,
+          "height": 500,
+          "sha256": "42f37af57d6e687e"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-rahul-iyer-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Rahul Iyer\" (Orthopaedics).",
+      "alt": "Illustrated portrait of Rahul Iyer, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-rahul-iyer-demo.webp",
+          "bytes": 14136,
+          "width": 800,
+          "height": 1000,
+          "sha256": "2543bb59c12376d1"
+        },
+        {
+          "file": "images/doctors/doctor-rahul-iyer-demo-sm.webp",
+          "bytes": 6270,
+          "width": 400,
+          "height": 500,
+          "sha256": "5fe5686b4a88a7bf"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-fatima-sheikh-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Fatima Sheikh\" (Dermatology).",
+      "alt": "Illustrated portrait of Fatima Sheikh, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-fatima-sheikh-demo.webp",
+          "bytes": 19440,
+          "width": 800,
+          "height": 1000,
+          "sha256": "b687ab27f3caf80d"
+        },
+        {
+          "file": "images/doctors/doctor-fatima-sheikh-demo-sm.webp",
+          "bytes": 8502,
+          "width": 400,
+          "height": 500,
+          "sha256": "8cd5ecbfef0917db"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-kavya-reddy-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Kavya Reddy\" (Paediatrics).",
+      "alt": "Illustrated portrait of Kavya Reddy, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-kavya-reddy-demo.webp",
+          "bytes": 13656,
+          "width": 800,
+          "height": 1000,
+          "sha256": "8a0f120cf208fff1"
+        },
+        {
+          "file": "images/doctors/doctor-kavya-reddy-demo-sm.webp",
+          "bytes": 6204,
+          "width": 400,
+          "height": 500,
+          "sha256": "4930f2a28819862a"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-daniel-thomas-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Daniel Thomas\" (Neurology).",
+      "alt": "Illustrated portrait of Daniel Thomas, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-daniel-thomas-demo.webp",
+          "bytes": 14810,
+          "width": 800,
+          "height": 1000,
+          "sha256": "eadbed9172191f5e"
+        },
+        {
+          "file": "images/doctors/doctor-daniel-thomas-demo-sm.webp",
+          "bytes": 6370,
+          "width": 400,
+          "height": 500,
+          "sha256": "c59bdb1615a712b2"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-priya-nair-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Priya Nair\" (Ophthalmology).",
+      "alt": "Illustrated portrait of Priya Nair, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-priya-nair-demo.webp",
+          "bytes": 18776,
+          "width": 800,
+          "height": 1000,
+          "sha256": "4b8d024525becbf3"
+        },
+        {
+          "file": "images/doctors/doctor-priya-nair-demo-sm.webp",
+          "bytes": 7942,
+          "width": 400,
+          "height": 500,
+          "sha256": "f0490b990cd6b761"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-vikram-singh-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Vikram Singh\" (Dentistry).",
+      "alt": "Illustrated portrait of Vikram Singh, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-vikram-singh-demo.webp",
+          "bytes": 12956,
+          "width": 800,
+          "height": 1000,
+          "sha256": "60dfaf8ac4f3558a"
+        },
+        {
+          "file": "images/doctors/doctor-vikram-singh-demo-sm.webp",
+          "bytes": 5676,
+          "width": 400,
+          "height": 500,
+          "sha256": "bcb2afe989e3f2b8"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-anita-das-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Anita Das\" (Gynaecology).",
+      "alt": "Illustrated portrait of Anita Das, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-anita-das-demo.webp",
+          "bytes": 17340,
+          "width": 800,
+          "height": 1000,
+          "sha256": "224fc2118edc0ee9"
+        },
+        {
+          "file": "images/doctors/doctor-anita-das-demo-sm.webp",
+          "bytes": 7814,
+          "width": 400,
+          "height": 500,
+          "sha256": "7c1f5c22626d96ee"
+        }
+      ]
+    },
+    {
+      "file": "images/doctors/doctor-samuel-okafor-demo.webp",
+      "kind": "webp",
+      "width": 800,
+      "height": 1000,
+      "small": 400,
+      "section": "C. Doctors",
+      "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
+      "description": "Portrait illustration for the fictional demo profile \"Samuel Okafor\" (Diagnostics and laboratory).",
+      "alt": "Illustrated portrait of Samuel Okafor, a fictional demo profile",
+      "outputs": [
+        {
+          "file": "images/doctors/doctor-samuel-okafor-demo.webp",
+          "bytes": 12952,
+          "width": 800,
+          "height": 1000,
+          "sha256": "2a7771dcf6b40b24"
+        },
+        {
+          "file": "images/doctors/doctor-samuel-okafor-demo-sm.webp",
+          "bytes": 5364,
+          "width": 400,
+          "height": 500,
+          "sha256": "471f00568629d77c"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/reception-waiting-area.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A waiting area with seated visitors, a wall screen, plants and a water dispenser.",
+      "alt": "A calm waiting area with seated visitors",
+      "outputs": [
+        {
+          "file": "images/facilities/reception-waiting-area.webp",
+          "bytes": 18356,
+          "width": 1200,
+          "height": 800,
+          "sha256": "0bbc56441ac46b64"
+        },
+        {
+          "file": "images/facilities/reception-waiting-area-sm.webp",
+          "bytes": 7884,
+          "width": 600,
+          "height": 400,
+          "sha256": "d4bcc0ce026a3e09"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/consultation-room.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "An examination bed, privacy curtain, desk and computer.",
+      "alt": "A consultation room with an examination bed and desk",
+      "outputs": [
+        {
+          "file": "images/facilities/consultation-room.webp",
+          "bytes": 10564,
+          "width": 1200,
+          "height": 800,
+          "sha256": "14bd9cf91ce95496"
+        },
+        {
+          "file": "images/facilities/consultation-room-sm.webp",
+          "bytes": 4718,
+          "width": 600,
+          "height": 400,
+          "sha256": "59a396ed3b34c3c6"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/hospital-corridor.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A corridor in perspective with doors, handrails and staff.",
+      "alt": "A hospital corridor with doors and handrails",
+      "outputs": [
+        {
+          "file": "images/facilities/hospital-corridor.webp",
+          "bytes": 15464,
+          "width": 1200,
+          "height": 800,
+          "sha256": "4750b8f4b6bd0bfb"
+        },
+        {
+          "file": "images/facilities/hospital-corridor-sm.webp",
+          "bytes": 6968,
+          "width": 600,
+          "height": 400,
+          "sha256": "b5df139d2a31ba36"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/patient-room.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A patient resting in bed with a visitor, IV stand and vitals monitor.",
+      "alt": "A patient resting in a bed while a visitor sits nearby",
+      "outputs": [
+        {
+          "file": "images/facilities/patient-room.webp",
+          "bytes": 17566,
+          "width": 1200,
+          "height": 800,
+          "sha256": "890066ce67fc96ec"
+        },
+        {
+          "file": "images/facilities/patient-room-sm.webp",
+          "bytes": 7850,
+          "width": 600,
+          "height": 400,
+          "sha256": "66e100e6c61921d5"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/laboratory.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A technician at a lab bench with a microscope, tubes and a centrifuge.",
+      "alt": "A laboratory technician working at a bench",
+      "outputs": [
+        {
+          "file": "images/facilities/laboratory.webp",
+          "bytes": 19034,
+          "width": 1200,
+          "height": 800,
+          "sha256": "14be13aaa56cd7e1"
+        },
+        {
+          "file": "images/facilities/laboratory-sm.webp",
+          "bytes": 9210,
+          "width": 600,
+          "height": 400,
+          "sha256": "0b5f107c3b861599"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/diagnostic-imaging.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A scanner with a patient table and a technician with a tablet.",
+      "alt": "A diagnostic imaging scanner with a technician",
+      "outputs": [
+        {
+          "file": "images/facilities/diagnostic-imaging.webp",
+          "bytes": 13636,
+          "width": 1200,
+          "height": 800,
+          "sha256": "1235a6a9f5a27476"
+        },
+        {
+          "file": "images/facilities/diagnostic-imaging-sm.webp",
+          "bytes": 5974,
+          "width": 600,
+          "height": 400,
+          "sha256": "628ecc01dce3fc8f"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/medical-equipment.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A vitals monitor, infusion pumps, defibrillator trolley and ECG cart.",
+      "alt": "Medical equipment including a monitor, infusion pumps and a defibrillator",
+      "outputs": [
+        {
+          "file": "images/facilities/medical-equipment.webp",
+          "bytes": 12558,
+          "width": 1200,
+          "height": 800,
+          "sha256": "fd5a8a1933c72520"
+        },
+        {
+          "file": "images/facilities/medical-equipment-sm.webp",
+          "bytes": 5432,
+          "width": 600,
+          "height": 400,
+          "sha256": "757cef855eff83af"
+        }
+      ]
+    },
+    {
+      "file": "images/facilities/staff-at-work.webp",
+      "kind": "webp",
+      "width": 1200,
+      "height": 800,
+      "small": 600,
+      "section": "D. Facilities",
+      "usage": "Facilities page grid",
+      "description": "A nurse at a station computer talking with a doctor holding a clipboard.",
+      "alt": "A nurse and a doctor working at a nurses’ station",
+      "outputs": [
+        {
+          "file": "images/facilities/staff-at-work.webp",
+          "bytes": 17928,
+          "width": 1200,
+          "height": 800,
+          "sha256": "4f7476e79cbe6492"
+        },
+        {
+          "file": "images/facilities/staff-at-work-sm.webp",
+          "bytes": 7938,
+          "width": 600,
+          "height": 400,
+          "sha256": "a2d6518f9e3a2ec7"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-thermometer.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Digital Thermometer, on a display podium.",
+      "alt": "Digital Thermometer",
+      "productSlug": "digital-thermometer",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-thermometer.webp",
+          "bytes": 9244,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "f59e7a1d98ee04be"
+        },
+        {
+          "file": "images/products/product-digital-thermometer-sm.webp",
+          "bytes": 3736,
+          "width": 500,
+          "height": 500,
+          "sha256": "36886995836decb2"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-thermometer-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Thermometer, close-up detail view.",
+      "alt": "Digital Thermometer, close-up",
+      "productSlug": "digital-thermometer",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-thermometer-detail.webp",
+          "bytes": 12182,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "507164f015fe10fb"
+        },
+        {
+          "file": "images/products/product-digital-thermometer-detail-sm.webp",
+          "bytes": 5004,
+          "width": 500,
+          "height": 500,
+          "sha256": "6811364c946bcda8"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-thermometer-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Thermometer, shown with its demo packaging.",
+      "alt": "Digital Thermometer with its box",
+      "productSlug": "digital-thermometer",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-thermometer-box.webp",
+          "bytes": 15404,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "dcfe438c81ec9bbe"
+        },
+        {
+          "file": "images/products/product-digital-thermometer-box-sm.webp",
+          "bytes": 6076,
+          "width": 500,
+          "height": 500,
+          "sha256": "124cdfdc6685062a"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-blood-pressure-monitor.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Digital Blood Pressure Monitor, on a display podium.",
+      "alt": "Digital Blood Pressure Monitor",
+      "productSlug": "blood-pressure-monitor",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-blood-pressure-monitor.webp",
+          "bytes": 11048,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "c6f3547c1405f96f"
+        },
+        {
+          "file": "images/products/product-blood-pressure-monitor-sm.webp",
+          "bytes": 4652,
+          "width": 500,
+          "height": 500,
+          "sha256": "0218bc235736735f"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-blood-pressure-monitor-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Blood Pressure Monitor, close-up detail view.",
+      "alt": "Digital Blood Pressure Monitor, close-up",
+      "productSlug": "blood-pressure-monitor",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-blood-pressure-monitor-detail.webp",
+          "bytes": 13054,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "fd883f15f3daa4e3"
+        },
+        {
+          "file": "images/products/product-blood-pressure-monitor-detail-sm.webp",
+          "bytes": 5920,
+          "width": 500,
+          "height": 500,
+          "sha256": "177b20217fde0ac2"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-blood-pressure-monitor-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Blood Pressure Monitor, shown with its demo packaging.",
+      "alt": "Digital Blood Pressure Monitor with its box",
+      "productSlug": "blood-pressure-monitor",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-blood-pressure-monitor-box.webp",
+          "bytes": 16870,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "b4779a3ccf6d5cda"
+        },
+        {
+          "file": "images/products/product-blood-pressure-monitor-box-sm.webp",
+          "bytes": 6928,
+          "width": 500,
+          "height": 500,
+          "sha256": "be6f7289756b408b"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-pulse-oximeter.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Fingertip Pulse Oximeter, on a display podium.",
+      "alt": "Fingertip Pulse Oximeter",
+      "productSlug": "pulse-oximeter",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-pulse-oximeter.webp",
+          "bytes": 10114,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "e309d6d5a1c6d673"
+        },
+        {
+          "file": "images/products/product-pulse-oximeter-sm.webp",
+          "bytes": 4332,
+          "width": 500,
+          "height": 500,
+          "sha256": "1dda85ecc1f44134"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-pulse-oximeter-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Fingertip Pulse Oximeter, close-up detail view.",
+      "alt": "Fingertip Pulse Oximeter, close-up",
+      "productSlug": "pulse-oximeter",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-pulse-oximeter-detail.webp",
+          "bytes": 12060,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "406bcb545aba28fd"
+        },
+        {
+          "file": "images/products/product-pulse-oximeter-detail-sm.webp",
+          "bytes": 5340,
+          "width": 500,
+          "height": 500,
+          "sha256": "a8aa8e0758ef8b53"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-pulse-oximeter-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Fingertip Pulse Oximeter, shown with its demo packaging.",
+      "alt": "Fingertip Pulse Oximeter with its box",
+      "productSlug": "pulse-oximeter",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-pulse-oximeter-box.webp",
+          "bytes": 15922,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "fbbc7cad4d208c1b"
+        },
+        {
+          "file": "images/products/product-pulse-oximeter-box-sm.webp",
+          "bytes": 6666,
+          "width": 500,
+          "height": 500,
+          "sha256": "b4b2afa17ef7e1d1"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-first-aid-kit.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "First-Aid Kit, on a display podium.",
+      "alt": "First-Aid Kit",
+      "productSlug": "first-aid-kit",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-first-aid-kit.webp",
+          "bytes": 7020,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "bd75c7abb8e5b619"
+        },
+        {
+          "file": "images/products/product-first-aid-kit-sm.webp",
+          "bytes": 3074,
+          "width": 500,
+          "height": 500,
+          "sha256": "0f43c6ae753090e0"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-first-aid-kit-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "First-Aid Kit, close-up detail view.",
+      "alt": "First-Aid Kit, close-up",
+      "productSlug": "first-aid-kit",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-first-aid-kit-detail.webp",
+          "bytes": 6954,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "ca15432fa491392a"
+        },
+        {
+          "file": "images/products/product-first-aid-kit-detail-sm.webp",
+          "bytes": 3092,
+          "width": 500,
+          "height": 500,
+          "sha256": "adb0d7f11aa658be"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-first-aid-kit-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "First-Aid Kit, shown with its demo packaging.",
+      "alt": "First-Aid Kit with its box",
+      "productSlug": "first-aid-kit",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-first-aid-kit-box.webp",
+          "bytes": 11940,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "dd2159c52d7eafe7"
+        },
+        {
+          "file": "images/products/product-first-aid-kit-box-sm.webp",
+          "bytes": 5274,
+          "width": 500,
+          "height": 500,
+          "sha256": "260743431ef8821e"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-stethoscope.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Stethoscope, on a display podium.",
+      "alt": "Stethoscope",
+      "productSlug": "stethoscope",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-stethoscope.webp",
+          "bytes": 11208,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "830b2ebe86ecf6ec"
+        },
+        {
+          "file": "images/products/product-stethoscope-sm.webp",
+          "bytes": 4734,
+          "width": 500,
+          "height": 500,
+          "sha256": "6a53b959bcb5df0e"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-stethoscope-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Stethoscope, close-up detail view.",
+      "alt": "Stethoscope, close-up",
+      "productSlug": "stethoscope",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-stethoscope-detail.webp",
+          "bytes": 10340,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "9c3118c86382a41b"
+        },
+        {
+          "file": "images/products/product-stethoscope-detail-sm.webp",
+          "bytes": 4264,
+          "width": 500,
+          "height": 500,
+          "sha256": "56c722a8dd6427a2"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-stethoscope-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Stethoscope, shown with its demo packaging.",
+      "alt": "Stethoscope with its box",
+      "productSlug": "stethoscope",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-stethoscope-box.webp",
+          "bytes": 15120,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "0ee1a04658575782"
+        },
+        {
+          "file": "images/products/product-stethoscope-box-sm.webp",
+          "bytes": 6132,
+          "width": 500,
+          "height": 500,
+          "sha256": "c709127bf6acb6fb"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-examination-gloves.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Medical Examination Gloves (box of 100), on a display podium.",
+      "alt": "Medical Examination Gloves (box of 100)",
+      "productSlug": "examination-gloves",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-examination-gloves.webp",
+          "bytes": 10172,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "96ae386a817d7853"
+        },
+        {
+          "file": "images/products/product-examination-gloves-sm.webp",
+          "bytes": 4052,
+          "width": 500,
+          "height": 500,
+          "sha256": "c88824c26035a295"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-examination-gloves-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Medical Examination Gloves (box of 100), close-up detail view.",
+      "alt": "Medical Examination Gloves (box of 100), close-up",
+      "productSlug": "examination-gloves",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-examination-gloves-detail.webp",
+          "bytes": 9462,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "59ba6861fb9d8903"
+        },
+        {
+          "file": "images/products/product-examination-gloves-detail-sm.webp",
+          "bytes": 3710,
+          "width": 500,
+          "height": 500,
+          "sha256": "76f13f14eeaabc11"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-examination-gloves-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Medical Examination Gloves (box of 100), shown with its demo packaging.",
+      "alt": "Medical Examination Gloves (box of 100) with its box",
+      "productSlug": "examination-gloves",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-examination-gloves-box.webp",
+          "bytes": 17194,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "b7570da59d55339d"
+        },
+        {
+          "file": "images/products/product-examination-gloves-box-sm.webp",
+          "bytes": 7004,
+          "width": 500,
+          "height": 500,
+          "sha256": "6478c052cd2a115c"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-surgical-face-masks.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Surgical Face Masks (pack of 50), on a display podium.",
+      "alt": "Surgical Face Masks (pack of 50)",
+      "productSlug": "surgical-face-masks",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-surgical-face-masks.webp",
+          "bytes": 8654,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "ff6550dcdcbd86ce"
+        },
+        {
+          "file": "images/products/product-surgical-face-masks-sm.webp",
+          "bytes": 3448,
+          "width": 500,
+          "height": 500,
+          "sha256": "a0e7c7561ed07284"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-surgical-face-masks-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Surgical Face Masks (pack of 50), close-up detail view.",
+      "alt": "Surgical Face Masks (pack of 50), close-up",
+      "productSlug": "surgical-face-masks",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-surgical-face-masks-detail.webp",
+          "bytes": 10370,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "ec66f34228109d52"
+        },
+        {
+          "file": "images/products/product-surgical-face-masks-detail-sm.webp",
+          "bytes": 4170,
+          "width": 500,
+          "height": 500,
+          "sha256": "2def58dca730552a"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-surgical-face-masks-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Surgical Face Masks (pack of 50), shown with its demo packaging.",
+      "alt": "Surgical Face Masks (pack of 50) with its box",
+      "productSlug": "surgical-face-masks",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-surgical-face-masks-box.webp",
+          "bytes": 15064,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "806d6e1e06218e2d"
+        },
+        {
+          "file": "images/products/product-surgical-face-masks-box-sm.webp",
+          "bytes": 5950,
+          "width": 500,
+          "height": 500,
+          "sha256": "4ebb025bac5ecfc4"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-weighing-scale.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Digital Weighing Scale, on a display podium.",
+      "alt": "Digital Weighing Scale",
+      "productSlug": "digital-weighing-scale",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-weighing-scale.webp",
+          "bytes": 6372,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "efeed0ef00bc5841"
+        },
+        {
+          "file": "images/products/product-digital-weighing-scale-sm.webp",
+          "bytes": 2636,
+          "width": 500,
+          "height": 500,
+          "sha256": "c3e2f6d75bc827ea"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-weighing-scale-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Weighing Scale, close-up detail view.",
+      "alt": "Digital Weighing Scale, close-up",
+      "productSlug": "digital-weighing-scale",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-weighing-scale-detail.webp",
+          "bytes": 7838,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "f934c27124be53bc"
+        },
+        {
+          "file": "images/products/product-digital-weighing-scale-detail-sm.webp",
+          "bytes": 3050,
+          "width": 500,
+          "height": 500,
+          "sha256": "546ec36ac786b208"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-digital-weighing-scale-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Digital Weighing Scale, shown with its demo packaging.",
+      "alt": "Digital Weighing Scale with its box",
+      "productSlug": "digital-weighing-scale",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-digital-weighing-scale-box.webp",
+          "bytes": 13770,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "ab0d78c9c6cec7ec"
+        },
+        {
+          "file": "images/products/product-digital-weighing-scale-box-sm.webp",
+          "bytes": 5454,
+          "width": 500,
+          "height": 500,
+          "sha256": "ae4e5d0b8463ca9e"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-hot-cold-therapy-pack.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Reusable Hot and Cold Therapy Pack, on a display podium.",
+      "alt": "Reusable Hot and Cold Therapy Pack",
+      "productSlug": "hot-cold-therapy-pack",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-hot-cold-therapy-pack.webp",
+          "bytes": 9154,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "5a55b62eaf44903f"
+        },
+        {
+          "file": "images/products/product-hot-cold-therapy-pack-sm.webp",
+          "bytes": 3732,
+          "width": 500,
+          "height": 500,
+          "sha256": "de390e7388dd6712"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-hot-cold-therapy-pack-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Reusable Hot and Cold Therapy Pack, close-up detail view.",
+      "alt": "Reusable Hot and Cold Therapy Pack, close-up",
+      "productSlug": "hot-cold-therapy-pack",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-hot-cold-therapy-pack-detail.webp",
+          "bytes": 10770,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "077555e156c7ad2b"
+        },
+        {
+          "file": "images/products/product-hot-cold-therapy-pack-detail-sm.webp",
+          "bytes": 4678,
+          "width": 500,
+          "height": 500,
+          "sha256": "17c74fdf6290e4fd"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-hot-cold-therapy-pack-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Reusable Hot and Cold Therapy Pack, shown with its demo packaging.",
+      "alt": "Reusable Hot and Cold Therapy Pack with its box",
+      "productSlug": "hot-cold-therapy-pack",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-hot-cold-therapy-pack-box.webp",
+          "bytes": 17672,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "44c52a44efb1ae6b"
+        },
+        {
+          "file": "images/products/product-hot-cold-therapy-pack-box-sm.webp",
+          "bytes": 7116,
+          "width": 500,
+          "height": 500,
+          "sha256": "f8b1604e854617a0"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-weekly-pill-organiser.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Weekly Pill Organiser, on a display podium.",
+      "alt": "Weekly Pill Organiser",
+      "productSlug": "weekly-pill-organiser",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-weekly-pill-organiser.webp",
+          "bytes": 7862,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "3a181239bd8d9ddf"
+        },
+        {
+          "file": "images/products/product-weekly-pill-organiser-sm.webp",
+          "bytes": 3408,
+          "width": 500,
+          "height": 500,
+          "sha256": "1f905a913568d905"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-weekly-pill-organiser-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Weekly Pill Organiser, close-up detail view.",
+      "alt": "Weekly Pill Organiser, close-up",
+      "productSlug": "weekly-pill-organiser",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-weekly-pill-organiser-detail.webp",
+          "bytes": 9300,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "381db304401a0167"
+        },
+        {
+          "file": "images/products/product-weekly-pill-organiser-detail-sm.webp",
+          "bytes": 4008,
+          "width": 500,
+          "height": 500,
+          "sha256": "16a956f08cf280b9"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-weekly-pill-organiser-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Weekly Pill Organiser, shown with its demo packaging.",
+      "alt": "Weekly Pill Organiser with its box",
+      "productSlug": "weekly-pill-organiser",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-weekly-pill-organiser-box.webp",
+          "bytes": 14484,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "9b94af5b01681a34"
+        },
+        {
+          "file": "images/products/product-weekly-pill-organiser-box-sm.webp",
+          "bytes": 6006,
+          "width": 500,
+          "height": 500,
+          "sha256": "a90874e55b1a53f8"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-adjustable-walking-stick.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Adjustable Walking Stick, on a display podium.",
+      "alt": "Adjustable Walking Stick",
+      "productSlug": "adjustable-walking-stick",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-adjustable-walking-stick.webp",
+          "bytes": 5954,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "443027868c685b74"
+        },
+        {
+          "file": "images/products/product-adjustable-walking-stick-sm.webp",
+          "bytes": 2430,
+          "width": 500,
+          "height": 500,
+          "sha256": "f4992371b46845b7"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-adjustable-walking-stick-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Adjustable Walking Stick, close-up detail view.",
+      "alt": "Adjustable Walking Stick, close-up",
+      "productSlug": "adjustable-walking-stick",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-adjustable-walking-stick-detail.webp",
+          "bytes": 6728,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "4bdb9fb1c99fca52"
+        },
+        {
+          "file": "images/products/product-adjustable-walking-stick-detail-sm.webp",
+          "bytes": 2612,
+          "width": 500,
+          "height": 500,
+          "sha256": "ac7d300206f7f2d0"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-adjustable-walking-stick-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Adjustable Walking Stick, shown with its demo packaging.",
+      "alt": "Adjustable Walking Stick with its box",
+      "productSlug": "adjustable-walking-stick",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-adjustable-walking-stick-box.webp",
+          "bytes": 14328,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "c62c6906b949dbff"
+        },
+        {
+          "file": "images/products/product-adjustable-walking-stick-box-sm.webp",
+          "bytes": 5634,
+          "width": 500,
+          "height": 500,
+          "sha256": "6aa845e941d0d737"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-knee-support-sleeve.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product cards (home, store) and product page gallery",
+      "description": "Knee Support Sleeve, on a display podium.",
+      "alt": "Knee Support Sleeve",
+      "productSlug": "knee-support-sleeve",
+      "productView": "main",
+      "outputs": [
+        {
+          "file": "images/products/product-knee-support-sleeve.webp",
+          "bytes": 9956,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "f93767c33d680012"
+        },
+        {
+          "file": "images/products/product-knee-support-sleeve-sm.webp",
+          "bytes": 4094,
+          "width": 500,
+          "height": 500,
+          "sha256": "9080cb0e50c7c27f"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-knee-support-sleeve-detail.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Knee Support Sleeve, close-up detail view.",
+      "alt": "Knee Support Sleeve, close-up",
+      "productSlug": "knee-support-sleeve",
+      "productView": "detail",
+      "outputs": [
+        {
+          "file": "images/products/product-knee-support-sleeve-detail.webp",
+          "bytes": 13148,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "360eb7f6c85cd615"
+        },
+        {
+          "file": "images/products/product-knee-support-sleeve-detail-sm.webp",
+          "bytes": 5644,
+          "width": 500,
+          "height": 500,
+          "sha256": "7f282b80efd95ddb"
+        }
+      ]
+    },
+    {
+      "file": "images/products/product-knee-support-sleeve-box.webp",
+      "kind": "webp",
+      "width": 1000,
+      "height": 1000,
+      "small": 500,
+      "section": "E. Products",
+      "usage": "Product page gallery",
+      "description": "Knee Support Sleeve, shown with its demo packaging.",
+      "alt": "Knee Support Sleeve with its box",
+      "productSlug": "knee-support-sleeve",
+      "productView": "box",
+      "outputs": [
+        {
+          "file": "images/products/product-knee-support-sleeve-box.webp",
+          "bytes": 16060,
+          "width": 1000,
+          "height": 1000,
+          "sha256": "ac8fcddf2a8011a2"
+        },
+        {
+          "file": "images/products/product-knee-support-sleeve-box-sm.webp",
+          "bytes": 6566,
+          "width": 500,
+          "height": 500,
+          "sha256": "12e4486591b04457"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-appointment.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Appointment page confirmation state; home appointment section",
+      "description": "Calendar with a confirmed slot and a clock.",
+      "alt": "Calendar with a confirmed appointment slot",
+      "decorative": false,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-appointment.svg",
+          "bytes": 2308,
+          "width": 480,
+          "height": 360,
+          "sha256": "a157027d139e57e9"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-contact.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Contact page message panel",
+      "description": "Chat bubbles and a phone handset.",
+      "alt": "Chat bubbles and a phone",
+      "decorative": false,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-contact.svg",
+          "bytes": 1410,
+          "width": 480,
+          "height": 360,
+          "sha256": "711ea633b39a8454"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-location.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Contact page and home location panel (map placeholder until a verified address is set)",
+      "description": "A folded map with a dotted route to a pin.",
+      "alt": "A map with a route to a location pin",
+      "decorative": false,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-location.svg",
+          "bytes": 939,
+          "width": 480,
+          "height": 360,
+          "sha256": "d3ba5dcd4a72e0e9"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-empty-cart.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Cart page when empty",
+      "description": "An empty shopping cart.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-empty-cart.svg",
+          "bytes": 1093,
+          "width": 480,
+          "height": 360,
+          "sha256": "d347d09a0a058dee"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-empty-search.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Doctors, specialties and store searches with no results",
+      "description": "A magnifying glass over an empty list.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-empty-search.svg",
+          "bytes": 1082,
+          "width": 480,
+          "height": 360,
+          "sha256": "280006362434aaab"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-empty-catalogue.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Store category with no products",
+      "description": "Empty shelves with dashed outlines.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-empty-catalogue.svg",
+          "bytes": 1344,
+          "width": 480,
+          "height": 360,
+          "sha256": "cd31a1769cbc2118"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-error.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Not-found page and image error fallback",
+      "description": "A two-way signpost.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-error.svg",
+          "bytes": 1112,
+          "width": 480,
+          "height": 360,
+          "sha256": "27baf46571f07a7c"
+        }
+      ]
+    },
+    {
+      "file": "images/illustrations/illustration-order-placed.svg",
+      "kind": "svg",
+      "width": 480,
+      "height": 360,
+      "section": "F. Illustrations",
+      "usage": "Simulated order confirmation page",
+      "description": "A parcel with a check mark.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/illustrations/illustration-order-placed.svg",
+          "bytes": 997,
+          "width": 480,
+          "height": 360,
+          "sha256": "905b3616c9cb1dde"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-monitoring.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: Monitoring devices.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-monitoring.svg",
+          "bytes": 464,
+          "width": 64,
+          "height": 64,
+          "sha256": "c0da9920ccc8bc8c"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-first-aid.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: First aid and care.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-first-aid.svg",
+          "bytes": 483,
+          "width": 64,
+          "height": 64,
+          "sha256": "0cdb080b9424f71c"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-protective.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: Protective supplies.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-protective.svg",
+          "bytes": 407,
+          "width": 64,
+          "height": 64,
+          "sha256": "de7e1a84f955ff2e"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-diagnostic.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: Diagnostic tools.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-diagnostic.svg",
+          "bytes": 558,
+          "width": 64,
+          "height": 64,
+          "sha256": "3a3791306ad99e08"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-storage.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: Storage and daily living.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-storage.svg",
+          "bytes": 553,
+          "width": 64,
+          "height": 64,
+          "sha256": "3585d4714bb656c5"
+        }
+      ]
+    },
+    {
+      "file": "images/icons/category-mobility.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Category icons",
+      "usage": "Store category navigation and home product section",
+      "description": "Category icon: Mobility and support.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "images/icons/category-mobility.svg",
+          "bytes": 472,
+          "width": 64,
+          "height": 64,
+          "sha256": "f285436104bef79a"
+        }
+      ]
+    },
+    {
+      "file": "images/branding/medinova-logo.svg",
+      "kind": "svg",
+      "section": "F. Branding",
+      "usage": "Header logo",
+      "description": "Horizontal logo: arched-doorway mark with a cross and connected node, MediNova wordmark (outlined).",
+      "alt": "MediNova Healthcare",
+      "outputs": [
+        {
+          "file": "images/branding/medinova-logo.svg",
+          "bytes": 15357,
+          "width": 246,
+          "height": 64,
+          "sha256": "b6c40e1e15bb0be4"
+        }
+      ]
+    },
+    {
+      "file": "images/branding/medinova-logo-white.svg",
+      "kind": "svg",
+      "section": "F. Branding",
+      "usage": "Footer logo on navy",
+      "description": "Reversed logo for dark backgrounds.",
+      "alt": "MediNova Healthcare",
+      "outputs": [
+        {
+          "file": "images/branding/medinova-logo-white.svg",
+          "bytes": 15357,
+          "width": 246,
+          "height": 64,
+          "sha256": "65a071a7fe965b5e"
+        }
+      ]
+    },
+    {
+      "file": "images/branding/medinova-mark.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Branding",
+      "usage": "Compact logo (mobile menu, packaging)",
+      "description": "Logo mark only.",
+      "alt": "MediNova",
+      "outputs": [
+        {
+          "file": "images/branding/medinova-mark.svg",
+          "bytes": 577,
+          "width": 64,
+          "height": 64,
+          "sha256": "e12ac2a3ba705d26"
+        }
+      ]
+    },
+    {
+      "file": "favicon.svg",
+      "kind": "svg",
+      "width": 64,
+      "height": 64,
+      "section": "F. Branding",
+      "usage": "Browser tab icon",
+      "description": "Favicon: logo mark on a navy tile.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "favicon.svg",
+          "bytes": 647,
+          "width": 64,
+          "height": 64,
+          "sha256": "0ab7cebc802455e5"
+        }
+      ]
+    },
+    {
+      "file": "favicon-32.png",
+      "kind": "png",
+      "width": 32,
+      "height": 32,
+      "section": "F. Branding",
+      "usage": "Fallback browser tab icon",
+      "description": "PNG favicon.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "favicon-32.png",
+          "bytes": 589,
+          "width": 32,
+          "height": 32,
+          "sha256": "5a79b3946451f7ea"
+        }
+      ]
+    },
+    {
+      "file": "apple-touch-icon.png",
+      "kind": "png",
+      "width": 180,
+      "height": 180,
+      "section": "F. Branding",
+      "usage": "iOS home-screen icon",
+      "description": "Apple touch icon.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "apple-touch-icon.png",
+          "bytes": 1276,
+          "width": 180,
+          "height": 180,
+          "sha256": "716e5e51ab8d38e6"
+        }
+      ]
+    },
+    {
+      "file": "icons/icon-192.png",
+      "kind": "png",
+      "width": 192,
+      "height": 192,
+      "section": "F. Branding",
+      "usage": "Web app manifest icon",
+      "description": "App icon 192 px.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "icons/icon-192.png",
+          "bytes": 1408,
+          "width": 192,
+          "height": 192,
+          "sha256": "7e1378f6484f38d9"
+        }
+      ]
+    },
+    {
+      "file": "icons/icon-512.png",
+      "kind": "png",
+      "width": 512,
+      "height": 512,
+      "section": "F. Branding",
+      "usage": "Web app manifest icon",
+      "description": "App icon 512 px.",
+      "alt": "",
+      "decorative": true,
+      "outputs": [
+        {
+          "file": "icons/icon-512.png",
+          "bytes": 2440,
+          "width": 512,
+          "height": 512,
+          "sha256": "1c00089b6b8892c0"
+        }
+      ]
+    },
+    {
+      "file": "og-image.png",
+      "kind": "png",
+      "width": 1200,
+      "height": 630,
+      "section": "F. Branding",
+      "usage": "Open Graph / Twitter link preview",
+      "description": "Navy share card with the logo, tagline, a \"Demonstration website\" label and the hero illustration in an arch.",
+      "alt": "MediNova Healthcare: Better Care. Connected Healthcare.",
+      "outputs": [
+        {
+          "file": "og-image.png",
+          "bytes": 120105,
+          "width": 1200,
+          "height": 630,
+          "sha256": "ec3782bee1dde9b2"
+        }
+      ]
+    }
+  ]
+}

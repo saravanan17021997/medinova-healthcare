@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-mist font-sans text-[17px] leading-relaxed text-ink antialiased;
+    font-feature-settings: 'ss01';
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 3px solid #0e7c7b;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline-offset: 0;
+    border-color: #0e7c7b;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+  /* Arched doorway frame: the brand's image treatment for people. */
+  .arch {
+    border-radius: 50% 50% 22px 22px / 40% 40% 22px 22px;
+  }
+  .arch-lg {
+    border-radius: 50% 50% 32px 32px / 36% 36% 32px 32px;
+  }
+}
+
+/* The one orchestrated moment: the hero's care-pathway line draws once. */
+.pathway-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-pathway 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
+}
+.pathway-node {
+  opacity: 0;
+  animation: node-in 0.4s ease-out 1.9s forwards;
+}
+@keyframes draw-pathway {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes node-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pathway-line {
+    stroke-dashoffset: 0;
+  }
+  .pathway-node {
+    opacity: 1;
+  }
+}

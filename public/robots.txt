@@ -1,0 +1,4 @@
+# Demonstration site with fictional content: not for search engines.
+# Set VITE_ALLOW_INDEXING=true for a real deployment.
+User-agent: *
+Disallow: /

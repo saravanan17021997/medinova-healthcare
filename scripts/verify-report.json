@@ -1,0 +1,3192 @@
+{
+  "base": "http://localhost:4173",
+  "startedAt": "2026-10-23T13:41:35.830Z",
+  "routes": [
+    {
+      "viewport": "desktop",
+      "route": "/",
+      "images": 31,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/facilities",
+      "images": 12,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/appointment",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store",
+      "images": 24,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/cart",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/checkout",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/order-confirmation",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/contact",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/this-page-does-not-exist",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/general-medicine",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/cardiology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/orthopaedics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/dermatology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/paediatrics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/neurology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/ophthalmology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/dentistry",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/gynaecology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/specialties/diagnostics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/arjun-mehta",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/nisha-varghese",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/rahul-iyer",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/fatima-sheikh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/kavya-reddy",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/daniel-thomas",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/priya-nair",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/vikram-singh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/anita-das",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/doctors/samuel-okafor",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/digital-thermometer",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/blood-pressure-monitor",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/pulse-oximeter",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/first-aid-kit",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/stethoscope",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/examination-gloves",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/surgical-face-masks",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/digital-weighing-scale",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/hot-cold-therapy-pack",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/weekly-pill-organiser",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/adjustable-walking-stick",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop",
+      "route": "/store/knee-support-sleeve",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/",
+      "images": 31,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/facilities",
+      "images": 12,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/appointment",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store",
+      "images": 24,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/cart",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/checkout",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/order-confirmation",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/contact",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/this-page-does-not-exist",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/general-medicine",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/cardiology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/orthopaedics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/dermatology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/paediatrics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/neurology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/ophthalmology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/dentistry",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/gynaecology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/specialties/diagnostics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/arjun-mehta",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/nisha-varghese",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/rahul-iyer",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/fatima-sheikh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/kavya-reddy",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/daniel-thomas",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/priya-nair",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/vikram-singh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/anita-das",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/doctors/samuel-okafor",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/digital-thermometer",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/blood-pressure-monitor",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/pulse-oximeter",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/first-aid-kit",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/stethoscope",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/examination-gloves",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/surgical-face-masks",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/digital-weighing-scale",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/hot-cold-therapy-pack",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/weekly-pill-organiser",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/adjustable-walking-stick",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "tablet",
+      "route": "/store/knee-support-sleeve",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/",
+      "images": 31,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/facilities",
+      "images": 12,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/appointment",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store",
+      "images": 24,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/cart",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/checkout",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/order-confirmation",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/contact",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/this-page-does-not-exist",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/general-medicine",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/cardiology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/orthopaedics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/dermatology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/paediatrics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/neurology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/ophthalmology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/dentistry",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/gynaecology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/specialties/diagnostics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/arjun-mehta",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/nisha-varghese",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/rahul-iyer",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/fatima-sheikh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/kavya-reddy",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/daniel-thomas",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/priya-nair",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/vikram-singh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/anita-das",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/doctors/samuel-okafor",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/digital-thermometer",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/blood-pressure-monitor",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/pulse-oximeter",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/first-aid-kit",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/stethoscope",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/examination-gloves",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/surgical-face-masks",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/digital-weighing-scale",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/hot-cold-therapy-pack",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/weekly-pill-organiser",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/adjustable-walking-stick",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "mobile",
+      "route": "/store/knee-support-sleeve",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/",
+      "images": 31,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors",
+      "images": 14,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/facilities",
+      "images": 12,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/appointment",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store",
+      "images": 24,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/cart",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/checkout",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/order-confirmation",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/contact",
+      "images": 5,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/this-page-does-not-exist",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/general-medicine",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/cardiology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/orthopaedics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/dermatology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/paediatrics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/neurology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/ophthalmology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/dentistry",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/gynaecology",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/specialties/diagnostics",
+      "images": 9,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/arjun-mehta",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/nisha-varghese",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/rahul-iyer",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/fatima-sheikh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/kavya-reddy",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/daniel-thomas",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/priya-nair",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/vikram-singh",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/anita-das",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/doctors/samuel-okafor",
+      "images": 4,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/digital-thermometer",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/blood-pressure-monitor",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/pulse-oximeter",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/first-aid-kit",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/stethoscope",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/examination-gloves",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/surgical-face-masks",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/digital-weighing-scale",
+      "images": 10,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/hot-cold-therapy-pack",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/weekly-pill-organiser",
+      "images": 7,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/adjustable-walking-stick",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    },
+    {
+      "viewport": "desktop-2x",
+      "route": "/store/knee-support-sleeve",
+      "images": 8,
+      "broken": [],
+      "fallbacks": [],
+      "badRequests": [],
+      "consoleErrors": [],
+      "overflowPx": 0
+    }
+  ],
+  "tests": [
+    {
+      "name": "Skip link is the first keyboard stop",
+      "pass": true,
+      "detail": "Tab from page load focuses \"Skip to content\""
+    },
+    {
+      "name": "Cart: quantities, subtotal, update and remove",
+      "pass": true,
+      "detail": "₹2,796 → ₹4,695 → ₹3,798; persists after reload"
+    },
+    {
+      "name": "Demo checkout: validation, simulated confirmation, cart cleared",
+      "pass": true,
+      "detail": "5 validation errors on empty submit; confirmation DEMO-L0VDBT for ₹3,798; cart emptied"
+    },
+    {
+      "name": "Appointment: validation, doctor filtered by specialty, WhatsApp message",
+      "pass": true,
+      "detail": "5 errors on empty submit, summary focused; prefilled WhatsApp message has 7 lines"
+    },
+    {
+      "name": "Appointment prefill from a doctor profile",
+      "pass": true,
+      "detail": "specialty and doctor carried over from the profile"
+    },
+    {
+      "name": "Contact form validation and demo result",
+      "pass": true,
+      "detail": "name, contact method and message required; demo result shown"
+    },
+    {
+      "name": "Product enquiry WhatsApp links",
+      "pass": true,
+      "detail": "12 product enquiry links, e.g. \"Hello, I have a question about the Digital Thermometer (demo product).\""
+    },
+    {
+      "name": "Store filters, sorting and empty states",
+      "pass": true,
+      "detail": "category filter, price sort, empty catalogue and empty search illustrations"
+    },
+    {
+      "name": "Doctor directory filters",
+      "pass": true,
+      "detail": "language filter returns 2 profiles; empty state shown when no match"
+    },
+    {
+      "name": "Graceful fallback when an image fails to load",
+      "pass": true,
+      "detail": "fallback rendered with aria-label \"Four healthcare professionals in a bright, modern clinic atrium\""
+    },
+    {
+      "name": "Mobile menu opens, traps nothing off-screen and closes with Escape",
+      "pass": true,
+      "detail": "opens from the header, closes on Escape"
+    },
+    {
+      "name": "Product gallery: thumbnails swap the main image and each view loads",
+      "pass": true,
+      "detail": "/images/products/product-stethoscope-detail.webp → /images/products/product-stethoscope-box.webp → /images/products/product-stethoscope.webp"
+    },
+    {
+      "name": "Every generated asset (165 files) is served by the build and decodes in the browser",
+      "pass": true,
+      "detail": "165 of 165 decoded"
+    }
+  ],
+  "imagesLoaded": [
+    "/images/branding/medinova-logo-white.svg",
+    "/images/branding/medinova-logo.svg",
+    "/images/branding/medinova-mark.svg",
+    "/images/doctors/doctor-anita-das-demo-sm.webp",
+    "/images/doctors/doctor-anita-das-demo.webp",
+    "/images/doctors/doctor-arjun-mehta-demo-sm.webp",
+    "/images/doctors/doctor-arjun-mehta-demo.webp",
+    "/images/doctors/doctor-daniel-thomas-demo-sm.webp",
+    "/images/doctors/doctor-daniel-thomas-demo.webp",
+    "/images/doctors/doctor-fatima-sheikh-demo-sm.webp",
+    "/images/doctors/doctor-fatima-sheikh-demo.webp",
+    "/images/doctors/doctor-kavya-reddy-demo-sm.webp",
+    "/images/doctors/doctor-kavya-reddy-demo.webp",
+    "/images/doctors/doctor-nisha-varghese-demo-sm.webp",
+    "/images/doctors/doctor-nisha-varghese-demo.webp",
+    "/images/doctors/doctor-priya-nair-demo-sm.webp",
+    "/images/doctors/doctor-priya-nair-demo.webp",
+    "/images/doctors/doctor-rahul-iyer-demo-sm.webp",
+    "/images/doctors/doctor-rahul-iyer-demo.webp",
+    "/images/doctors/doctor-samuel-okafor-demo-sm.webp",
+    "/images/doctors/doctor-samuel-okafor-demo.webp",
+    "/images/doctors/doctor-vikram-singh-demo-sm.webp",
+    "/images/doctors/doctor-vikram-singh-demo.webp",
+    "/images/facilities/consultation-room-sm.webp",
+    "/images/facilities/consultation-room.webp",
+    "/images/facilities/diagnostic-imaging-sm.webp",
+    "/images/facilities/diagnostic-imaging.webp",
+    "/images/facilities/hospital-corridor-sm.webp",
+    "/images/facilities/hospital-corridor.webp",
+    "/images/facilities/laboratory-sm.webp",
+    "/images/facilities/laboratory.webp",
+    "/images/facilities/medical-equipment-sm.webp",
+    "/images/facilities/medical-equipment.webp",
+    "/images/facilities/patient-room-sm.webp",
+    "/images/facilities/patient-room.webp",
+    "/images/facilities/reception-waiting-area-sm.webp",
+    "/images/facilities/reception-waiting-area.webp",
+    "/images/facilities/staff-at-work-sm.webp",
+    "/images/facilities/staff-at-work.webp",
+    "/images/hero/doctor-patient-consultation-sm.webp",
+    "/images/hero/doctor-patient-consultation.webp",
+    "/images/hero/healthcare-professional-sm.webp",
+    "/images/hero/healthcare-professional.webp",
+    "/images/hero/healthcare-team-collaboration-sm.webp",
+    "/images/hero/healthcare-team-collaboration.webp",
+    "/images/hero/hospital-exterior-sm.webp",
+    "/images/hero/hospital-exterior.webp",
+    "/images/hero/hospital-reception-welcome-sm.webp",
+    "/images/hero/hospital-reception-welcome.webp",
+    "/images/hero/medinova-hero-healthcare-team-sm.webp",
+    "/images/hero/medinova-hero-healthcare-team.webp",
+    "/images/hero/patient-appointment-booking-sm.webp",
+    "/images/hero/patient-appointment-booking.webp",
+    "/images/icons/category-diagnostic.svg",
+    "/images/icons/category-first-aid.svg",
+    "/images/icons/category-mobility.svg",
+    "/images/icons/category-monitoring.svg",
+    "/images/icons/category-protective.svg",
+    "/images/icons/category-storage.svg",
+    "/images/illustrations/illustration-appointment.svg",
+    "/images/illustrations/illustration-contact.svg",
+    "/images/illustrations/illustration-empty-cart.svg",
+    "/images/illustrations/illustration-empty-search.svg",
+    "/images/illustrations/illustration-error.svg",
+    "/images/illustrations/illustration-location.svg",
+    "/images/illustrations/illustration-order-placed.svg",
+    "/images/products/product-adjustable-walking-stick-box-sm.webp",
+    "/images/products/product-adjustable-walking-stick-detail-sm.webp",
+    "/images/products/product-adjustable-walking-stick-sm.webp",
+    "/images/products/product-adjustable-walking-stick.webp",
+    "/images/products/product-blood-pressure-monitor-box-sm.webp",
+    "/images/products/product-blood-pressure-monitor-detail-sm.webp",
+    "/images/products/product-blood-pressure-monitor-sm.webp",
+    "/images/products/product-blood-pressure-monitor.webp",
+    "/images/products/product-digital-thermometer-box-sm.webp",
+    "/images/products/product-digital-thermometer-detail-sm.webp",
+    "/images/products/product-digital-thermometer-sm.webp",
+    "/images/products/product-digital-thermometer.webp",
+    "/images/products/product-digital-weighing-scale-box-sm.webp",
+    "/images/products/product-digital-weighing-scale-detail-sm.webp",
+    "/images/products/product-digital-weighing-scale-sm.webp",
+    "/images/products/product-digital-weighing-scale.webp",
+    "/images/products/product-examination-gloves-box-sm.webp",
+    "/images/products/product-examination-gloves-detail-sm.webp",
+    "/images/products/product-examination-gloves-sm.webp",
+    "/images/products/product-examination-gloves.webp",
+    "/images/products/product-first-aid-kit-box-sm.webp",
+    "/images/products/product-first-aid-kit-detail-sm.webp",
+    "/images/products/product-first-aid-kit-sm.webp",
+    "/images/products/product-first-aid-kit.webp",
+    "/images/products/product-hot-cold-therapy-pack-box-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack-detail-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack.webp",
+    "/images/products/product-knee-support-sleeve-box-sm.webp",
+    "/images/products/product-knee-support-sleeve-detail-sm.webp",
+    "/images/products/product-knee-support-sleeve-sm.webp",
+    "/images/products/product-knee-support-sleeve.webp",
+    "/images/products/product-pulse-oximeter-box-sm.webp",
+    "/images/products/product-pulse-oximeter-detail-sm.webp",
+    "/images/products/product-pulse-oximeter-sm.webp",
+    "/images/products/product-pulse-oximeter.webp",
+    "/images/products/product-stethoscope-box-sm.webp",
+    "/images/products/product-stethoscope-box.webp",
+    "/images/products/product-stethoscope-detail-sm.webp",
+    "/images/products/product-stethoscope-detail.webp",
+    "/images/products/product-stethoscope-sm.webp",
+    "/images/products/product-stethoscope.webp",
+    "/images/products/product-surgical-face-masks-box-sm.webp",
+    "/images/products/product-surgical-face-masks-detail-sm.webp",
+    "/images/products/product-surgical-face-masks-sm.webp",
+    "/images/products/product-surgical-face-masks.webp",
+    "/images/products/product-weekly-pill-organiser-box-sm.webp",
+    "/images/products/product-weekly-pill-organiser-detail-sm.webp",
+    "/images/products/product-weekly-pill-organiser-sm.webp",
+    "/images/products/product-weekly-pill-organiser.webp",
+    "/images/specialties/specialty-cardiology-sm.webp",
+    "/images/specialties/specialty-cardiology.webp",
+    "/images/specialties/specialty-dentistry-sm.webp",
+    "/images/specialties/specialty-dentistry.webp",
+    "/images/specialties/specialty-dermatology-sm.webp",
+    "/images/specialties/specialty-dermatology.webp",
+    "/images/specialties/specialty-diagnostics-sm.webp",
+    "/images/specialties/specialty-diagnostics.webp",
+    "/images/specialties/specialty-general-medicine-sm.webp",
+    "/images/specialties/specialty-general-medicine.webp",
+    "/images/specialties/specialty-gynaecology-sm.webp",
+    "/images/specialties/specialty-gynaecology.webp",
+    "/images/specialties/specialty-neurology-sm.webp",
+    "/images/specialties/specialty-neurology.webp",
+    "/images/specialties/specialty-ophthalmology-sm.webp",
+    "/images/specialties/specialty-ophthalmology.webp",
+    "/images/specialties/specialty-orthopaedics-sm.webp",
+    "/images/specialties/specialty-orthopaedics.webp",
+    "/images/specialties/specialty-paediatrics-sm.webp",
+    "/images/specialties/specialty-paediatrics.webp"
+  ],
+  "imagesDecoded": [
+    "/apple-touch-icon.png",
+    "/favicon-32.png",
+    "/favicon.svg",
+    "/icons/icon-192.png",
+    "/icons/icon-512.png",
+    "/images/branding/medinova-logo-white.svg",
+    "/images/branding/medinova-logo.svg",
+    "/images/branding/medinova-mark.svg",
+    "/images/doctors/doctor-anita-das-demo-sm.webp",
+    "/images/doctors/doctor-anita-das-demo.webp",
+    "/images/doctors/doctor-arjun-mehta-demo-sm.webp",
+    "/images/doctors/doctor-arjun-mehta-demo.webp",
+    "/images/doctors/doctor-daniel-thomas-demo-sm.webp",
+    "/images/doctors/doctor-daniel-thomas-demo.webp",
+    "/images/doctors/doctor-fatima-sheikh-demo-sm.webp",
+    "/images/doctors/doctor-fatima-sheikh-demo.webp",
+    "/images/doctors/doctor-kavya-reddy-demo-sm.webp",
+    "/images/doctors/doctor-kavya-reddy-demo.webp",
+    "/images/doctors/doctor-nisha-varghese-demo-sm.webp",
+    "/images/doctors/doctor-nisha-varghese-demo.webp",
+    "/images/doctors/doctor-priya-nair-demo-sm.webp",
+    "/images/doctors/doctor-priya-nair-demo.webp",
+    "/images/doctors/doctor-rahul-iyer-demo-sm.webp",
+    "/images/doctors/doctor-rahul-iyer-demo.webp",
+    "/images/doctors/doctor-samuel-okafor-demo-sm.webp",
+    "/images/doctors/doctor-samuel-okafor-demo.webp",
+    "/images/doctors/doctor-vikram-singh-demo-sm.webp",
+    "/images/doctors/doctor-vikram-singh-demo.webp",
+    "/images/facilities/consultation-room-sm.webp",
+    "/images/facilities/consultation-room.webp",
+    "/images/facilities/diagnostic-imaging-sm.webp",
+    "/images/facilities/diagnostic-imaging.webp",
+    "/images/facilities/hospital-corridor-sm.webp",
+    "/images/facilities/hospital-corridor.webp",
+    "/images/facilities/laboratory-sm.webp",
+    "/images/facilities/laboratory.webp",
+    "/images/facilities/medical-equipment-sm.webp",
+    "/images/facilities/medical-equipment.webp",
+    "/images/facilities/patient-room-sm.webp",
+    "/images/facilities/patient-room.webp",
+    "/images/facilities/reception-waiting-area-sm.webp",
+    "/images/facilities/reception-waiting-area.webp",
+    "/images/facilities/staff-at-work-sm.webp",
+    "/images/facilities/staff-at-work.webp",
+    "/images/hero/doctor-patient-consultation-sm.webp",
+    "/images/hero/doctor-patient-consultation.webp",
+    "/images/hero/healthcare-professional-sm.webp",
+    "/images/hero/healthcare-professional.webp",
+    "/images/hero/healthcare-team-collaboration-sm.webp",
+    "/images/hero/healthcare-team-collaboration.webp",
+    "/images/hero/hospital-exterior-sm.webp",
+    "/images/hero/hospital-exterior.webp",
+    "/images/hero/hospital-reception-welcome-sm.webp",
+    "/images/hero/hospital-reception-welcome.webp",
+    "/images/hero/medinova-hero-healthcare-team-sm.webp",
+    "/images/hero/medinova-hero-healthcare-team.webp",
+    "/images/hero/patient-appointment-booking-sm.webp",
+    "/images/hero/patient-appointment-booking.webp",
+    "/images/icons/category-diagnostic.svg",
+    "/images/icons/category-first-aid.svg",
+    "/images/icons/category-mobility.svg",
+    "/images/icons/category-monitoring.svg",
+    "/images/icons/category-protective.svg",
+    "/images/icons/category-storage.svg",
+    "/images/illustrations/illustration-appointment.svg",
+    "/images/illustrations/illustration-contact.svg",
+    "/images/illustrations/illustration-empty-cart.svg",
+    "/images/illustrations/illustration-empty-catalogue.svg",
+    "/images/illustrations/illustration-empty-search.svg",
+    "/images/illustrations/illustration-error.svg",
+    "/images/illustrations/illustration-location.svg",
+    "/images/illustrations/illustration-order-placed.svg",
+    "/images/products/product-adjustable-walking-stick-box-sm.webp",
+    "/images/products/product-adjustable-walking-stick-box.webp",
+    "/images/products/product-adjustable-walking-stick-detail-sm.webp",
+    "/images/products/product-adjustable-walking-stick-detail.webp",
+    "/images/products/product-adjustable-walking-stick-sm.webp",
+    "/images/products/product-adjustable-walking-stick.webp",
+    "/images/products/product-blood-pressure-monitor-box-sm.webp",
+    "/images/products/product-blood-pressure-monitor-box.webp",
+    "/images/products/product-blood-pressure-monitor-detail-sm.webp",
+    "/images/products/product-blood-pressure-monitor-detail.webp",
+    "/images/products/product-blood-pressure-monitor-sm.webp",
+    "/images/products/product-blood-pressure-monitor.webp",
+    "/images/products/product-digital-thermometer-box-sm.webp",
+    "/images/products/product-digital-thermometer-box.webp",
+    "/images/products/product-digital-thermometer-detail-sm.webp",
+    "/images/products/product-digital-thermometer-detail.webp",
+    "/images/products/product-digital-thermometer-sm.webp",
+    "/images/products/product-digital-thermometer.webp",
+    "/images/products/product-digital-weighing-scale-box-sm.webp",
+    "/images/products/product-digital-weighing-scale-box.webp",
+    "/images/products/product-digital-weighing-scale-detail-sm.webp",
+    "/images/products/product-digital-weighing-scale-detail.webp",
+    "/images/products/product-digital-weighing-scale-sm.webp",
+    "/images/products/product-digital-weighing-scale.webp",
+    "/images/products/product-examination-gloves-box-sm.webp",
+    "/images/products/product-examination-gloves-box.webp",
+    "/images/products/product-examination-gloves-detail-sm.webp",
+    "/images/products/product-examination-gloves-detail.webp",
+    "/images/products/product-examination-gloves-sm.webp",
+    "/images/products/product-examination-gloves.webp",
+    "/images/products/product-first-aid-kit-box-sm.webp",
+    "/images/products/product-first-aid-kit-box.webp",
+    "/images/products/product-first-aid-kit-detail-sm.webp",
+    "/images/products/product-first-aid-kit-detail.webp",
+    "/images/products/product-first-aid-kit-sm.webp",
+    "/images/products/product-first-aid-kit.webp",
+    "/images/products/product-hot-cold-therapy-pack-box-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack-box.webp",
+    "/images/products/product-hot-cold-therapy-pack-detail-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack-detail.webp",
+    "/images/products/product-hot-cold-therapy-pack-sm.webp",
+    "/images/products/product-hot-cold-therapy-pack.webp",
+    "/images/products/product-knee-support-sleeve-box-sm.webp",
+    "/images/products/product-knee-support-sleeve-box.webp",
+    "/images/products/product-knee-support-sleeve-detail-sm.webp",
+    "/images/products/product-knee-support-sleeve-detail.webp",
+    "/images/products/product-knee-support-sleeve-sm.webp",
+    "/images/products/product-knee-support-sleeve.webp",
+    "/images/products/product-pulse-oximeter-box-sm.webp",
+    "/images/products/product-pulse-oximeter-box.webp",
+    "/images/products/product-pulse-oximeter-detail-sm.webp",
+    "/images/products/product-pulse-oximeter-detail.webp",
+    "/images/products/product-pulse-oximeter-sm.webp",
+    "/images/products/product-pulse-oximeter.webp",
+    "/images/products/product-stethoscope-box-sm.webp",
+    "/images/products/product-stethoscope-box.webp",
+    "/images/products/product-stethoscope-detail-sm.webp",
+    "/images/products/product-stethoscope-detail.webp",
+    "/images/products/product-stethoscope-sm.webp",
+    "/images/products/product-stethoscope.webp",
+    "/images/products/product-surgical-face-masks-box-sm.webp",
+    "/images/products/product-surgical-face-masks-box.webp",
+    "/images/products/product-surgical-face-masks-detail-sm.webp",
+    "/images/products/product-surgical-face-masks-detail.webp",
+    "/images/products/product-surgical-face-masks-sm.webp",
+    "/images/products/product-surgical-face-masks.webp",
+    "/images/products/product-weekly-pill-organiser-box-sm.webp",
+    "/images/products/product-weekly-pill-organiser-box.webp",
+    "/images/products/product-weekly-pill-organiser-detail-sm.webp",
+    "/images/products/product-weekly-pill-organiser-detail.webp",
+    "/images/products/product-weekly-pill-organiser-sm.webp",
+    "/images/products/product-weekly-pill-organiser.webp",
+    "/images/specialties/specialty-cardiology-sm.webp",
+    "/images/specialties/specialty-cardiology.webp",
+    "/images/specialties/specialty-dentistry-sm.webp",
+    "/images/specialties/specialty-dentistry.webp",
+    "/images/specialties/specialty-dermatology-sm.webp",
+    "/images/specialties/specialty-dermatology.webp",
+    "/images/specialties/specialty-diagnostics-sm.webp",
+    "/images/specialties/specialty-diagnostics.webp",
+    "/images/specialties/specialty-general-medicine-sm.webp",
+    "/images/specialties/specialty-general-medicine.webp",
+    "/images/specialties/specialty-gynaecology-sm.webp",
+    "/images/specialties/specialty-gynaecology.webp",
+    "/images/specialties/specialty-neurology-sm.webp",
+    "/images/specialties/specialty-neurology.webp",
+    "/images/specialties/specialty-ophthalmology-sm.webp",
+    "/images/specialties/specialty-ophthalmology.webp",
+    "/images/specialties/specialty-orthopaedics-sm.webp",
+    "/images/specialties/specialty-orthopaedics.webp",
+    "/images/specialties/specialty-paediatrics-sm.webp",
+    "/images/specialties/specialty-paediatrics.webp",
+    "/og-image.png"
+  ],
+  "failures": [],
+  "directDecode": [
+    {
+      "u": "/images/hero/medinova-hero-healthcare-team.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/medinova-hero-healthcare-team-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/doctor-patient-consultation.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/doctor-patient-consultation-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/healthcare-professional.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/healthcare-professional-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/hospital-reception-welcome.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/hospital-reception-welcome-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/hospital-exterior.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/hospital-exterior-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/healthcare-team-collaboration.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/healthcare-team-collaboration-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/hero/patient-appointment-booking.webp",
+      "ok": true,
+      "w": 1600,
+      "h": 1000
+    },
+    {
+      "u": "/images/hero/patient-appointment-booking-sm.webp",
+      "ok": true,
+      "w": 800,
+      "h": 500
+    },
+    {
+      "u": "/images/specialties/specialty-general-medicine.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-general-medicine-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-cardiology.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-cardiology-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-orthopaedics.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-orthopaedics-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-dermatology.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-dermatology-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-paediatrics.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-paediatrics-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-neurology.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-neurology-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-ophthalmology.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-ophthalmology-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-dentistry.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-dentistry-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-gynaecology.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-gynaecology-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/specialties/specialty-diagnostics.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 900
+    },
+    {
+      "u": "/images/specialties/specialty-diagnostics-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 450
+    },
+    {
+      "u": "/images/doctors/doctor-arjun-mehta-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-arjun-mehta-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-nisha-varghese-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-nisha-varghese-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-rahul-iyer-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-rahul-iyer-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-fatima-sheikh-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-fatima-sheikh-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-kavya-reddy-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-kavya-reddy-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-daniel-thomas-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-daniel-thomas-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-priya-nair-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-priya-nair-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-vikram-singh-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-vikram-singh-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-anita-das-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-anita-das-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/doctors/doctor-samuel-okafor-demo.webp",
+      "ok": true,
+      "w": 800,
+      "h": 1000
+    },
+    {
+      "u": "/images/doctors/doctor-samuel-okafor-demo-sm.webp",
+      "ok": true,
+      "w": 400,
+      "h": 500
+    },
+    {
+      "u": "/images/facilities/reception-waiting-area.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/reception-waiting-area-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/consultation-room.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/consultation-room-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/hospital-corridor.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/hospital-corridor-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/patient-room.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/patient-room-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/laboratory.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/laboratory-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/diagnostic-imaging.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/diagnostic-imaging-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/medical-equipment.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/medical-equipment-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/facilities/staff-at-work.webp",
+      "ok": true,
+      "w": 1200,
+      "h": 800
+    },
+    {
+      "u": "/images/facilities/staff-at-work-sm.webp",
+      "ok": true,
+      "w": 600,
+      "h": 400
+    },
+    {
+      "u": "/images/products/product-digital-thermometer.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-thermometer-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-digital-thermometer-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-thermometer-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-digital-thermometer-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-thermometer-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-blood-pressure-monitor-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-pulse-oximeter-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-first-aid-kit.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-first-aid-kit-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-first-aid-kit-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-first-aid-kit-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-first-aid-kit-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-first-aid-kit-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-stethoscope.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-stethoscope-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-stethoscope-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-stethoscope-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-stethoscope-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-stethoscope-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-examination-gloves.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-examination-gloves-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-examination-gloves-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-examination-gloves-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-examination-gloves-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-examination-gloves-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-surgical-face-masks-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-digital-weighing-scale-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-hot-cold-therapy-pack-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-weekly-pill-organiser-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-adjustable-walking-stick-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve-detail.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve-detail-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve-box.webp",
+      "ok": true,
+      "w": 1000,
+      "h": 1000
+    },
+    {
+      "u": "/images/products/product-knee-support-sleeve-box-sm.webp",
+      "ok": true,
+      "w": 500,
+      "h": 500
+    },
+    {
+      "u": "/images/illustrations/illustration-appointment.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-contact.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-location.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-empty-cart.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-empty-search.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-empty-catalogue.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-error.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/illustrations/illustration-order-placed.svg",
+      "ok": true,
+      "w": 480,
+      "h": 360
+    },
+    {
+      "u": "/images/icons/category-monitoring.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/icons/category-first-aid.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/icons/category-protective.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/icons/category-diagnostic.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/icons/category-storage.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/icons/category-mobility.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/images/branding/medinova-logo.svg",
+      "ok": true,
+      "w": 246,
+      "h": 64
+    },
+    {
+      "u": "/images/branding/medinova-logo-white.svg",
+      "ok": true,
+      "w": 246,
+      "h": 64
+    },
+    {
+      "u": "/images/branding/medinova-mark.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/favicon.svg",
+      "ok": true,
+      "w": 64,
+      "h": 64
+    },
+    {
+      "u": "/favicon-32.png",
+      "ok": true,
+      "w": 32,
+      "h": 32
+    },
+    {
+      "u": "/apple-touch-icon.png",
+      "ok": true,
+      "w": 180,
+      "h": 180
+    },
+    {
+      "u": "/icons/icon-192.png",
+      "ok": true,
+      "w": 192,
+      "h": 192
+    },
+    {
+      "u": "/icons/icon-512.png",
+      "ok": true,
+      "w": 512,
+      "h": 512
+    },
+    {
+      "u": "/og-image.png",
+      "ok": true,
+      "w": 1200,
+      "h": 630
+    }
+  ],
+  "summary": {
+    "routesChecked": 43,
+    "pageViews": 172,
+    "imagesRendered": 1412,
+    "uniqueImageFilesLoaded": 136,
+    "pageImageFilesGenerated": 159,
+    "pageImageFilesNeverShownOnAPage": [
+      "/images/products/product-digital-thermometer-detail.webp",
+      "/images/products/product-digital-thermometer-box.webp",
+      "/images/products/product-blood-pressure-monitor-detail.webp",
+      "/images/products/product-blood-pressure-monitor-box.webp",
+      "/images/products/product-pulse-oximeter-detail.webp",
+      "/images/products/product-pulse-oximeter-box.webp",
+      "/images/products/product-first-aid-kit-detail.webp",
+      "/images/products/product-first-aid-kit-box.webp",
+      "/images/products/product-examination-gloves-detail.webp",
+      "/images/products/product-examination-gloves-box.webp",
+      "/images/products/product-surgical-face-masks-detail.webp",
+      "/images/products/product-surgical-face-masks-box.webp",
+      "/images/products/product-digital-weighing-scale-detail.webp",
+      "/images/products/product-digital-weighing-scale-box.webp",
+      "/images/products/product-hot-cold-therapy-pack-detail.webp",
+      "/images/products/product-hot-cold-therapy-pack-box.webp",
+      "/images/products/product-weekly-pill-organiser-detail.webp",
+      "/images/products/product-weekly-pill-organiser-box.webp",
+      "/images/products/product-adjustable-walking-stick-detail.webp",
+      "/images/products/product-adjustable-walking-stick-box.webp",
+      "/images/products/product-knee-support-sleeve-detail.webp",
+      "/images/products/product-knee-support-sleeve-box.webp",
+      "/images/illustrations/illustration-empty-catalogue.svg"
+    ],
+    "allGeneratedFilesDecodedInBrowser": 165,
+    "tests": [
+      {
+        "name": "Skip link is the first keyboard stop",
+        "pass": true,
+        "detail": "Tab from page load focuses \"Skip to content\""
+      },
+      {
+        "name": "Cart: quantities, subtotal, update and remove",
+        "pass": true,
+        "detail": "₹2,796 → ₹4,695 → ₹3,798; persists after reload"
+      },
+      {
+        "name": "Demo checkout: validation, simulated confirmation, cart cleared",
+        "pass": true,
+        "detail": "5 validation errors on empty submit; confirmation DEMO-L0VDBT for ₹3,798; cart emptied"
+      },
+      {
+        "name": "Appointment: validation, doctor filtered by specialty, WhatsApp message",
+        "pass": true,
+        "detail": "5 errors on empty submit, summary focused; prefilled WhatsApp message has 7 lines"
+      },
+      {
+        "name": "Appointment prefill from a doctor profile",
+        "pass": true,
+        "detail": "specialty and doctor carried over from the profile"
+      },
+      {
+        "name": "Contact form validation and demo result",
+        "pass": true,
+        "detail": "name, contact method and message required; demo result shown"
+      },
+      {
+        "name": "Product enquiry WhatsApp links",
+        "pass": true,
+        "detail": "12 product enquiry links, e.g. \"Hello, I have a question about the Digital Thermometer (demo product).\""
+      },
+      {
+        "name": "Store filters, sorting and empty states",
+        "pass": true,
+        "detail": "category filter, price sort, empty catalogue and empty search illustrations"
+      },
+      {
+        "name": "Doctor directory filters",
+        "pass": true,
+        "detail": "language filter returns 2 profiles; empty state shown when no match"
+      },
+      {
+        "name": "Graceful fallback when an image fails to load",
+        "pass": true,
+        "detail": "fallback rendered with aria-label \"Four healthcare professionals in a bright, modern clinic atrium\""
+      },
+      {
+        "name": "Mobile menu opens, traps nothing off-screen and closes with Escape",
+        "pass": true,
+        "detail": "opens from the header, closes on Escape"
+      },
+      {
+        "name": "Product gallery: thumbnails swap the main image and each view loads",
+        "pass": true,
+        "detail": "/images/products/product-stethoscope-detail.webp → /images/products/product-stethoscope-box.webp → /images/products/product-stethoscope.webp"
+      },
+      {
+        "name": "Every generated asset (165 files) is served by the build and decodes in the browser",
+        "pass": true,
+        "detail": "165 of 165 decoded"
+      }
+    ],
+    "failures": []
+  }
+}
