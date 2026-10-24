@@ -83,7 +83,7 @@ function AppointmentBand() {
             <LinkButton to="/appointment" variant="light" size="lg">
               Start your request
             </LinkButton>
-            <a href={whatsappUrl('Hello MediNova, I would like to request an appointment.')} target="_blank" rel="noreferrer" className={buttonClass('ghost', 'lg', 'text-white hover:bg-white/10')}>
+            <a href={whatsappUrl('Hello SaraDev, I would like to request an appointment.')} target="_blank" rel="noreferrer" className={buttonClass('ghost', 'lg', 'text-white hover:bg-white/10')}>
               <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
             </a>
           </div>
@@ -132,7 +132,7 @@ function WhyUs() {
           <Img image={HERO.reception} sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[16/11] w-full object-cover object-center" />
         </div>
         <div>
-          <SectionHeading id="why-heading" title="Why people choose MediNova" intro="Everything you need before, between and after visits, in one place." />
+          <SectionHeading id="why-heading" title="Why people choose SaraDev" intro="Everything you need before, between and after visits, in one place." />
           <ul className="grid gap-6 sm:grid-cols-2">
             {items.map(({ icon: Icon, title, body }) => (
               <li key={title}>
@@ -175,7 +175,7 @@ function Visit() {
             <a href={`tel:${site.contact.phoneHref}`} className={buttonClass('dark', 'md', 'flex-1')}>
               <Phone className="h-4 w-4" aria-hidden /> Call us
             </a>
-            <a href={whatsappUrl('Hello MediNova, I have a question.')} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md', 'flex-1')}>
+            <a href={whatsappUrl('Hello SaraDev, I have a question.')} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md', 'flex-1')}>
               <MessageCircle className="h-4 w-4" aria-hidden /> WhatsApp
             </a>
           </div>
@@ -186,7 +186,7 @@ function Visit() {
 }
 
 export function Home() {
-  usePageMeta({ title: site.name, description: 'Explore healthcare services, discover medical professionals, request appointments and browse healthcare essentials. A MediNova demonstration website.' });
+  usePageMeta({ title: site.name, description: 'Explore healthcare services, discover medical professionals, request appointments and browse healthcare essentials. A SaraDev demonstration website.' });
   return (
     <>
       <Hero />

@@ -5,21 +5,21 @@ import { text } from '../lib/text.mjs';
 
 export function logo() {
   const l = lockup({ x: 0, y: 0, height: 64 });
-  return doc(Math.ceil(l.width), 64, l.svg, '', { title: 'MediNova Healthcare' });
+  return doc(Math.ceil(l.width), 64, l.svg, '', { title: 'SaraDev Healthcare' });
 }
 
 export function logoWhite() {
   const l = lockup({ x: 0, y: 0, height: 64, dark: true });
-  return doc(Math.ceil(l.width), 64, l.svg, '', { title: 'MediNova Healthcare' });
+  return doc(Math.ceil(l.width), 64, l.svg, '', { title: 'SaraDev Healthcare' });
 }
 
 export function logoMark() {
-  return doc(64, 64, mark({ x: 0, y: 0, size: 64 }), '', { title: 'MediNova' });
+  return doc(64, 64, mark({ x: 0, y: 0, size: 64 }), '', { title: 'SaraDev' });
 }
 
 /** Favicon: the mark on a rounded tile so it reads at 16–32 px. */
 export function favicon() {
-  return doc(64, 64, rect(0, 0, 64, 64, { rx: 14, fill: C.ink }) + mark({ x: 6, y: 5, size: 52, bg: C.ink, cross: '#FFFFFF', accent: C.aqua }), '', { title: 'MediNova' });
+  return doc(64, 64, rect(0, 0, 64, 64, { rx: 14, fill: C.ink }) + mark({ x: 6, y: 5, size: 52, bg: C.ink, cross: '#FFFFFF', accent: C.aqua }), '', { title: 'SaraDev' });
 }
 
 /** Square app icon (PWA / Apple touch) with safe padding. */

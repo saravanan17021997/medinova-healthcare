@@ -15,7 +15,7 @@ import { NotFound } from './NotFound';
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export function Doctors() {
-  usePageMeta({ title: 'Find a doctor', description: 'Search MediNova’s fictional demo team profiles by name, specialty, language and availability.' });
+  usePageMeta({ title: 'Find a doctor', description: 'Search SaraDev’s fictional demo team profiles by name, specialty, language and availability.' });
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
   const specialty = params.get('specialty') ?? '';
@@ -170,7 +170,7 @@ export function DoctorProfile() {
             <LinkButton to={`/appointment?specialty=${s.slug}&doctor=${d.slug}`} size="lg">
               <CalendarCheck className="h-5 w-5" aria-hidden /> Request an appointment
             </LinkButton>
-            <a href={whatsappUrl(`Hello MediNova, I would like to request an appointment with ${d.name} (${s.name}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
+            <a href={whatsappUrl(`Hello SaraDev, I would like to request an appointment with ${d.name} (${s.name}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
               <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
             </a>
           </div>

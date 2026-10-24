@@ -1,4 +1,4 @@
-// MediNova brand mark: an arched doorway (a welcoming clinic entrance) holding
+// SaraDev brand mark: an arched doorway (a welcoming clinic entrance) holding
 // a soft medical cross, with an aqua line leaving the cross and ending in a
 // node — "connected healthcare". Original artwork, no third-party marks.
 import { C, path, circle, rect, g } from './svg.mjs';
@@ -22,7 +22,7 @@ export function mark({ x = 0, y = 0, size = 64, bg = C.ink, cross = '#FFFFFF', a
   );
 }
 
-/** Horizontal lockup: mark + "MediNova" + "Healthcare". Returns { svg, width, height }. */
+/** Horizontal lockup: mark + "SaraDev" + "Healthcare". Returns { svg, width, height }. */
 export function lockup({ x = 0, y = 0, height = 64, dark = false } = {}) {
   const word = dark ? '#FFFFFF' : C.ink;
   const sub = dark ? C.aqua2 : C.teal;
@@ -31,9 +31,9 @@ export function lockup({ x = 0, y = 0, height = 64, dark = false } = {}) {
   const subSize = 14 * s;
   const gap = 14 * s;
   const tx = x + height + gap;
-  const name = text('MediNova', { x: tx, y: y + 37 * s, size: nameSize, font: 'fraunces-600', fill: word });
+  const name = text('SaraDev', { x: tx, y: y + 37 * s, size: nameSize, font: 'fraunces-600', fill: word });
   const tag = text('Healthcare', { x: tx + 1 * s, y: y + 55 * s, size: subSize, font: 'figtree-600', fill: sub, tracking: 0.6 * s });
-  const w = Math.max(measure('MediNova', { font: 'fraunces-600', size: nameSize }), measure('Healthcare', { font: 'figtree-600', size: subSize, tracking: 0.6 * s }));
+  const w = Math.max(measure('SaraDev', { font: 'fraunces-600', size: nameSize }), measure('Healthcare', { font: 'figtree-600', size: subSize, tracking: 0.6 * s }));
   return {
     svg: mark({ x, y, size: height, bg: dark ? C.aqua : C.ink, cross: dark ? C.ink : '#FFFFFF', accent: dark ? '#FFFFFF' : C.aqua }) + name + tag,
     width: height + gap + w + 2,

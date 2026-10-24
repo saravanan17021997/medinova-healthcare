@@ -300,7 +300,7 @@ function packaging(name) {
     rect(120, 300, 400, 500, { fill: C.ink }),
     rect(120, 680, 400, 120, { fill: C.teal }),
     mark({ x: 160, y: 340, size: 86, bg: C.aqua, cross: C.ink, accent: '#FFFFFF' }),
-    text('MediNova', { x: 262, y: 382, size: 34, font: 'fraunces-600', fill: '#FFFFFF' }),
+    text('SaraDev', { x: 262, y: 382, size: 34, font: 'fraunces-600', fill: '#FFFFFF' }),
     text('Healthcare', { x: 264, y: 414, size: 18, font: 'figtree-600', fill: C.aqua2 }),
     ...lines.map((l, i) => text(l, { x: 160, y: 520 + i * 46, size: 38, font: 'figtree-700', fill: '#FFFFFF' })),
     text('Demo product', { x: 160, y: 752, size: 26, font: 'figtree-600', fill: '#FFFFFF' }),

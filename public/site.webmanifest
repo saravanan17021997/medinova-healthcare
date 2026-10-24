@@ -1,6 +1,6 @@
 {
-  "name": "MediNova Healthcare (demo)",
-  "short_name": "MediNova",
+  "name": "SaraDev Healthcare (demo)",
+  "short_name": "SaraDev",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F3F8F9",

@@ -11,7 +11,7 @@ export function Footer() {
     <footer className="mt-24 bg-ink text-white">
       <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
-          <img src={BRAND.logoWhite} alt={site.name} width={246} height={64} loading="lazy" className="h-11 w-auto" />
+          <img src={BRAND.logoWhite} alt={site.name} width={220} height={64} loading="lazy" className="h-11 w-auto" />
           <p className="mt-4 max-w-xs text-white/75">{site.tagline}</p>
           <p className="mt-6 max-w-sm rounded-2xl bg-white/5 p-4 text-sm leading-relaxed text-white/75">{site.demoNotice} Doctor profiles, products and prices are fictional samples.</p>
         </div>
@@ -54,7 +54,7 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href={whatsappUrl('Hello MediNova, I have a question.')} target="_blank" rel="noreferrer" className="flex items-center gap-2.5 hover:text-white">
+              <a href={whatsappUrl('Hello SaraDev, I have a question.')} target="_blank" rel="noreferrer" className="flex items-center gap-2.5 hover:text-white">
                 <MessageCircle className="h-4 w-4 text-aqua" aria-hidden /> Message us on WhatsApp
               </a>
             </li>

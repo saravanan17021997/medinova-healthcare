@@ -6,7 +6,7 @@ import { Notice } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 export function Facilities() {
-  usePageMeta({ title: 'Facilities', description: 'A look inside a MediNova demonstration clinic: reception, consultation rooms, laboratory, imaging and more.' });
+  usePageMeta({ title: 'Facilities', description: 'A look inside a SaraDev demonstration clinic: reception, consultation rooms, laboratory, imaging and more.' });
   return (
     <>
       <PageHeader title="Our facilities" intro="A walk through the spaces you might visit, from the front desk to the laboratory." image={HERO.reception} crumbs={[{ label: 'Home', to: '/' }, { label: 'Facilities' }]} />

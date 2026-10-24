@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T05:25:07.170Z",
+  "generatedAt": "2026-10-24T05:55:43.416Z",
   "assets": [
     {
       "file": "images/hero/medinova-hero-healthcare-team.webp",
@@ -461,25 +461,25 @@
       ]
     },
     {
-      "file": "images/doctors/doctor-arjun-mehta-demo.webp",
+      "file": "images/doctors/doctor-saravanan-demo.webp",
       "kind": "webp",
       "width": 800,
       "height": 1000,
       "small": 400,
       "section": "C. Doctors",
       "usage": "Doctor cards (home, doctors directory, specialty pages) and doctor profile page",
-      "description": "Portrait illustration for the fictional demo profile \"Arjun Mehta\" (General medicine).",
-      "alt": "Illustrated portrait of Arjun Mehta, a fictional demo profile",
+      "description": "Portrait illustration for the fictional demo profile \"Saravanan\" (General medicine).",
+      "alt": "Illustrated portrait of Saravanan, a fictional demo profile",
       "outputs": [
         {
-          "file": "images/doctors/doctor-arjun-mehta-demo.webp",
+          "file": "images/doctors/doctor-saravanan-demo.webp",
           "bytes": 16986,
           "width": 800,
           "height": 1000,
           "sha256": "09e168f49506879a"
         },
         {
-          "file": "images/doctors/doctor-arjun-mehta-demo-sm.webp",
+          "file": "images/doctors/doctor-saravanan-demo-sm.webp",
           "bytes": 7382,
           "width": 400,
           "height": 500,
@@ -1019,17 +1019,17 @@
       "outputs": [
         {
           "file": "images/products/product-digital-thermometer-box.webp",
-          "bytes": 15404,
+          "bytes": 15076,
           "width": 1000,
           "height": 1000,
-          "sha256": "dcfe438c81ec9bbe"
+          "sha256": "3e8d28948165db7b"
         },
         {
           "file": "images/products/product-digital-thermometer-box-sm.webp",
-          "bytes": 6076,
+          "bytes": 5952,
           "width": 500,
           "height": 500,
-          "sha256": "124cdfdc6685062a"
+          "sha256": "b1ec21215fa4f26d"
         }
       ]
     },
@@ -1106,17 +1106,17 @@
       "outputs": [
         {
           "file": "images/products/product-blood-pressure-monitor-box.webp",
-          "bytes": 16870,
+          "bytes": 16742,
           "width": 1000,
           "height": 1000,
-          "sha256": "b4779a3ccf6d5cda"
+          "sha256": "c23b8cd0c8235254"
         },
         {
           "file": "images/products/product-blood-pressure-monitor-box-sm.webp",
-          "bytes": 6928,
+          "bytes": 6724,
           "width": 500,
           "height": 500,
-          "sha256": "be6f7289756b408b"
+          "sha256": "14cee695f9ca94bf"
         }
       ]
     },
@@ -1193,17 +1193,17 @@
       "outputs": [
         {
           "file": "images/products/product-pulse-oximeter-box.webp",
-          "bytes": 15922,
+          "bytes": 15594,
           "width": 1000,
           "height": 1000,
-          "sha256": "fbbc7cad4d208c1b"
+          "sha256": "98d8501b500a79a1"
         },
         {
           "file": "images/products/product-pulse-oximeter-box-sm.webp",
-          "bytes": 6666,
+          "bytes": 6552,
           "width": 500,
           "height": 500,
-          "sha256": "b4b2afa17ef7e1d1"
+          "sha256": "6abca67c7a80fb65"
         }
       ]
     },
@@ -1280,17 +1280,17 @@
       "outputs": [
         {
           "file": "images/products/product-first-aid-kit-box.webp",
-          "bytes": 11940,
+          "bytes": 11632,
           "width": 1000,
           "height": 1000,
-          "sha256": "dd2159c52d7eafe7"
+          "sha256": "427b4384f9dbbc34"
         },
         {
           "file": "images/products/product-first-aid-kit-box-sm.webp",
-          "bytes": 5274,
+          "bytes": 5130,
           "width": 500,
           "height": 500,
-          "sha256": "260743431ef8821e"
+          "sha256": "7016f80c9fe01aba"
         }
       ]
     },
@@ -1367,17 +1367,17 @@
       "outputs": [
         {
           "file": "images/products/product-stethoscope-box.webp",
-          "bytes": 15120,
+          "bytes": 14842,
           "width": 1000,
           "height": 1000,
-          "sha256": "0ee1a04658575782"
+          "sha256": "908ac1ff3dc79103"
         },
         {
           "file": "images/products/product-stethoscope-box-sm.webp",
-          "bytes": 6132,
+          "bytes": 6008,
           "width": 500,
           "height": 500,
-          "sha256": "c709127bf6acb6fb"
+          "sha256": "766ccdc852700de7"
         }
       ]
     },
@@ -1454,17 +1454,17 @@
       "outputs": [
         {
           "file": "images/products/product-examination-gloves-box.webp",
-          "bytes": 17194,
+          "bytes": 17012,
           "width": 1000,
           "height": 1000,
-          "sha256": "b7570da59d55339d"
+          "sha256": "5253f5804b9a4e03"
         },
         {
           "file": "images/products/product-examination-gloves-box-sm.webp",
-          "bytes": 7004,
+          "bytes": 6876,
           "width": 500,
           "height": 500,
-          "sha256": "6478c052cd2a115c"
+          "sha256": "96abd06f65265506"
         }
       ]
     },
@@ -1541,17 +1541,17 @@
       "outputs": [
         {
           "file": "images/products/product-surgical-face-masks-box.webp",
-          "bytes": 15064,
+          "bytes": 14956,
           "width": 1000,
           "height": 1000,
-          "sha256": "806d6e1e06218e2d"
+          "sha256": "f6aaba7184eb0327"
         },
         {
           "file": "images/products/product-surgical-face-masks-box-sm.webp",
-          "bytes": 5950,
+          "bytes": 5778,
           "width": 500,
           "height": 500,
-          "sha256": "4ebb025bac5ecfc4"
+          "sha256": "b49bec07cdab4a6a"
         }
       ]
     },
@@ -1628,17 +1628,17 @@
       "outputs": [
         {
           "file": "images/products/product-digital-weighing-scale-box.webp",
-          "bytes": 13770,
+          "bytes": 13476,
           "width": 1000,
           "height": 1000,
-          "sha256": "ab0d78c9c6cec7ec"
+          "sha256": "af9178e5b48e8c99"
         },
         {
           "file": "images/products/product-digital-weighing-scale-box-sm.webp",
-          "bytes": 5454,
+          "bytes": 5216,
           "width": 500,
           "height": 500,
-          "sha256": "ae4e5d0b8463ca9e"
+          "sha256": "083b09a01dafbe1e"
         }
       ]
     },
@@ -1715,17 +1715,17 @@
       "outputs": [
         {
           "file": "images/products/product-hot-cold-therapy-pack-box.webp",
-          "bytes": 17672,
+          "bytes": 17376,
           "width": 1000,
           "height": 1000,
-          "sha256": "44c52a44efb1ae6b"
+          "sha256": "c708b4aa2c9b266d"
         },
         {
           "file": "images/products/product-hot-cold-therapy-pack-box-sm.webp",
-          "bytes": 7116,
+          "bytes": 6946,
           "width": 500,
           "height": 500,
-          "sha256": "f8b1604e854617a0"
+          "sha256": "9d72f391b3bf60bb"
         }
       ]
     },
@@ -1802,17 +1802,17 @@
       "outputs": [
         {
           "file": "images/products/product-weekly-pill-organiser-box.webp",
-          "bytes": 14484,
+          "bytes": 14206,
           "width": 1000,
           "height": 1000,
-          "sha256": "9b94af5b01681a34"
+          "sha256": "782617a29cd0637d"
         },
         {
           "file": "images/products/product-weekly-pill-organiser-box-sm.webp",
-          "bytes": 6006,
+          "bytes": 5778,
           "width": 500,
           "height": 500,
-          "sha256": "a90874e55b1a53f8"
+          "sha256": "4ff445f3972f24bd"
         }
       ]
     },
@@ -1889,17 +1889,17 @@
       "outputs": [
         {
           "file": "images/products/product-adjustable-walking-stick-box.webp",
-          "bytes": 14328,
+          "bytes": 14006,
           "width": 1000,
           "height": 1000,
-          "sha256": "c62c6906b949dbff"
+          "sha256": "9228e87a398e9a61"
         },
         {
           "file": "images/products/product-adjustable-walking-stick-box-sm.webp",
-          "bytes": 5634,
+          "bytes": 5494,
           "width": 500,
           "height": 500,
-          "sha256": "6aa845e941d0d737"
+          "sha256": "9ae3f8000556cbb5"
         }
       ]
     },
@@ -1976,17 +1976,17 @@
       "outputs": [
         {
           "file": "images/products/product-knee-support-sleeve-box.webp",
-          "bytes": 16060,
+          "bytes": 15714,
           "width": 1000,
           "height": 1000,
-          "sha256": "ac8fcddf2a8011a2"
+          "sha256": "b5c22df6de72ed10"
         },
         {
           "file": "images/products/product-knee-support-sleeve-box-sm.webp",
-          "bytes": 6566,
+          "bytes": 6444,
           "width": 500,
           "height": 500,
-          "sha256": "12e4486591b04457"
+          "sha256": "66a7c2c561fdf8c5"
         }
       ]
     },
@@ -2275,15 +2275,15 @@
       "kind": "svg",
       "section": "F. Branding",
       "usage": "Header logo",
-      "description": "Horizontal logo: arched-doorway mark with a cross and connected node, MediNova wordmark (outlined).",
-      "alt": "MediNova Healthcare",
+      "description": "Horizontal logo: arched-doorway mark with a cross and connected node, SaraDev wordmark (outlined).",
+      "alt": "SaraDev Healthcare",
       "outputs": [
         {
           "file": "images/branding/medinova-logo.svg",
-          "bytes": 15357,
-          "width": 246,
+          "bytes": 14418,
+          "width": 220,
           "height": 64,
-          "sha256": "b6c40e1e15bb0be4"
+          "sha256": "e5bcc7baa5455f15"
         }
       ]
     },
@@ -2293,14 +2293,14 @@
       "section": "F. Branding",
       "usage": "Footer logo on navy",
       "description": "Reversed logo for dark backgrounds.",
-      "alt": "MediNova Healthcare",
+      "alt": "SaraDev Healthcare",
       "outputs": [
         {
           "file": "images/branding/medinova-logo-white.svg",
-          "bytes": 15357,
-          "width": 246,
+          "bytes": 14418,
+          "width": 220,
           "height": 64,
-          "sha256": "65a071a7fe965b5e"
+          "sha256": "b946bcd3bc5dbda6"
         }
       ]
     },
@@ -2312,14 +2312,14 @@
       "section": "F. Branding",
       "usage": "Compact logo (mobile menu, packaging)",
       "description": "Logo mark only.",
-      "alt": "MediNova",
+      "alt": "SaraDev",
       "outputs": [
         {
           "file": "images/branding/medinova-mark.svg",
-          "bytes": 577,
+          "bytes": 576,
           "width": 64,
           "height": 64,
-          "sha256": "e12ac2a3ba705d26"
+          "sha256": "94df3f21d5973151"
         }
       ]
     },
@@ -2336,10 +2336,10 @@
       "outputs": [
         {
           "file": "favicon.svg",
-          "bytes": 647,
+          "bytes": 646,
           "width": 64,
           "height": 64,
-          "sha256": "0ab7cebc802455e5"
+          "sha256": "0988115cffd5ea30"
         }
       ]
     },
@@ -2431,14 +2431,14 @@
       "section": "F. Branding",
       "usage": "Open Graph / Twitter link preview",
       "description": "Navy share card with the logo, tagline, a \"Demonstration website\" label and the hero illustration in an arch.",
-      "alt": "MediNova Healthcare: Better Care. Connected Healthcare.",
+      "alt": "SaraDev Healthcare: Better Care. Connected Healthcare.",
       "outputs": [
         {
           "file": "og-image.png",
-          "bytes": 120105,
+          "bytes": 119515,
           "width": 1200,
           "height": 630,
-          "sha256": "ec3782bee1dde9b2"
+          "sha256": "3f2a8ab87b2ea919"
         }
       ]
     }

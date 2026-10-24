@@ -14,7 +14,7 @@ export function ChatbotLauncher() {
     <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       {open && (
         <div className="h-[520px] w-[min(92vw,380px)] overflow-hidden rounded-3xl bg-white shadow-lift ring-1 ring-line">
-          <iframe title="MediNova assistant" src={integrations.chatbot.url} className="h-full w-full border-0" />
+          <iframe title="SaraDev assistant" src={integrations.chatbot.url} className="h-full w-full border-0" />
         </div>
       )}
       <button type="button" onClick={() => setOpen((o) => !o)} className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-white shadow-lift" aria-expanded={open} aria-label={open ? 'Close assistant' : 'Open assistant'}>

@@ -18,7 +18,7 @@ interface Form {
 }
 
 export function Contact() {
-  usePageMeta({ title: 'Contact us', description: 'Call, message or write to MediNova. Demonstration contact details.' });
+  usePageMeta({ title: 'Contact us', description: 'Call, message or write to SaraDev. Demonstration contact details.' });
   const [form, setForm] = useState<Form>({ name: '', phone: '', email: '', message: '' });
   const [errors, setErrors] = useState<Errors<Form>>({});
   const [done, setDone] = useState<null | 'demo' | 'sent'>(null);
@@ -56,7 +56,7 @@ export function Contact() {
 
   const methods = [
     { icon: Phone, title: 'Call us', body: `${site.contact.phoneDisplay} (demo number)`, href: telUrl(), label: 'Call now', external: false },
-    { icon: MessageCircle, title: 'WhatsApp', body: 'A quick message is often the fastest way to reach us.', href: whatsappUrl('Hello MediNova, I have a question.'), label: 'Open WhatsApp', external: true },
+    { icon: MessageCircle, title: 'WhatsApp', body: 'A quick message is often the fastest way to reach us.', href: whatsappUrl('Hello SaraDev, I have a question.'), label: 'Open WhatsApp', external: true },
     { icon: Mail, title: 'Email', body: site.contact.email, href: `mailto:${site.contact.email}`, label: 'Write an email', external: false },
   ];
 
@@ -87,7 +87,7 @@ export function Contact() {
                 {done === 'sent' ? 'Message sent' : 'Message ready'}
               </h2>
               <p className="mx-auto mt-2 max-w-md text-slate">{done === 'sent' ? 'Thanks. The team will reply using the details you gave.' : 'This is a demo, so your message was not sent anywhere. You can send it on WhatsApp instead.'}</p>
-              <a href={whatsappUrl(`Hello MediNova, this is ${form.name}.\n${form.message}`)} target="_blank" rel="noreferrer" className={buttonClass('primary', 'lg', 'mt-6')}>
+              <a href={whatsappUrl(`Hello SaraDev, this is ${form.name}.\n${form.message}`)} target="_blank" rel="noreferrer" className={buttonClass('primary', 'lg', 'mt-6')}>
                 <MessageCircle className="h-5 w-5" aria-hidden /> Send on WhatsApp
               </a>
             </div>

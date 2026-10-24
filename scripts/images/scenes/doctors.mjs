@@ -7,7 +7,7 @@ const W = 800;
 const H = 1000;
 
 export const DOCTOR_LOOKS = {
-  'arjun-mehta': { skin: SKIN.s3, hairStyle: 'short', hairColor: HAIR.dark, top: 'coat', shirt: C.aqua2, tie: C.navy2, steth: true },
+  'saravanan': { skin: SKIN.s3, hairStyle: 'short', hairColor: HAIR.dark, top: 'coat', shirt: C.aqua2, tie: C.navy2, steth: true },
   'nisha-varghese': { skin: SKIN.s2, hairStyle: 'bun', hairColor: HAIR.black, top: 'coat', shirt: '#F2C4CB', steth: true },
   'rahul-iyer': { skin: SKIN.s4, hairStyle: 'sidepart', hairColor: HAIR.black, beard: true, top: 'scrubs', topColor: C.navy3, lanyard: true },
   'fatima-sheikh': { skin: SKIN.s2, hijab: C.teal, top: 'coat', shirt: C.navy3, steth: true },
@@ -34,7 +34,7 @@ export function portrait(slug) {
 }
 
 // Named exports for the preview tool.
-export const arjun = () => portrait('arjun-mehta');
+export const saravanan = () => portrait('saravanan');
 export const nisha = () => portrait('nisha-varghese');
 export const rahul = () => portrait('rahul-iyer');
 export const fatima = () => portrait('fatima-sheikh');

@@ -13,7 +13,7 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { NotFound } from './NotFound';
 
 export function Specialties() {
-  usePageMeta({ title: 'Specialties', description: 'Browse MediNova’s demonstration specialties, from general medicine to diagnostics, and see who you can book with.' });
+  usePageMeta({ title: 'Specialties', description: 'Browse SaraDev’s demonstration specialties, from general medicine to diagnostics, and see who you can book with.' });
   const [q, setQ] = useState('');
   const list = useMemo(() => {
     const t = q.trim().toLowerCase();

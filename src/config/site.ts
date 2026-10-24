@@ -3,8 +3,8 @@
 // details before the site is used for a real organisation.
 
 export const site = {
-  name: 'SARADEV Healthcare',
-  shortName: 'node_modules, dist, *.md, package-lock.json',
+  name: 'SaraDev Healthcare',
+  shortName: 'SaraDev',
   tagline: 'Better Care. Connected Healthcare.',
   /** Public URL, used for canonical links and social previews. Set VITE_SITE_URL on Vercel. */
   url: (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') || '',
@@ -28,7 +28,7 @@ export const site = {
   location: {
     /** Set to true only once the address below has been verified with the customer. */
     verified: false,
-    name: 'node_modules, dist, *.md, package-lock.json demo clinic',
+    name: 'SaraDev demo clinic',
     addressLines: ['Your clinic address goes here', 'City, State, PIN code'],
     /** Destination for Google Maps directions, e.g. a full address or "lat,lng". Used only when verified. */
     mapsQuery: '',

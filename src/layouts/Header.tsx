@@ -43,7 +43,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-line/70 bg-white/95 backdrop-blur">
       <div className="container-x flex h-[72px] items-center gap-4">
         <Link to="/" className="shrink-0" aria-label={`${site.name} home`}>
-          <img src={BRAND.logo} alt={site.name} width={246} height={64} className="h-10 w-auto sm:h-11" />
+          <img src={BRAND.logo} alt={site.name} width={220} height={64} className="h-10 w-auto sm:h-11" />
         </Link>
 
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">

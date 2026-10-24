@@ -202,7 +202,7 @@ export function ProductDetail() {
               >
                 <ShoppingBag className="h-5 w-5" aria-hidden /> Add to cart
               </button>
-              <a href={whatsappUrl(`Hello MediNova, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
+              <a href={whatsappUrl(`Hello SaraDev, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
                 <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
               </a>
             </div>

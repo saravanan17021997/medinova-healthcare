@@ -14,7 +14,7 @@ const facility = (file, render, description, alt) => ({ file: `images/facilities
 const specialty = (slug, render, description, alt) => ({ file: `images/specialties/specialty-${slug}.webp`, kind: 'webp', width: 1200, height: 900, small: 600, section: 'B. Specialties', usage: 'Specialty cards (home, specialties page) and specialty detail header', description, alt, render });
 
 export const DOCTORS = [
-  ['arjun-mehta', 'Arjun Mehta', 'General medicine'],
+  ['saravanan', 'Saravanan', 'General medicine'],
   ['nisha-varghese', 'Nisha Varghese', 'Cardiology'],
   ['rahul-iyer', 'Rahul Iyer', 'Orthopaedics'],
   ['fatima-sheikh', 'Fatima Sheikh', 'Dermatology'],
@@ -119,9 +119,9 @@ export const inventory = [
   ].map(([n, label]) => ({ file: `images/icons/category-${n}.svg`, kind: 'svg', width: 64, height: 64, section: 'F. Category icons', usage: 'Store category navigation and home product section', description: `Category icon: ${label}.`, alt: '', decorative: true, render: ill.categoryIcons[n] })),
 
   // ---------------- F. branding
-  { file: 'images/branding/medinova-logo.svg', kind: 'svg', section: 'F. Branding', usage: 'Header logo', description: 'Horizontal logo: arched-doorway mark with a cross and connected node, MediNova wordmark (outlined).', alt: 'MediNova Healthcare', render: brand.logo },
-  { file: 'images/branding/medinova-logo-white.svg', kind: 'svg', section: 'F. Branding', usage: 'Footer logo on navy', description: 'Reversed logo for dark backgrounds.', alt: 'MediNova Healthcare', render: brand.logoWhite },
-  { file: 'images/branding/medinova-mark.svg', kind: 'svg', width: 64, height: 64, section: 'F. Branding', usage: 'Compact logo (mobile menu, packaging)', description: 'Logo mark only.', alt: 'MediNova', render: brand.logoMark },
+  { file: 'images/branding/medinova-logo.svg', kind: 'svg', section: 'F. Branding', usage: 'Header logo', description: 'Horizontal logo: arched-doorway mark with a cross and connected node, SaraDev wordmark (outlined).', alt: 'SaraDev Healthcare', render: brand.logo },
+  { file: 'images/branding/medinova-logo-white.svg', kind: 'svg', section: 'F. Branding', usage: 'Footer logo on navy', description: 'Reversed logo for dark backgrounds.', alt: 'SaraDev Healthcare', render: brand.logoWhite },
+  { file: 'images/branding/medinova-mark.svg', kind: 'svg', width: 64, height: 64, section: 'F. Branding', usage: 'Compact logo (mobile menu, packaging)', description: 'Logo mark only.', alt: 'SaraDev', render: brand.logoMark },
   { file: 'favicon.svg', kind: 'svg', width: 64, height: 64, section: 'F. Branding', usage: 'Browser tab icon', description: 'Favicon: logo mark on a navy tile.', alt: '', decorative: true, render: brand.favicon },
   { file: 'favicon-32.png', kind: 'png', width: 32, height: 32, section: 'F. Branding', usage: 'Fallback browser tab icon', description: 'PNG favicon.', alt: '', decorative: true, render: brand.favicon },
   { file: 'apple-touch-icon.png', kind: 'png', width: 180, height: 180, section: 'F. Branding', usage: 'iOS home-screen icon', description: 'Apple touch icon.', alt: '', decorative: true, render: brand.appIcon },
@@ -135,7 +135,7 @@ export const inventory = [
     section: 'F. Branding',
     usage: 'Open Graph / Twitter link preview',
     description: 'Navy share card with the logo, tagline, a "Demonstration website" label and the hero illustration in an arch.',
-    alt: 'MediNova Healthcare: Better Care. Connected Healthcare.',
+    alt: 'SaraDev Healthcare: Better Care. Connected Healthcare.',
     render: () => brand.ogImage(heroes.heroTeam().replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '')),
   },
 ];
