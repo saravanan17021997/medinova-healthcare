@@ -7,7 +7,7 @@ import { img } from './img';
 const p = (slug: string, name: string) => img(`/images/doctors/doctor-${slug}-demo.webp`, `Illustrated portrait of ${name}, a fictional demo profile`, 800, 1000, 400);
 
 export const doctors: Doctor[] = [
-  { slug: 'arjun-mehta', name: 'Arjun Mehta', specialtySlug: 'general-medicine', role: 'General physician', languages: ['English', 'Hindi'], availability: ['Mon', 'Wed', 'Fri'], modes: ['In person', 'Video'], focus: ['Routine check-ups', 'Long-term conditions'], image: p('arjun-mehta', 'Arjun Mehta') },
+  { slug: 'Saravanan', name: 'Saravanan', specialtySlug: 'general-medicine', role: 'General physician', languages: ['English', 'Hindi'], availability: ['Mon', 'Wed', 'Fri'], modes: ['In person', 'Video'], focus: ['Routine check-ups', 'Long-term conditions'], image: p('saravanan', 'Saravanan') },
   { slug: 'nisha-varghese', name: 'Nisha Varghese', specialtySlug: 'cardiology', role: 'Cardiology consultant', languages: ['English', 'Malayalam'], availability: ['Tue', 'Thu'], modes: ['In person'], focus: ['Heart rhythm', 'Blood pressure follow-up'], image: p('nisha-varghese', 'Nisha Varghese') },
   { slug: 'rahul-iyer', name: 'Rahul Iyer', specialtySlug: 'orthopaedics', role: 'Orthopaedic consultant', languages: ['English', 'Tamil'], availability: ['Mon', 'Tue', 'Sat'], modes: ['In person'], focus: ['Sports injuries', 'Knee and shoulder'], image: p('rahul-iyer', 'Rahul Iyer') },
   { slug: 'fatima-sheikh', name: 'Fatima Sheikh', specialtySlug: 'dermatology', role: 'Dermatology consultant', languages: ['English', 'Urdu', 'Hindi'], availability: ['Wed', 'Thu', 'Sat'], modes: ['In person', 'Video'], focus: ['Skin conditions', 'Hair and nails'], image: p('fatima-sheikh', 'Fatima Sheikh') },
