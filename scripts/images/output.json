@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T13:24:59.699Z",
+  "generatedAt": "2026-10-24T05:19:09.290Z",
   "assets": [
     {
       "file": "images/hero/medinova-hero-healthcare-team.webp",
@@ -2359,7 +2359,7 @@
           "bytes": 589,
           "width": 32,
           "height": 32,
-          "sha256": "5a79b3946451f7ea"
+          "sha256": "7f58f9ec95f06a34"
         }
       ]
     },
@@ -2379,7 +2379,7 @@
           "bytes": 1276,
           "width": 180,
           "height": 180,
-          "sha256": "716e5e51ab8d38e6"
+          "sha256": "d94ddaccc0a6c240"
         }
       ]
     },
@@ -2396,10 +2396,10 @@
       "outputs": [
         {
           "file": "icons/icon-192.png",
-          "bytes": 1408,
+          "bytes": 1409,
           "width": 192,
           "height": 192,
-          "sha256": "7e1378f6484f38d9"
+          "sha256": "17864b907618e5f8"
         }
       ]
     },
@@ -2416,10 +2416,10 @@
       "outputs": [
         {
           "file": "icons/icon-512.png",
-          "bytes": 2440,
+          "bytes": 2439,
           "width": 512,
           "height": 512,
-          "sha256": "1c00089b6b8892c0"
+          "sha256": "4c72921bd8f22cc7"
         }
       ]
     },

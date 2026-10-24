@@ -4,11 +4,11 @@
 
 export const site = {
   name: 'SARADEV Healthcare',
-  shortName: 'SaraDev',
+  shortName: 'node_modules, dist, *.md, package-lock.json',
   tagline: 'Better Care. Connected Healthcare.',
   /** Public URL, used for canonical links and social previews. Set VITE_SITE_URL on Vercel. */
   url: (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') || '',
-  demoNotice: 'SARADEV is a fictional brand. This is a demonstration website: no real appointments, orders or medical services.',
+  demoNotice: 'This is a demonstration website. Doctors, products and prices are fictional: no real appointments, orders or medical services.',
 
   contact: {
     // demo: "+91 00000 00000" is not a dialable Indian number.
@@ -28,7 +28,7 @@ export const site = {
   location: {
     /** Set to true only once the address below has been verified with the customer. */
     verified: false,
-    name: 'SaraDev demo clinic',
+    name: 'node_modules, dist, *.md, package-lock.json demo clinic',
     addressLines: ['Your clinic address goes here', 'City, State, PIN code'],
     /** Destination for Google Maps directions, e.g. a full address or "lat,lng". Used only when verified. */
     mapsQuery: '',
