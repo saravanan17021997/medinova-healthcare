@@ -13,7 +13,7 @@ export async function loadData() {
   const entry = path.join(outDir, 'entry.ts');
   fs.writeFileSync(
     entry,
-    ['specialties', 'doctors', 'facilities', 'products', 'img'].map((m) => `export * as ${m} from '${path.join(root, 'src/data', m)}';`).join('\n'),
+        ['specialties', 'doctors', 'facilities', 'products', 'img'].map((m) => `export * as ${m} from ${JSON.stringify(path.join(root, 'src/data', m).split(path.sep).join('/'))};`).join('\n'),
   );
   const outfile = path.join(outDir, `data-${Date.now()}.mjs`);
   await build({
