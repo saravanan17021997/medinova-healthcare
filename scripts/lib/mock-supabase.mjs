@@ -5,12 +5,15 @@
 //   * only the owner account can write
 //   * unique slug / SKU, sale price < price, stock >= 0, a category in use cannot be deleted
 //   * storage accepts JPEG/PNG/WebP/AVIF up to 5 MB, admins only
+//   * site settings are public; menus, homepage sections and facilities only when published
+//   * menu and button links must match the database check (/page, https://, mailto:, tel:)
 import { randomUUID } from 'node:crypto';
+import { contentSeed } from './content-seed.mjs';
 
 const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
 const EXP = Math.floor(Date.now() / 1000) + 3600;
 
-export function createMockSupabase({ SB, seed, care }) {
+export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
   const OWNER = { id: '11111111-1111-1111-1111-111111111111', email: 'owner@example.com', password: 'correct-horse' };
   const OTHER = { id: '33333333-3333-3333-3333-333333333333', email: 'moneymap.user@example.com', password: 'correct-horse' };
   const users = [OWNER, OTHER];
@@ -19,7 +22,12 @@ export function createMockSupabase({ SB, seed, care }) {
   const now = () => new Date().toISOString();
 
   // ---------------------------------------------------------------- data
-  const db = { sd_categories: [], sd_products: [], sd_product_images: [], sd_specialties: [], sd_doctors: [], sd_appointments: [] };
+  const db = { sd_categories: [], sd_products: [], sd_product_images: [], sd_specialties: [], sd_doctors: [], sd_appointments: [], sd_site_settings: [], sd_nav_links: [], sd_page_sections: [], sd_facilities: [] };
+  const clone = (x) => JSON.parse(JSON.stringify(x));
+  content.settings.forEach((r) => db.sd_site_settings.push({ id: randomUUID(), ...clone(r), updated_at: now() }));
+  content.nav.forEach((r) => db.sd_nav_links.push({ id: randomUUID(), ...clone(r), created_at: now(), updated_at: now() }));
+  content.sections.forEach((r) => db.sd_page_sections.push({ id: randomUUID(), ...clone(r), created_at: now(), updated_at: now() }));
+  content.facilities.forEach((r) => db.sd_facilities.push({ id: randomUUID(), ...clone(r), created_at: now(), updated_at: now() }));
   if (care) {
     care.specialties.forEach((s, i) => db.sd_specialties.push({ id: randomUUID(), slug: s.slug, name: s.name, summary: s.summary, description: s.description, reasons: s.reasons, icon: s.icon, image_url: s.image.src, image_small_url: s.image.src.replace(/\.webp$/, '-sm.webp'), image_alt: s.image.alt, image_width: s.image.width, image_height: s.image.height, sort_order: i + 1, published: true, created_at: now(), updated_at: now() }));
     care.doctors.forEach((d, i) => db.sd_doctors.push({ id: randomUUID(), slug: d.slug.toLowerCase(), name: d.name, specialty_id: db.sd_specialties.find((s) => s.slug === d.specialtySlug).id, role: d.role, qualifications: null, registration_no: null, bio: null, languages: d.languages, availability: d.availability, modes: d.modes, focus: d.focus, photo_url: d.image.src, photo_small_url: d.image.src.replace(/\.webp$/, '-sm.webp'), photo_alt: d.image.alt, photo_width: d.image.width, photo_height: d.image.height, is_demo: true, sort_order: i + 1, published: true, created_at: now(), updated_at: now() }));
@@ -58,6 +66,7 @@ export function createMockSupabase({ SB, seed, care }) {
   const visible = (table, row, admin) => {
     if (admin) return true;
     if (PRIVATE.has(table)) return false;
+    if (table === 'sd_site_settings') return true;
     if (table === 'sd_product_images') return db.sd_products.some((p) => p.id === row.product_id && p.published);
     return row.published === true;
   };
@@ -81,7 +90,7 @@ export function createMockSupabase({ SB, seed, care }) {
   function applyQuery(table, url, admin) {
     let rows = db[table].filter((r) => visible(table, r, admin));
     for (const [k, v] of url.searchParams) {
-      if (['select', 'order', 'limit', 'offset', 'columns'].includes(k)) continue;
+      if (['select', 'order', 'limit', 'offset', 'columns', 'on_conflict'].includes(k)) continue;
       const m = v.match(/^(eq|neq)\.(.*)$/);
       if (!m) continue;
       const want = m[2] === 'true' ? true : m[2] === 'false' ? false : m[2];
@@ -113,6 +122,23 @@ export function createMockSupabase({ SB, seed, care }) {
       if (!(row.availability ?? []).every((d) => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].includes(d))) return err(400, '23514', 'new row for relation "sd_doctors" violates check constraint "sd_doctors_availability_check"');
       if (!(row.modes ?? []).every((m) => ['In person', 'Video'].includes(m))) return err(400, '23514', 'new row for relation "sd_doctors" violates check constraint "sd_doctors_modes_check"');
     }
+    const HREF = /^(\/([^/]|$)|https:\/\/|mailto:|tel:)/;
+    const check = (name) => err(400, '23514', `new row for relation "${table}" violates check constraint "${table}_${name}_check"`);
+    if (table === 'sd_nav_links') {
+      if (!['header', 'footer_explore', 'footer_social'].includes(row.location)) return check('location');
+      if (!row.label || row.label.length > 60) return check('label');
+      if (!HREF.test(row.href ?? '')) return check('href');
+    }
+    if (table === 'sd_page_sections') {
+      if ('key' in row && others.some((r) => r.key === row.key)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_page_sections_key_key"');
+      for (const c of ['cta_href', 'cta2_href']) if (row[c] != null && !HREF.test(row[c])) return check(c);
+      if ((row.heading ?? '').length > 200) return check('heading');
+      if (!Array.isArray(row.items)) return check('items');
+    }
+    if (table === 'sd_site_settings') {
+      if (!/^[a-z0-9_.]{1,60}$/.test(row.key ?? '')) return check('key');
+      if (others.some((r) => r.key === row.key)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_site_settings_pkey"');
+    }
     if (table === 'sd_appointments' && !['new', 'contacted', 'confirmed', 'completed', 'cancelled'].includes(row.status)) return err(400, '23514', 'new row for relation "sd_appointments" violates check constraint "sd_appointments_status_check"');
     if (table === 'sd_products') {
       if (others.some((r) => r.sku === row.sku)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_products_sku_key"', `Key (sku)=(${row.sku}) already exists.`);
@@ -128,6 +154,9 @@ export function createMockSupabase({ SB, seed, care }) {
     sd_categories: { description: '', icon_url: null, sort_order: 0, published: true },
     sd_product_images: { small_url: null, storage_path: null, alt: '', width: null, height: null, sort_order: 0 },
     sd_specialties: { summary: '', description: '', reasons: [], icon: 'Stethoscope', image_url: null, image_small_url: null, image_alt: '', image_width: null, image_height: null, sort_order: 0, published: true },
+    sd_nav_links: { new_tab: false, sort_order: 0, published: true },
+    sd_facilities: { description: '', image_url: null, image_small_url: null, image_alt: '', image_width: null, image_height: null, sort_order: 0, published: true },
+    sd_site_settings: {},
     sd_doctors: { specialty_id: null, role: '', qualifications: null, registration_no: null, bio: null, languages: [], availability: [], modes: [], focus: [], photo_url: null, photo_small_url: null, photo_alt: '', photo_width: null, photo_height: null, is_demo: true, sort_order: 0, published: false },
   };
 
@@ -160,7 +189,17 @@ export function createMockSupabase({ SB, seed, care }) {
     if (method === 'POST') {
       const list = Array.isArray(body) ? body : [body];
       const created = [];
+      const onConflict = url.searchParams.get('on_conflict');
       for (const b of list) {
+        const existing = onConflict && prefer.includes('resolution=merge-duplicates') ? db[table].find((r) => r[onConflict] === b[onConflict]) : null;
+        if (existing) {
+          const next = { ...existing, ...b, updated_at: now() };
+          const e = checkRow(table, next, existing.id);
+          if (e) return fail(e);
+          Object.assign(existing, next);
+          created.push(existing);
+          continue;
+        }
         const row = { id: randomUUID(), ...DEFAULTS[table], ...b, created_at: now(), updated_at: now() };
         const e = checkRow(table, row, row.id);
         if (e) return fail(e);

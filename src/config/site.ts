@@ -8,6 +8,8 @@ export const site = {
   tagline: 'Better Care. Connected Healthcare.',
   /** Public URL, used for canonical links and social previews. Set VITE_SITE_URL on Vercel. */
   url: (import.meta.env.VITE_SITE_URL as string | undefined)?.replace(/\/$/, '') || '',
+  /** Shows the demo banner and the "(demo)" labels. Turn off only once the details are real. */
+  demo: true,
   demoNotice: 'This is a demonstration website. Doctors, products and prices are fictional: no real appointments, orders or medical services.',
 
   contact: {
@@ -40,7 +42,7 @@ export const site = {
   },
 
   /** Optional credit line in the footer. */
-  credit: '',
+  credit: 'Illustrations are original artwork created for this demo.',
 };
 
 export type SiteConfig = typeof site;

@@ -12,6 +12,7 @@ import { EmptyState, LinkButton, Notice, QuantityStepper, buttonClass } from '@/
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { useCart } from '@/state/cart';
 import { whatsappUrl } from '@/services/contact';
+import { hello } from '@/config/live';
 import { cx } from '@/lib/format';
 import { NotFound } from './NotFound';
 
@@ -224,7 +225,7 @@ export function ProductDetail() {
               >
                 <ShoppingBag className="h-5 w-5" aria-hidden /> {!orderable ? 'Out of stock' : canAdd < 1 ? 'All available stock is in your cart' : 'Add to cart'}
               </button>
-              <a href={whatsappUrl(`Hello SaraDev, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
+              <a href={whatsappUrl(`${hello()}, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
                 <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
               </a>
             </div>

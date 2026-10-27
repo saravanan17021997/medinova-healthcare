@@ -55,8 +55,9 @@ Node 18.18 or later is required (tested on Node 22).
 Work in progress, built in stages.
 - **Stage 3:** sign-in, protected admin pages and a live dashboard.
 - **Stage 4:** products, categories and product images. The public store reads them from the database.
-- **Stage 5 (current):** doctors, specialties and appointment requests. The public pages read doctors and specialties from the database, and the appointment form saves requests to it.
-- **Later stages:** homepage and site content, orders, messages, settings and admin users.
+- **Stage 5:** doctors, specialties and appointment requests. The public pages read doctors and specialties from the database, and the appointment form saves requests to it.
+- **Stage 6 (current):** homepage sections, header and footer menus, facilities and site settings (name, contact details, hours, address, demo notices).
+- **Later stages:** orders, messages and admin users.
 
 | Route | What it does |
 |---|---|
@@ -69,6 +70,11 @@ Work in progress, built in stages.
 | `/admin/doctors` | Search by name or role; filter by specialty and status (shown, hidden, demo, verified); show or hide with one switch; delete with confirmation |
 | `/admin/doctors/new`, `/admin/doctors/:id` | Name, web address, role, specialty, qualifications, registration number, bio, languages, consultation modes, usual days, areas of focus, photo, demo flag and published. A verified profile must have qualifications before it can be published. |
 | `/admin/specialties` | Add, edit, reorder and hide specialties, with an icon, image and reasons to visit. A specialty that still has doctors cannot be deleted. |
+| `/admin/homepage` | The homepage sections in display order. Reorder or hide any section except the top one, which is always first. |
+| `/admin/homepage/:section` | Heading and text, buttons (with link checks), the appointment steps, the "why choose us" points with icons, and the section image. |
+| `/admin/navigation` | Header menu (up to 7 shown), footer links (up to 8) and social media links (up to 6, `https://` only). Add, edit, reorder, show or hide, delete. |
+| `/admin/facilities` | Add, edit, reorder and hide facilities, with an image for each. |
+| `/admin/settings` | Clinic name and tagline, phone, WhatsApp, email, opening hours, address and directions, demo notices and the footer line. |
 
 **How the store reads the catalogue**
 - With `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set, the Store, product pages, cart, checkout and home page read categories, products and images from Supabase. They use a plain REST call with the publishable key, so the public site does not download the Supabase library.
@@ -87,6 +93,16 @@ Work in progress, built in stages.
 - Visitors can create a request but cannot read any. Only admins can see requests.
 - A request is not a booking. The team calls the patient and sets the status: New, Contacted, Confirmed, Completed or Cancelled.
 - Doctor photos go to `doctors/<doctor id>/` and specialty images to `specialties/<specialty id>/` in the `sd-media` bucket.
+
+**How site content works**
+- Every page reads the site settings and menus; the homepage also reads its sections, and the Facilities page its facilities. Only published rows reach the website.
+- Each value is checked before it is used. Anything missing or malformed, and every link that is not a page on the site, `https://`, `mailto:` or `tel:`, is ignored and the built-in value from `src/config/site.ts` is used instead.
+- If the database cannot be reached, the header, footer and homepage show the built-in content, and the Facilities page offers Try again.
+- The browser keeps the last loaded settings, menus and sections, so a returning visitor sees the current phone number straight away. Fresh content is still loaded on every visit.
+- The phone number is stored twice: as typed (shown on the site) and as digits for the Call button. The WhatsApp number is stored as the country code and number, digits only.
+- "Show demo notices" controls the banner, the footer note and the "(demo)" labels. Demo doctor profiles and demo product prices have their own notices.
+- With more than 5 header links, the menu button is used below 1280 px wide; with 7 links the phone number is left out of the header (it is still in the phone menu and the footer).
+- Homepage and facility images go to `sections/<id>/` and `facilities/<id>/` in the `sd-media` bucket.
 
 **How access works**
 - Supabase Auth signs the person in. The `sd_admins` table is the allow-list: its `user_id` is the Auth user's id, with `role` set to `owner` or `editor`.
@@ -109,7 +125,7 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) and `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
@@ -117,6 +133,7 @@ npx vite preview --outDir dist-test --port 4181
 BASE_URL=http://localhost:4181 npm run verify:admin
 BASE_URL=http://localhost:4181 npm run verify:catalog
 BASE_URL=http://localhost:4181 npm run verify:care
+BASE_URL=http://localhost:4181 npm run verify:content
 ```
 
 ## Images

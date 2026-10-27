@@ -6,7 +6,7 @@ import { ConfirmDialog, dbError, useToast } from './ui';
 import { IMAGE_TYPES, checkImage, imageSize, pathFromPublicUrl, publicUrl, removeFiles, storagePathFor, uploadWithProgress } from './storage';
 
 interface Props {
-  table: 'sd_doctors' | 'sd_specialties';
+  table: 'sd_doctors' | 'sd_specialties' | 'sd_facilities' | 'sd_page_sections';
   id: string;
   /** Column prefix: photo_url / photo_width … or image_url / image_width … */
   prefix: 'photo' | 'image';
@@ -16,11 +16,15 @@ interface Props {
   label: string;
   hint: string;
   aspect?: string;
+  /** The table also stores the image's width and height (not sd_page_sections). */
+  sizeColumns?: boolean;
+  /** What the website shows once the image is removed. */
+  removedNote?: string;
   onChange: (next: { url: string | null; smallUrl: string | null }) => void;
 }
 
 /** One image stored on a row (doctor photo, specialty image): upload, replace or remove. */
-export function PhotoField({ table, id, prefix, folder, url, smallUrl, label, hint, aspect = 'aspect-[4/5]', onChange }: Props) {
+export function PhotoField({ table, id, prefix, folder, url, smallUrl, label, hint, aspect = 'aspect-[4/5]', sizeColumns = true, removedNote = 'The website will show a placeholder until you add a new one.', onChange }: Props) {
   const toast = useToast();
   const input = useRef<HTMLInputElement>(null);
   const [pct, setPct] = useState<number | null>(null);
@@ -42,7 +46,7 @@ export function PhotoField({ table, id, prefix, folder, url, smallUrl, label, hi
       const next = publicUrl(path);
       const { error: e } = await supabase
         .from(table)
-        .update({ [`${prefix}_url`]: next, [`${prefix}_small_url`]: null, [`${prefix}_width`]: size.width, [`${prefix}_height`]: size.height })
+        .update({ [`${prefix}_url`]: next, [`${prefix}_small_url`]: null, ...(sizeColumns ? { [`${prefix}_width`]: size.width, [`${prefix}_height`]: size.height } : {}) })
         .eq('id', id)
         .select('id')
         .single();
@@ -65,7 +69,7 @@ export function PhotoField({ table, id, prefix, folder, url, smallUrl, label, hi
     setBusy(true);
     const { error: e } = await supabase
       .from(table)
-      .update({ [`${prefix}_url`]: null, [`${prefix}_small_url`]: null, [`${prefix}_width`]: null, [`${prefix}_height`]: null })
+      .update({ [`${prefix}_url`]: null, [`${prefix}_small_url`]: null, ...(sizeColumns ? { [`${prefix}_width`]: null, [`${prefix}_height`]: null } : {}) })
       .eq('id', id)
       .select('id')
       .single();
@@ -111,7 +115,7 @@ export function PhotoField({ table, id, prefix, folder, url, smallUrl, label, hi
         </div>
       </div>
       <ConfirmDialog open={confirm} title="Remove this image?" confirmLabel="Remove image" busy={busy} onConfirm={remove} onCancel={() => setConfirm(false)}>
-        The website will show a placeholder until you add a new one.
+        {removedNote}
       </ConfirmDialog>
     </div>
   );

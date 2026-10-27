@@ -12,7 +12,8 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { telUrl, whatsappUrl } from '@/services/contact';
 import { isBlank, isEmail, isPhone, type Errors } from '@/lib/validation';
 import { formatDate, todayIso } from '@/lib/format';
-import { site } from '@/config/site';
+import { useSite } from '@/state/content';
+import { hello } from '@/config/live';
 
 interface Form {
   name: string;
@@ -50,6 +51,7 @@ function validate(f: Form): Errors<Form> {
 
 export function Appointment() {
   usePageMeta({ title: 'Book an appointment', description: 'Send an appointment request to SaraDev. In this demonstration nothing is booked.' });
+  const site = useSite();
   const { status: careStatus, specialties, doctors, specialtyBySlug, doctorBySlug } = useCare(true);
   const [params] = useSearchParams();
   const initialSpecialty = specialtyBySlug(params.get('specialty') ?? '')?.slug ?? '';
@@ -87,7 +89,7 @@ export function Appointment() {
     const s = specialtyBySlug(form.specialty);
     const d = doctorBySlug(form.doctor);
     return [
-      'Hello SaraDev, I would like to request an appointment.',
+      `${hello()}, I would like to request an appointment.`,
       `Name: ${form.name}`,
       `Phone: ${form.phone}`,
       form.email && `Email: ${form.email}`,
@@ -276,7 +278,7 @@ export function Appointment() {
               <a href={telUrl()} className={buttonClass('dark', 'md')}>
                 <Phone className="h-4 w-4" aria-hidden /> {site.contact.phoneDisplay}
               </a>
-              <a href={whatsappUrl('Hello SaraDev, I would like to request an appointment.')} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md')}>
+              <a href={whatsappUrl(`${hello()}, I would like to request an appointment.`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md')}>
                 <MessageCircle className="h-4 w-4" aria-hidden /> Message on WhatsApp
               </a>
             </div>

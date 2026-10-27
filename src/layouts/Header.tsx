@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, Phone, Search, ShoppingBag, X } from 'lucide-react';
-import { site } from '@/config/site';
+import { useNav, useSite } from '@/state/content';
+import { SiteLink } from '@/components/SiteLink';
 import { BRAND } from '@/data/img';
 import { useCart } from '@/state/cart';
 import { telUrl } from '@/services/contact';
 import { buttonClass } from '@/components/ui';
 import { cx } from '@/lib/format';
 
-const NAV = [
-  { to: '/specialties', label: 'Specialties' },
-  { to: '/doctors', label: 'Doctors' },
-  { to: '/facilities', label: 'Facilities' },
-  { to: '/store', label: 'Store' },
-  { to: '/contact', label: 'Contact' },
-];
-
 export function AnnouncementBar() {
+  const site = useSite();
+  if (!site.demo) return null;
   return (
     <div className="bg-ink text-white">
       <p className="container-x py-2 text-center text-[13px] leading-snug text-white/90">{site.demoNotice}</p>
@@ -28,6 +23,8 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const { count } = useCart();
   const { pathname } = useLocation();
+  const site = useSite();
+  const nav = useNav();
 
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -37,7 +34,11 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
-  const navLink = ({ isActive }: { isActive: boolean }) => cx('rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors', isActive ? 'bg-aqua-50 text-teal-700' : 'text-ink hover:bg-mist');
+  // A longer menu needs more room: it moves into the menu button until 1280 px. The phone number
+  // then appears from 1536 px, or not at all with a full menu (it stays in the phone menu and footer).
+  const long = nav.header.length > 5;
+  const phoneAt = nav.header.length <= 5 ? 'xl:flex' : nav.header.length === 6 ? '2xl:flex' : '';
+  const navLink = ({ isActive }: { isActive: boolean }) => cx('whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] font-medium transition-colors', isActive ? 'bg-aqua-50 text-teal-700' : 'text-ink hover:bg-mist');
 
   return (
     <header className="sticky top-0 z-40 border-b border-line/70 bg-white/95 backdrop-blur">
@@ -46,16 +47,14 @@ export function Header() {
           <img src={BRAND.logo} alt={site.name} width={220} height={64} className="h-10 w-auto sm:h-11" />
         </Link>
 
-        <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
-          {NAV.map((n) => (
-            <NavLink key={n.to} to={n.to} className={navLink}>
-              {n.label}
-            </NavLink>
+        <nav aria-label="Main" className={cx('ml-4 hidden items-center gap-1', long ? 'xl:flex' : 'lg:flex')}>
+          {nav.header.map((n) => (
+            <SiteLink key={n.href + n.label} item={n} className={navLink} />
           ))}
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
-          <a href={telUrl()} className="hidden h-10 items-center gap-2 rounded-full px-3 text-sm font-medium text-ink hover:bg-mist xl:flex">
+          <a href={telUrl()} className={cx('hidden h-10 items-center gap-2 whitespace-nowrap rounded-full px-3 text-sm font-medium text-ink hover:bg-mist', phoneAt)}>
             <Phone className="h-4 w-4" aria-hidden />
             {site.contact.phoneDisplay}
           </a>
@@ -66,17 +65,17 @@ export function Header() {
             <ShoppingBag className="h-5 w-5" aria-hidden />
             {count > 0 && <span className="absolute right-0.5 top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal px-1 text-[11px] font-bold text-white">{count}</span>}
           </Link>
-          <Link to="/appointment" className={buttonClass('primary', 'md', 'hidden sm:inline-flex')}>
+          <Link to="/appointment" className={buttonClass('primary', 'md', 'hidden whitespace-nowrap sm:inline-flex')}>
             Book an appointment
           </Link>
-          <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist lg:hidden" aria-expanded={open} aria-controls="mobile-nav" aria-label="Open menu" onClick={() => setOpen(true)}>
+          <button type="button" className={cx('flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist', long ? 'xl:hidden' : 'lg:hidden')} aria-expanded={open} aria-controls="mobile-nav" aria-label="Open menu" onClick={() => setOpen(true)}>
             <Menu className="h-6 w-6" aria-hidden />
           </button>
         </div>
       </div>
 
       {/* mobile drawer */}
-      <div id="mobile-nav" className={cx('fixed inset-0 z-50 overflow-hidden lg:hidden', open ? '' : 'pointer-events-none invisible delay-200')} aria-hidden={!open}>
+      <div id="mobile-nav" className={cx('fixed inset-0 z-50 overflow-hidden', long ? 'xl:hidden' : 'lg:hidden', open ? '' : 'pointer-events-none invisible delay-200')} aria-hidden={!open}>
         <div className={cx('absolute inset-0 bg-ink/40 transition-opacity', open ? 'opacity-100' : 'opacity-0')} onClick={() => setOpen(false)} />
         <div role="dialog" aria-modal="true" aria-label="Menu" className={cx('absolute right-0 top-0 flex h-full w-[min(88vw,360px)] flex-col bg-white p-5 shadow-lift transition-transform duration-200', open ? 'translate-x-0' : 'translate-x-full')}>
           <div className="mb-6 flex items-center justify-between">
@@ -86,10 +85,8 @@ export function Header() {
             </button>
           </div>
           <nav aria-label="Mobile" className="flex flex-col gap-1">
-            {[{ to: '/', label: 'Home' }, ...NAV, { to: '/cart', label: `Cart (${count})` }].map((n) => (
-              <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={open ? 0 : -1} className={({ isActive }) => cx('rounded-xl px-4 py-3 text-lg font-medium', isActive ? 'bg-aqua-50 text-teal-700' : 'text-ink hover:bg-mist')}>
-                {n.label}
-              </NavLink>
+            {[{ href: '/', label: 'Home', newTab: false }, ...nav.header, { href: '/cart', label: `Cart (${count})`, newTab: false }].map((n) => (
+              <SiteLink key={n.href + n.label} item={n} end={n.href === '/'} tabIndex={open ? 0 : -1} className={({ isActive }) => cx('rounded-xl px-4 py-3 text-lg font-medium', isActive ? 'bg-aqua-50 text-teal-700' : 'text-ink hover:bg-mist')} />
             ))}
           </nav>
           <div className="mt-auto flex flex-col gap-2">

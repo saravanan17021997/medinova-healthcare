@@ -8,3 +8,5 @@ dist
 .vercel
 scripts/verify-catalog.json
 scripts/verify-care.json
+scripts/verify-content.json
+scripts/verify-admin-configured.json

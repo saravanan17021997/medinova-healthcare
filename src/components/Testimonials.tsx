@@ -1,4 +1,4 @@
-import { site } from '@/config/site';
+import { useSite } from '@/state/content';
 import { testimonials } from '@/data/testimonials';
 import { SectionHeading } from './ui';
 
@@ -7,6 +7,7 @@ import { SectionHeading } from './ui';
  * testimonials you have written permission to publish.
  */
 export function Testimonials() {
+  const site = useSite();
   if (!site.features.testimonials || testimonials.length === 0) return null;
   return (
     <section aria-labelledby="testimonials-heading" className="container-x mt-24">

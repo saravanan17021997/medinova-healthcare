@@ -10,6 +10,7 @@ import { PageHeader, Breadcrumbs } from '@/components/PageHeader';
 import { DemoBadge, EmptyState, LinkButton, Notice, buttonClass } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { whatsappUrl } from '@/services/contact';
+import { hello } from '@/config/live';
 import { NotFound } from './NotFound';
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -198,7 +199,7 @@ export function DoctorProfile() {
             <LinkButton to={`/appointment?specialty=${s.slug}&doctor=${d.slug}`} size="lg">
               <CalendarCheck className="h-5 w-5" aria-hidden /> Request an appointment
             </LinkButton>
-            <a href={whatsappUrl(`Hello SaraDev, I would like to request an appointment with ${d.name} (${s.name}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
+            <a href={whatsappUrl(`${hello()}, I would like to request an appointment with ${d.name} (${s.name}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
               <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
             </a>
           </div>

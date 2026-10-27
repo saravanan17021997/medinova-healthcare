@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
-  CalendarCheck, ExternalLink, FileText, HeartPulse, LayoutDashboard, LogOut, Menu, MessageSquare, Package,
+  Building2, CalendarCheck, ExternalLink, HeartPulse, House, LayoutDashboard, ListTree, LogOut, Menu, MessageSquare, Package,
   Settings, ShoppingBag, Stethoscope, Tags, UserCog, X, type LucideIcon,
 } from 'lucide-react';
 import { BRAND } from '@/data/img';
@@ -16,7 +16,16 @@ const NAV: { heading: string; items: NavItem[] }[] = [
   { heading: 'Catalogue', items: [{ label: 'Products', to: '/admin/products', icon: Package }, { label: 'Categories', to: '/admin/categories', icon: Tags }] },
   { heading: 'Care', items: [{ label: 'Appointments', to: '/admin/appointments', icon: CalendarCheck }, { label: 'Doctors', to: '/admin/doctors', icon: Stethoscope }, { label: 'Specialties', to: '/admin/specialties', icon: HeartPulse }] },
   { heading: 'Sales and enquiries', items: [{ label: 'Orders', icon: ShoppingBag }, { label: 'Messages', icon: MessageSquare }] },
-  { heading: 'Website', items: [{ label: 'Pages and content', icon: FileText }, { label: 'Settings', icon: Settings }, { label: 'Admin users', icon: UserCog }] },
+  {
+    heading: 'Website',
+    items: [
+      { label: 'Homepage', to: '/admin/homepage', icon: House },
+      { label: 'Navigation', to: '/admin/navigation', icon: ListTree },
+      { label: 'Facilities', to: '/admin/facilities', icon: Building2 },
+      { label: 'Site settings', to: '/admin/settings', icon: Settings },
+      { label: 'Admin users', icon: UserCog },
+    ],
+  },
 ];
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
@@ -78,6 +87,13 @@ const titleFor = (path: string) =>
   : path.startsWith('/admin/specialties/') ? 'Edit specialty'
   : path.startsWith('/admin/specialties') ? 'Specialties'
   : path.startsWith('/admin/appointments') ? 'Appointments'
+  : path.startsWith('/admin/homepage/') ? 'Edit homepage section'
+  : path.startsWith('/admin/homepage') ? 'Homepage'
+  : path.startsWith('/admin/navigation') ? 'Navigation'
+  : path.startsWith('/admin/facilities/new') ? 'Add facility'
+  : path.startsWith('/admin/facilities/') ? 'Edit facility'
+  : path.startsWith('/admin/facilities') ? 'Facilities'
+  : path.startsWith('/admin/settings') ? 'Site settings'
   : path.startsWith('/admin/products/new') ? 'Add product'
   : path.startsWith('/admin/products/') ? 'Edit product'
   : path.startsWith('/admin/products') ? 'Products'

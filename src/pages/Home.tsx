@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
-import { CalendarCheck, Clock, MapPin, MessageCircle, Phone, Search, ShoppingBag } from 'lucide-react';
-import { site } from '@/config/site';
+import type { ReactNode } from 'react';
+import { CalendarCheck, Clock, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { HERO } from '@/data/img';
+import { hello } from '@/config/live';
+import { useSections, useSite } from '@/state/content';
+import type { Cta, PageSection } from '@/services/content';
+import { careSource } from '@/services/care';
+import { isInternal } from '@/lib/links';
+import { FeatureIcon } from '@/components/FeatureIcon';
 import { useCare } from '@/state/care';
 import { CardGridSkeleton, CareError } from '@/components/care';
 import { useCatalog } from '@/state/catalog';
@@ -13,9 +19,25 @@ import { LinkButton, Notice, SectionHeading, buttonClass } from '@/components/ui
 import { Testimonials } from '@/components/Testimonials';
 import { LocationPanel } from '@/components/LocationPanel';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { whatsappUrl } from '@/services/contact';
+import { telUrl, whatsappUrl } from '@/services/contact';
 
-function Hero() {
+/** A button from the admin panel: a router link for pages on this site, a normal link for anything else. */
+function CtaButton({ cta, variant = 'primary', className, children }: { cta: Cta; variant?: 'primary' | 'outline' | 'light'; className?: string; children?: ReactNode }) {
+  const content = children ?? cta.label;
+  if (isInternal(cta.href))
+    return (
+      <LinkButton to={cta.href} variant={variant} size="lg" className={className}>
+        {content}
+      </LinkButton>
+    );
+  return (
+    <a href={cta.href} {...(cta.href.startsWith('https://') ? { target: '_blank', rel: 'noreferrer' } : {})} className={buttonClass(variant, 'lg', className)}>
+      {content}
+    </a>
+  );
+}
+
+function Hero({ section }: { section: PageSection }) {
   const { specialties } = useCare(true);
   const preferred = ['general-medicine', 'cardiology', 'paediatrics', 'dentistry'].map((s) => specialties.find((x) => x.slug === s)).filter((s): s is NonNullable<typeof s> => Boolean(s));
   const quick = preferred.length >= 2 ? preferred : specialties.slice(0, 4);
@@ -27,16 +49,18 @@ function Hero() {
       </svg>
       <div className="container-x relative grid items-center gap-10 pb-16 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-24 lg:pt-16">
         <div>
-          <h1 className="font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.01em] text-ink sm:text-6xl lg:text-[4.1rem]">Healthcare that puts you first</h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate sm:text-xl">Explore healthcare services, discover medical professionals, request appointments, and browse healthcare essentials in one convenient digital experience.</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <LinkButton to="/appointment" size="lg">
-              <CalendarCheck className="h-5 w-5" aria-hidden /> Book an appointment
-            </LinkButton>
-            <LinkButton to="/specialties" variant="outline" size="lg">
-              Explore services
-            </LinkButton>
-          </div>
+          <h1 className="font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.01em] text-ink sm:text-6xl lg:text-[4.1rem]">{section.heading}</h1>
+          {section.body && <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate sm:text-xl">{section.body}</p>}
+          {(section.cta || section.cta2) && (
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              {section.cta && (
+                <CtaButton cta={section.cta}>
+                  {section.cta.href.startsWith('/appointment') && <CalendarCheck className="h-5 w-5" aria-hidden />} {section.cta.label}
+                </CtaButton>
+              )}
+              {section.cta2 && <CtaButton cta={section.cta2} variant="outline" />}
+            </div>
+          )}
           <div className="mt-10">
             <p className="text-sm font-semibold text-ink">Popular specialties</p>
             <ul className="mt-3 flex flex-wrap gap-2">
@@ -53,7 +77,7 @@ function Hero() {
         </div>
         <div className="relative mx-auto w-full max-w-[560px]">
           <div className="arch-lg aspect-[5/6] overflow-hidden bg-white shadow-lift ring-1 ring-line/60">
-            <Img image={HERO.team} priority sizes="(min-width: 1024px) 46vw, 92vw" className="h-full w-full object-cover object-[50%_40%]" />
+            <Img image={section.image ?? HERO.team} priority sizes="(min-width: 1024px) 46vw, 92vw" className="h-full w-full object-cover object-[50%_40%]" />
           </div>
           <span aria-hidden className="pathway-node absolute -right-1 top-[6%] hidden h-5 w-5 rounded-full bg-aqua ring-8 ring-aqua/20 lg:block" />
         </div>
@@ -62,18 +86,20 @@ function Hero() {
   );
 }
 
-function AppointmentBand() {
-  const steps = ['Choose a specialty, and a doctor if you have one in mind.', 'Pick a day and a time of day that suits you.', 'The team calls you back to confirm a slot.'];
+function AppointmentBand({ section }: { section: PageSection }) {
+  const steps = section.steps;
   return (
     <section aria-labelledby="appointment-heading" className="container-x mt-24">
       <div className="grid overflow-hidden rounded-[32px] bg-ink text-white lg:grid-cols-2">
         <div className="relative min-h-[260px]">
-          <Img image={HERO.consultation} sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <Img image={section.image ?? HERO.consultation} sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover object-center" />
         </div>
         <div className="p-8 sm:p-12">
           <h2 id="appointment-heading" className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
-            Request an appointment in three steps
+            {section.heading}
           </h2>
+          {section.body && <p className="mt-4 text-white/80">{section.body}</p>}
+          {steps.length > 0 && (
           <ol className="mt-8 space-y-5">
             {steps.map((s, i) => (
               <li key={s} className="flex gap-4">
@@ -82,27 +108,26 @@ function AppointmentBand() {
               </li>
             ))}
           </ol>
+          )}
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <LinkButton to="/appointment" variant="light" size="lg">
-              Start your request
-            </LinkButton>
-            <a href={whatsappUrl('Hello SaraDev, I would like to request an appointment.')} target="_blank" rel="noreferrer" className={buttonClass('ghost', 'lg', 'text-white hover:bg-white/10')}>
+            {section.cta && <CtaButton cta={section.cta} variant="light" />}
+            <a href={whatsappUrl(`${hello()}, I would like to request an appointment.`)} target="_blank" rel="noreferrer" className={buttonClass('ghost', 'lg', 'text-white hover:bg-white/10')}>
               <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
             </a>
           </div>
-          <p className="mt-6 text-sm text-white/60">Demo: requests are not booked. Nothing is sent unless integrations are switched on.</p>
+          <p className="mt-6 text-sm text-white/60">{careSource === 'database' ? 'A request is not a booking: the team calls you to confirm a time.' : 'Demo: requests are not booked. Nothing is sent unless integrations are switched on.'}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function Essentials() {
+function Essentials({ section }: { section: PageSection }) {
   const { status, categories, products } = useCatalog(true);
   const featured = [...products.filter((p) => p.featured), ...products.filter((p) => !p.featured)].slice(0, 4);
   return (
     <section aria-labelledby="essentials-heading" className="container-x mt-24">
-      <SectionHeading id="essentials-heading" title="Everyday health essentials" intro="A sample catalogue of home-care items. Prices are illustrative and orders are simulated." action={<LinkButton to="/store" variant="outline">Visit the store</LinkButton>} />
+      <SectionHeading id="essentials-heading" title={section.heading} intro={section.body || undefined} action={<LinkButton to="/store" variant="outline">Visit the store</LinkButton>} />
       <ul className="mb-8 flex gap-2 overflow-x-auto pb-1">
         {categories.map((c) => (
           <li key={c.slug} className="shrink-0">
@@ -126,40 +151,37 @@ function Essentials() {
   );
 }
 
-function WhyUs() {
-  const items = [
-    { icon: Search, title: 'Find the right care', body: 'Browse specialties and team profiles, and filter by language and availability.' },
-    { icon: CalendarCheck, title: 'Request a time that suits you', body: 'Send an appointment request in a few steps, without waiting on hold.' },
-    { icon: MessageCircle, title: 'Talk to us on WhatsApp', body: 'Every page offers a one-tap message with your question already written.' },
-    { icon: ShoppingBag, title: 'Order everyday essentials', body: 'Pick up home-care items from the same place you manage your visits.' },
-  ];
+function WhyUs({ section }: { section: PageSection }) {
   return (
     <section aria-labelledby="why-heading" className="container-x mt-24">
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="overflow-hidden rounded-[28px] shadow-card ring-1 ring-line/60">
-          <Img image={HERO.reception} sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[16/11] w-full object-cover object-center" />
+          <Img image={section.image ?? HERO.reception} sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[16/11] w-full object-cover object-center" />
         </div>
         <div>
-          <SectionHeading id="why-heading" title="Why people choose SaraDev" intro="Everything you need before, between and after visits, in one place." />
-          <ul className="grid gap-6 sm:grid-cols-2">
-            {items.map(({ icon: Icon, title, body }) => (
-              <li key={title}>
-                <Icon className="h-6 w-6 text-teal" aria-hidden />
-                <h3 className="mt-3 font-semibold text-ink">{title}</h3>
-                <p className="mt-1 text-[15px] leading-relaxed text-slate">{body}</p>
-              </li>
-            ))}
-          </ul>
+          <SectionHeading id="why-heading" title={section.heading} intro={section.body || undefined} />
+          {section.features.length > 0 && (
+            <ul className="grid gap-6 sm:grid-cols-2">
+              {section.features.map((f) => (
+                <li key={f.title}>
+                  <FeatureIcon name={f.icon} className="h-6 w-6 text-teal" />
+                  <h3 className="mt-3 font-semibold text-ink">{f.title}</h3>
+                  {f.body && <p className="mt-1 text-[15px] leading-relaxed text-slate">{f.body}</p>}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-function Visit() {
+function Visit({ section }: { section: PageSection }) {
+  const site = useSite();
   return (
     <section aria-labelledby="visit-heading" className="container-x mt-24">
-      <SectionHeading id="visit-heading" title="Visit or contact us" />
+      <SectionHeading id="visit-heading" title={section.heading} intro={section.body || undefined} />
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
         <div className="overflow-hidden rounded-[28px] shadow-card ring-1 ring-line/60">
           <Img image={HERO.exterior} sizes="(min-width: 1024px) 56vw, 92vw" className="aspect-[16/10] h-full w-full object-cover object-center" />
@@ -168,7 +190,7 @@ function Visit() {
           <LocationPanel />
           <div className="border-t border-line/70 pt-4">
             <h3 className="flex items-center gap-2 font-semibold text-ink">
-              <Clock className="h-[18px] w-[18px] text-teal" aria-hidden /> Opening hours <span className="text-xs font-normal text-slate">(demo)</span>
+              <Clock className="h-[18px] w-[18px] text-teal" aria-hidden /> Opening hours {site.demo && <span className="text-xs font-normal text-slate">(demo)</span>}
             </h3>
             <dl className="mt-3 space-y-1.5 text-[15px]">
               {site.contact.hours.map((h) => (
@@ -180,10 +202,10 @@ function Visit() {
             </dl>
           </div>
           <div className="mt-auto flex flex-col gap-2 sm:flex-row">
-            <a href={`tel:${site.contact.phoneHref}`} className={buttonClass('dark', 'md', 'flex-1')}>
+            <a href={telUrl()} className={buttonClass('dark', 'md', 'flex-1')}>
               <Phone className="h-4 w-4" aria-hidden /> Call us
             </a>
-            <a href={whatsappUrl('Hello SaraDev, I have a question.')} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md', 'flex-1')}>
+            <a href={whatsappUrl(`${hello()}, I have a question.`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md', 'flex-1')}>
               <MessageCircle className="h-4 w-4" aria-hidden /> WhatsApp
             </a>
           </div>
@@ -193,51 +215,79 @@ function Visit() {
   );
 }
 
-export function Home() {
-  const { status, specialties, doctors } = useCare(true);
+function Specialties({ section }: { section: PageSection }) {
+  const { status, specialties } = useCare(true);
+  return (
+    <section aria-labelledby="specialties-heading" className="container-x mt-20">
+      <SectionHeading id="specialties-heading" title={section.heading} intro={section.body || undefined} action={<LinkButton to="/specialties" variant="outline">All specialties</LinkButton>} />
+      {status === 'ready' ? (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {specialties.map((s) => (
+            <SpecialtyCard key={s.slug} specialty={s} compact />
+          ))}
+        </div>
+      ) : status === 'error' ? (
+        <CareError />
+      ) : (
+        <CardGridSkeleton count={5} className="lg:grid-cols-5" />
+      )}
+    </section>
+  );
+}
+
+function Team({ section }: { section: PageSection }) {
+  const { status, doctors } = useCare(true);
   const anyDemo = doctors.some((d) => d.isDemo !== false);
+  return (
+    <section aria-labelledby="team-heading" className="container-x mt-24">
+      <SectionHeading id="team-heading" title={section.heading} intro={section.body || undefined} action={<LinkButton to="/doctors" variant="outline">Find a doctor</LinkButton>} />
+      {anyDemo && <Notice className="mb-6">These are fictional demonstration profiles with illustrated portraits, not real clinicians. Replace them with verified details before publishing.</Notice>}
+      {status === 'ready' ? (
+        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+          {doctors.slice(0, 4).map((d) => (
+            <DoctorCard key={d.slug} doctor={d} />
+          ))}
+        </div>
+      ) : status === 'error' ? null : (
+        <CardGridSkeleton count={4} tall className="grid-cols-2" />
+      )}
+    </section>
+  );
+}
+
+const SECTION_VIEWS: Record<Exclude<PageSection['key'], 'home.hero'>, (p: { section: PageSection }) => JSX.Element> = {
+  'home.specialties': Specialties,
+  'home.team': Team,
+  'home.appointment': AppointmentBand,
+  'home.essentials': Essentials,
+  'home.why': WhyUs,
+  'home.visit': Visit,
+};
+
+export function Home() {
+  const site = useSite();
+  const { sections } = useSections();
+  const [hero, ...rest] = sections;
+  const showsVisit = rest.some((s) => s.key === 'home.visit');
   usePageMeta({ title: site.name, description: 'Explore healthcare services, discover medical professionals, request appointments and browse healthcare essentials. A SaraDev demonstration website.' });
   return (
     <>
-      <Hero />
-
-      <section aria-labelledby="specialties-heading" className="container-x mt-20">
-        <SectionHeading id="specialties-heading" title="Find the right specialty" intro="Start with what you need help with. Each specialty page explains what to expect and who you can see." action={<LinkButton to="/specialties" variant="outline">All specialties</LinkButton>} />
-        {status === 'ready' ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {specialties.map((s) => (
-              <SpecialtyCard key={s.slug} specialty={s} compact />
-            ))}
+      <Hero section={hero} />
+      {rest.map((section) => {
+        const View = SECTION_VIEWS[section.key as keyof typeof SECTION_VIEWS];
+        return (
+          <div key={section.key} data-section={section.key} className="contents">
+            {section.key === 'home.visit' && <Testimonials />}
+            <View section={section} />
           </div>
-        ) : status === 'error' ? (
-          <CareError />
-        ) : (
-          <CardGridSkeleton count={5} className="lg:grid-cols-5" />
-        )}
-      </section>
-
-      <section aria-labelledby="team-heading" className="container-x mt-24">
-        <SectionHeading id="team-heading" title="Meet the care team" intro="Browse profiles by specialty, language and the days each person is available." action={<LinkButton to="/doctors" variant="outline">Find a doctor</LinkButton>} />
-        {anyDemo && <Notice className="mb-6">These are fictional demonstration profiles with illustrated portraits, not real clinicians. Replace them with verified details before publishing.</Notice>}
-        {status === 'ready' ? (
-          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-            {doctors.slice(0, 4).map((d) => (
-              <DoctorCard key={d.slug} doctor={d} />
-            ))}
-          </div>
-        ) : status === 'error' ? null : (
-          <CardGridSkeleton count={4} tall className="grid-cols-2" />
-        )}
-      </section>
-
-      <AppointmentBand />
-      <Essentials />
-      <WhyUs />
-      <Testimonials />
-      <Visit />
-      <p className="container-x mt-10 flex items-center gap-2 text-sm text-slate">
-        <MapPin className="h-4 w-4" aria-hidden /> Location details are placeholders until a verified address is configured.
-      </p>
+        );
+      })}
+      {!showsVisit && <Testimonials />}
+      {showsVisit && !site.location.verified && (
+        <p className="container-x mt-10 flex items-center gap-2 text-sm text-slate">
+          <MapPin className="h-4 w-4" aria-hidden /> Location details are placeholders until a verified address is configured.
+        </p>
+      )}
     </>
   );
 }

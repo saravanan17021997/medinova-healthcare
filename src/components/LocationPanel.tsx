@@ -1,9 +1,10 @@
 import { MapPin, Navigation } from 'lucide-react';
-import { site } from '@/config/site';
+import { useSite } from '@/state/content';
 import { directionsUrl } from '@/services/contact';
 import { buttonClass } from './ui';
 
 export function LocationPanel() {
+  const site = useSite();
   const url = directionsUrl();
   return (
     <div>
@@ -22,7 +23,7 @@ export function LocationPanel() {
           <Navigation className="h-4 w-4" aria-hidden /> Get directions
         </a>
       ) : (
-        <p className="mt-3 text-sm text-slate">Directions appear here once a verified address is set in the site configuration.</p>
+        <p className="mt-3 text-sm text-slate">Directions appear here once the clinic address has been confirmed.</p>
       )}
     </div>
   );

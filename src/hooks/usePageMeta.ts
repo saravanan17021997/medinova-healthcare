@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { site } from '@/config/site';
+import { useSite } from '@/state/content';
 
 interface Meta {
   title: string;
@@ -22,6 +22,7 @@ const setMeta = (selector: string, attr: 'name' | 'property', key: string, conte
 /** Sets the document title, description, canonical link and Open Graph tags for a page. */
 export function usePageMeta({ title, description, image = '/og-image.png' }: Meta) {
   const { pathname } = useLocation();
+  const site = useSite();
   useEffect(() => {
     const full = title === site.name ? `${site.name} | ${site.tagline}` : `${title} | ${site.name}`;
     document.title = full;
@@ -37,5 +38,5 @@ export function usePageMeta({ title, description, image = '/og-image.png' }: Met
       document.head.appendChild(link);
     }
     link.href = `${site.url || window.location.origin}${pathname}`;
-  }, [title, description, image, pathname]);
+  }, [title, description, image, pathname, site]);
 }

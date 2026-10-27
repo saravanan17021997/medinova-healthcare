@@ -11,17 +11,20 @@ import { App } from './App';
 import { CartProvider } from './state/cart';
 import { CatalogProvider } from './state/catalog';
 import { CareProvider } from './state/care';
+import { ContentProvider } from './state/content';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <CareProvider>
-        <CatalogProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </CatalogProvider>
-      </CareProvider>
+      <ContentProvider>
+        <CareProvider>
+          <CatalogProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </CatalogProvider>
+        </CareProvider>
+      </ContentProvider>
     </BrowserRouter>
   </StrictMode>,
 );

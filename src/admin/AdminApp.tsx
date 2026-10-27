@@ -11,6 +11,10 @@ import { AdminDoctors } from './pages/Doctors';
 import { AdminDoctorForm } from './pages/DoctorForm';
 import { AdminSpecialties, AdminSpecialtyForm } from './pages/Specialties';
 import { AdminAppointments } from './pages/Appointments';
+import { AdminHomepage, AdminSectionForm } from './pages/Homepage';
+import { AdminNavigation } from './pages/Navigation';
+import { AdminFacilities, AdminFacilityForm } from './pages/Facilities';
+import { AdminSettings } from './pages/Settings';
 import { ToastProvider } from './ui';
 
 function AdminNotFound() {
@@ -53,6 +57,13 @@ export default function AdminApp() {
           <Route path="specialties/new" element={<AdminSpecialtyForm key="new" />} />
           <Route path="specialties/:id" element={<AdminSpecialtyForm />} />
           <Route path="appointments" element={<AdminAppointments />} />
+          <Route path="homepage" element={<AdminHomepage />} />
+          <Route path="homepage/:key" element={<AdminSectionForm />} />
+          <Route path="navigation" element={<AdminNavigation />} />
+          <Route path="facilities" element={<AdminFacilities />} />
+          <Route path="facilities/new" element={<AdminFacilityForm key="new" />} />
+          <Route path="facilities/:id" element={<AdminFacilityForm />} />
+          <Route path="settings" element={<AdminSettings />} />
           <Route path="*" element={<AdminNotFound />} />
         </Route>
       </Routes>

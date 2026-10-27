@@ -206,9 +206,9 @@ if (MODE === 'unconfigured') {
   await test('Unbuilt sections are visibly disabled, not broken links', async () => {
     const { page } = ownerCtx;
     const disabled = await page.locator('aside [aria-disabled="true"]').count();
-    expect(disabled === 5, 'disabled items ' + disabled);
+    expect(disabled === 3, 'disabled items ' + disabled);
     expect((await page.locator('aside a[href="/admin/dashboard"]').count()) === 1, 'dashboard link missing');
-    return '5 sections marked "Soon" (catalogue and care sections are live)';
+    return '3 sections marked "Soon" (orders, messages, admin users)';
   });
 
   await test('Unknown admin page shows a friendly message inside the layout', async () => {
@@ -299,12 +299,12 @@ if (MODE === 'unconfigured') {
     const scripts = [];
     page.on('request', (r) => r.resourceType() === 'script' && scripts.push(new URL(r.url()).pathname));
     for (const r of ['/', '/store', '/doctors', '/appointment', '/contact']) await page.goto(BASE + r, { waitUntil: 'networkidle' });
-    const bad = log.supabaseCalls.filter((c) => !/^GET \/rest\/v1\/sd_(categories|products|specialties|doctors)$/.test(c));
+    const bad = log.supabaseCalls.filter((c) => !/^GET \/rest\/v1\/sd_(categories|products|specialties|doctors|site_settings|nav_links|page_sections|facilities)$/.test(c));
     expect(bad.length === 0, 'unexpected Supabase calls: ' + bad.join(', '));
     expect(!scripts.some((s) => /AdminApp/.test(s)), 'admin code downloaded on public pages');
     expect(!(await page.getByRole('link', { name: /admin/i }).count()), 'public page links to admin');
     await ctx.close();
-    return 'only GETs of published content (products, categories, specialties, doctors); no admin bundle';
+    return 'only GETs of published content (settings, menus, sections, products, categories, specialties, doctors); no admin bundle';
   });
 }
 
