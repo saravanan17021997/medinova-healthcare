@@ -206,14 +206,14 @@ if (MODE === 'unconfigured') {
   await test('Unbuilt sections are visibly disabled, not broken links', async () => {
     const { page } = ownerCtx;
     const disabled = await page.locator('aside [aria-disabled="true"]').count();
-    expect(disabled === 9, 'disabled items ' + disabled);
+    expect(disabled === 7, 'disabled items ' + disabled);
     expect((await page.locator('aside a[href="/admin/dashboard"]').count()) === 1, 'dashboard link missing');
-    return '9 sections marked "Soon"';
+    return '7 sections marked "Soon" (Products and Categories are live)';
   });
 
   await test('Unknown admin page shows a friendly message inside the layout', async () => {
     const { page } = ownerCtx;
-    await page.goto(BASE + '/admin/products');
+    await page.goto(BASE + '/admin/no-such-page');
     await page.getByRole('heading', { name: 'This admin page does not exist yet' }).waitFor();
   });
 
@@ -294,16 +294,19 @@ if (MODE === 'unconfigured') {
     await ctx.close();
   });
 
-  await test('Public website is unaffected: no Supabase traffic and no admin code on public pages', async () => {
+  await test('Public website: only product pages read the catalogue (read-only), no sign-in traffic, no admin code', async () => {
     const { page, ctx, log } = await newPage();
     const scripts = [];
     page.on('request', (r) => r.resourceType() === 'script' && scripts.push(new URL(r.url()).pathname));
-    for (const r of ['/', '/store', '/doctors', '/appointment']) await page.goto(BASE + r, { waitUntil: 'networkidle' });
-    expect(log.supabaseCalls.length === 0, 'Supabase called from public pages: ' + log.supabaseCalls.join(', '));
+    for (const r of ['/doctors', '/appointment', '/contact']) await page.goto(BASE + r, { waitUntil: 'networkidle' });
+    expect(log.supabaseCalls.length === 0, 'pages without products contacted Supabase: ' + log.supabaseCalls.join(', '));
+    for (const r of ['/', '/store']) await page.goto(BASE + r, { waitUntil: 'networkidle' });
+    const bad = log.supabaseCalls.filter((c) => !/^GET \/rest\/v1\/sd_(categories|products)$/.test(c));
+    expect(bad.length === 0, 'unexpected Supabase calls: ' + bad.join(', '));
     expect(!scripts.some((s) => /AdminApp/.test(s)), 'admin code downloaded on public pages');
     expect(!(await page.getByRole('link', { name: /admin/i }).count()), 'public page links to admin');
     await ctx.close();
-    return 'public pages loaded without contacting Supabase or downloading the admin bundle';
+    return 'doctors/appointment/contact: 0 calls; home/store: read-only catalogue GETs only; no admin bundle';
   });
 }
 

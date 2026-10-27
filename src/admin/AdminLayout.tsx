@@ -13,7 +13,7 @@ interface NavItem { label: string; to?: string; icon: LucideIcon }
 // Sections that are not built yet are shown as "Soon" so the menu does not change shape later.
 const NAV: { heading: string; items: NavItem[] }[] = [
   { heading: 'Overview', items: [{ label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard }] },
-  { heading: 'Catalogue', items: [{ label: 'Products', icon: Package }, { label: 'Categories', icon: Tags }] },
+  { heading: 'Catalogue', items: [{ label: 'Products', to: '/admin/products', icon: Package }, { label: 'Categories', to: '/admin/categories', icon: Tags }] },
   { heading: 'Care', items: [{ label: 'Doctors and specialties', icon: Stethoscope }, { label: 'Appointments', icon: CalendarCheck }] },
   { heading: 'Sales and enquiries', items: [{ label: 'Orders', icon: ShoppingBag }, { label: 'Messages', icon: MessageSquare }] },
   { heading: 'Website', items: [{ label: 'Pages and content', icon: FileText }, { label: 'Settings', icon: Settings }, { label: 'Admin users', icon: UserCog }] },
@@ -70,7 +70,13 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-const TITLES: Record<string, string> = { '/admin/dashboard': 'Dashboard' };
+const titleFor = (path: string) =>
+  path.startsWith('/admin/products/new') ? 'Add product'
+  : path.startsWith('/admin/products/') ? 'Edit product'
+  : path.startsWith('/admin/products') ? 'Products'
+  : path.startsWith('/admin/categories') ? 'Categories'
+  : path.startsWith('/admin/dashboard') ? 'Dashboard'
+  : 'Admin';
 
 export function AdminLayout() {
   const { email, role, signOut } = useAdminAuth();
@@ -126,7 +132,7 @@ export function AdminLayout() {
           <button ref={menuRef} type="button" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open} aria-controls="admin-drawer" className="-ml-1 flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist lg:hidden">
             <Menu className="h-5 w-5" aria-hidden />
           </button>
-          <p className="truncate font-display text-xl font-semibold text-ink">{TITLES[pathname] ?? 'Admin'}</p>
+          <p className="truncate font-display text-xl font-semibold text-ink">{titleFor(pathname)}</p>
           <div className="ml-auto flex items-center gap-3">
             <div className="hidden text-right leading-tight sm:block">
               <p className="max-w-[220px] truncate text-sm font-medium text-ink" title={email ?? ''}>

@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Trash2 } from 'lucide-react';
+import { AlertTriangle, Trash2 } from 'lucide-react';
 import { ILLUSTRATION } from '@/data/img';
 import { Img } from '@/components/Img';
 import { Breadcrumbs } from '@/components/PageHeader';
@@ -10,6 +10,16 @@ import { useCart, type CartLine } from '@/state/cart';
 import { formatPrice } from '@/lib/format';
 import { isBlank, isEmail, isPhone, isPinCode, type Errors } from '@/lib/validation';
 import { submitEnquiry } from '@/services/enquiry';
+import { useCatalog } from '@/state/catalog';
+import { CatalogError, ProductGridSkeleton } from '@/components/store';
+
+/** Loading / error states shared by the cart and checkout. */
+function useCartGate() {
+  const { status } = useCatalog(true);
+  if (status === 'loading' || status === 'idle') return <ProductGridSkeleton count={2} />;
+  if (status === 'error') return <CatalogError className="mt-6" />;
+  return null;
+}
 
 function Summary({ subtotal, count, children }: { subtotal: number; count: number; children?: React.ReactNode }) {
   return (
@@ -42,13 +52,14 @@ function Summary({ subtotal, count, children }: { subtotal: number; count: numbe
 
 export function Cart() {
   usePageMeta({ title: 'Your cart', description: 'Review the items in your demo cart.' });
-  const { lines, count, subtotal, setQty, remove } = useCart();
+  const { lines, missing, hasProblems, count, subtotal, setQty, remove } = useCart();
+  const gate = useCartGate();
 
   return (
     <section className="container-x py-10">
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Store', to: '/store' }, { label: 'Cart' }]} />
       <h1 className="font-display text-4xl font-semibold text-ink">Your cart</h1>
-      {lines.length === 0 ? (
+      {gate ?? (lines.length === 0 && missing.length === 0 ? (
         <EmptyState image={ILLUSTRATION.emptyCart} title="Your cart is empty" body="Browse the store and add the essentials you need. Items stay in your cart on this device." action={<LinkButton to="/store">Browse the store</LinkButton>} />
       ) : (
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
@@ -63,10 +74,16 @@ export function Cart() {
                     <Link to={`/store/${l.product.slug}`} className="font-semibold text-ink hover:underline">
                       {l.product.name}
                     </Link>
-                    <p className="text-sm text-slate">{formatPrice(l.product.price)} each</p>
+                    <p className="text-sm text-slate">{formatPrice(l.unitPrice)} each</p>
+                    {l.issue && (
+                      <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-[#B3261E]" data-testid="line-issue">
+                        <AlertTriangle className="h-4 w-4" aria-hidden />
+                        {l.issue === 'out-of-stock' ? 'Out of stock. Remove it to continue.' : `Only ${l.maxQty} available. Lower the quantity to continue.`}
+                      </p>
+                    )}
                   </div>
                   <div className="flex items-center gap-3">
-                    <QuantityStepper value={l.qty} onChange={(n) => setQty(l.product.slug, n)} label={`Quantity of ${l.product.name}`} />
+                    {l.issue !== 'out-of-stock' && <QuantityStepper value={l.qty} onChange={(n) => setQty(l.product.slug, n)} max={Math.max(1, l.maxQty)} label={`Quantity of ${l.product.name}`} />}
                     <p className="w-20 text-right font-semibold" data-testid="line-total">
                       {formatPrice(l.lineTotal)}
                     </p>
@@ -77,17 +94,34 @@ export function Cart() {
                 </div>
               </li>
             ))}
+            {missing.map((m) => (
+              <li key={m.slug} className="flex items-center justify-between gap-4 py-5" data-testid="cart-missing">
+                <p className="flex items-center gap-2 text-[15px] text-ink">
+                  <AlertTriangle className="h-5 w-5 shrink-0 text-[#B3261E]" aria-hidden />
+                  An item in your cart is no longer available.
+                </p>
+                <button type="button" onClick={() => remove(m.slug)} className={buttonClass('outline', 'sm')}>
+                  Remove
+                </button>
+              </li>
+            ))}
           </ul>
           <div className="flex flex-col gap-4">
             <Summary subtotal={subtotal} count={count}>
-              <LinkButton to="/checkout" size="lg" className="mt-6 w-full">
-                Continue to demo checkout
-              </LinkButton>
+              {hasProblems ? (
+                <p role="alert" className="mt-6 rounded-2xl bg-[#B3261E]/10 p-4 text-sm font-medium text-ink">
+                  Fix the items marked in your cart before checking out.
+                </p>
+              ) : (
+                <LinkButton to="/checkout" size="lg" className="mt-6 w-full">
+                  Continue to demo checkout
+                </LinkButton>
+              )}
             </Summary>
             <Notice>Demo store: prices are illustrative and no order will be fulfilled.</Notice>
           </div>
         </div>
-      )}
+      ))}
     </section>
   );
 }
@@ -103,16 +137,26 @@ interface Details {
 
 export function Checkout() {
   usePageMeta({ title: 'Demo checkout', description: 'A simulated checkout. No payment details are collected.' });
-  const { lines, count, subtotal, clear } = useCart();
+  const { lines, missing, hasProblems, count, subtotal, clear } = useCart();
+  const gate = useCartGate();
   const navigate = useNavigate();
   const [d, setD] = useState<Details>({ name: '', phone: '', email: '', address: '', city: '', pin: '' });
   const [errors, setErrors] = useState<Errors<Details>>({});
   const formRef = useRef<HTMLFormElement>(null);
 
-  if (lines.length === 0) {
+  if (gate) return <section className="container-x py-10">{gate}</section>;
+  if (lines.length === 0 && missing.length === 0) {
     return (
       <section className="container-x py-10">
         <EmptyState image={ILLUSTRATION.emptyCart} title="There’s nothing to check out" body="Your cart is empty. Add something from the store first." action={<LinkButton to="/store">Browse the store</LinkButton>} />
+      </section>
+    );
+  }
+  // Never let an unavailable or over-stock item through to an order.
+  if (hasProblems) {
+    return (
+      <section className="container-x py-10">
+        <EmptyState image={ILLUSTRATION.emptyCart} title="Some items in your cart need attention" body="A product is out of stock, no longer sold, or you asked for more than is available. Review your cart to continue." action={<LinkButton to="/cart">Review your cart</LinkButton>} />
       </section>
     );
   }
@@ -136,6 +180,7 @@ export function Checkout() {
       requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
       return;
     }
+    if (hasProblems) return;
     const reference = `DEMO-${Date.now().toString(36).toUpperCase().slice(-6)}`;
     const snapshot: CartLine[] = lines.map((l) => ({ ...l }));
     await submitEnquiry('order', { reference, customer: d, lines: snapshot.map((l) => ({ slug: l.product.slug, qty: l.qty, lineTotal: l.lineTotal })), subtotal });

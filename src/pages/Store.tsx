@@ -2,15 +2,17 @@ import { useMemo, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Check, MessageCircle, Search, ShoppingBag } from 'lucide-react';
 import { ILLUSTRATION } from '@/data/img';
-import { categories, categoryBySlug, products, productBySlug, PRICE_LIMITS } from '@/data/products';
+import { useCatalog } from '@/state/catalog';
+import { isOrderable, maxQtyFor, priceOf } from '@/services/catalog';
+import { CatalogError, PriceTag, ProductGridSkeleton, StockBadge } from '@/components/store';
 import { Img } from '@/components/Img';
 import { ProductCard } from '@/components/cards';
 import { Breadcrumbs } from '@/components/PageHeader';
 import { EmptyState, LinkButton, Notice, QuantityStepper, buttonClass } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { useCart, MAX_QTY } from '@/state/cart';
+import { useCart } from '@/state/cart';
 import { whatsappUrl } from '@/services/contact';
-import { cx, formatPrice } from '@/lib/format';
+import { cx } from '@/lib/format';
 import { NotFound } from './NotFound';
 
 const SORTS = {
@@ -23,11 +25,12 @@ type SortKey = keyof typeof SORTS;
 
 export function Store() {
   usePageMeta({ title: 'Health essentials', description: 'A sample catalogue of home-care essentials with illustrative prices. Orders on this demonstration site are simulated.' });
+  const { status, categories, products, categoryBySlug, priceMax } = useCatalog(true);
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
   const category = categoryBySlug(params.get('category') ?? '')?.slug ?? '';
   const min = Number(params.get('min') ?? '') || 0;
-  const max = Number(params.get('max') ?? '') || PRICE_LIMITS.max;
+  const max = Number(params.get('max') ?? '') || priceMax;
   const sort = (params.get('sort') as SortKey) in SORTS ? (params.get('sort') as SortKey) : 'featured';
 
   const update = (patch: Record<string, string>) => {
@@ -41,17 +44,18 @@ export function Store() {
     const filtered = products.filter(
       (p) =>
         (!category || p.categorySlug === category) &&
-        p.price >= min &&
-        p.price <= max &&
+        priceOf(p) >= min &&
+        priceOf(p) <= max &&
         (!t || [p.name, p.summary, p.description].join(' ').toLowerCase().includes(t)),
     );
     const sorted = [...filtered];
-    if (sort === 'price-asc') sorted.sort((a, b) => a.price - b.price);
-    if (sort === 'price-desc') sorted.sort((a, b) => b.price - a.price);
+    if (sort === 'price-asc') sorted.sort((a, b) => priceOf(a) - priceOf(b));
+    if (sort === 'price-desc') sorted.sort((a, b) => priceOf(b) - priceOf(a));
     if (sort === 'name') sorted.sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'featured') sorted.sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
     return sorted;
-  }, [q, category, min, max, sort]);
+  }, [products, q, category, min, max, sort]);
+  const heroProducts = products.filter((p) => p.images[0]?.src.endsWith('.webp')).slice(0, 3);
 
   const field = 'h-11 w-full rounded-xl border border-line bg-white px-3 text-base';
 
@@ -72,9 +76,9 @@ export function Store() {
             </div>
           </div>
           <div className="hidden grid-cols-3 gap-3 lg:grid" aria-hidden>
-            {['blood-pressure-monitor', 'first-aid-kit', 'pulse-oximeter'].map((slug, i) => (
-              <div key={slug} className={cx('overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-line/60', i === 1 && 'translate-y-6')}>
-                <Img image={productBySlug(slug)!.images[0]} decorative priority sizes="14vw" className="aspect-square w-full object-cover" />
+            {heroProducts.map((hp, i) => (
+              <div key={hp.slug} className={cx('overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-line/60', i === 1 && 'translate-y-6')}>
+                <Img image={hp.images[0]} decorative priority sizes="14vw" className="aspect-square w-full object-cover" />
               </div>
             ))}
           </div>
@@ -82,7 +86,7 @@ export function Store() {
       </header>
 
       <section className="container-x mt-10">
-        <Notice className="mb-6">Sample catalogue for demonstration. Prices are illustrative, nothing is in stock, and checkout is simulated. No payment is taken.</Notice>
+        <Notice className="mb-6">Sample catalogue for demonstration. Prices are illustrative and checkout is simulated: no payment is taken and nothing is delivered.</Notice>
 
         <nav aria-label="Product categories">
           <ul className="flex gap-2 overflow-x-auto pb-2">
@@ -94,7 +98,7 @@ export function Store() {
             {categories.map((c) => (
               <li key={c.slug} className="shrink-0">
                 <button type="button" onClick={() => update({ category: c.slug })} aria-pressed={category === c.slug} className={cx('flex h-11 items-center gap-2 rounded-full py-1 pl-1.5 pr-4 text-sm font-medium ring-1', category === c.slug ? 'bg-ink text-white ring-ink' : 'bg-white text-ink ring-line/70 hover:ring-teal')}>
-                  <img src={c.icon} alt="" width={64} height={64} className="h-8 w-8 rounded-[10px]" />
+                  {c.icon ? <img src={c.icon} alt="" width={64} height={64} className="h-8 w-8 rounded-[10px]" /> : <span className="w-2" />}
                   {c.name}
                 </button>
               </li>
@@ -113,7 +117,7 @@ export function Store() {
             <label htmlFor="price-max" className="text-sm font-semibold text-ink">
               Max price (₹)
             </label>
-            <input id="price-max" type="number" inputMode="numeric" min={0} step={100} value={max === PRICE_LIMITS.max ? '' : max} placeholder={String(PRICE_LIMITS.max)} onChange={(e) => update({ max: e.target.value })} className={cx(field, 'mt-1')} />
+            <input id="price-max" type="number" inputMode="numeric" min={0} step={100} value={max === priceMax ? '' : max} placeholder={String(priceMax)} onChange={(e) => update({ max: e.target.value })} className={cx(field, 'mt-1')} />
           </div>
           <div>
             <label htmlFor="sort" className="text-sm font-semibold text-ink">
@@ -129,6 +133,12 @@ export function Store() {
           </div>
         </div>
 
+        {status === 'loading' || status === 'idle' ? (
+          <ProductGridSkeleton />
+        ) : status === 'error' ? (
+          <CatalogError className="mt-6" />
+        ) : (
+        <>
         <p className="mt-6 text-sm text-slate" aria-live="polite">
           {list.length} {list.length === 1 ? 'product' : 'products'}
           {category && ` in ${categoryBySlug(category)?.name}`}
@@ -145,6 +155,8 @@ export function Store() {
         ) : (
           <EmptyState image={ILLUSTRATION.emptyCatalogue} title="Nothing in this range" body="No products match this category and price range. Widen the price range or choose another category." action={<button type="button" className="font-semibold text-teal-700 underline" onClick={() => setParams({}, { replace: true })}>Show all products</button>} />
         )}
+        </>
+        )}
       </section>
     </>
   );
@@ -152,16 +164,22 @@ export function Store() {
 
 export function ProductDetail() {
   const { slug = '' } = useParams();
+  const { status, products, productBySlug, categoryBySlug } = useCatalog(true);
   const p = productBySlug(slug);
-  usePageMeta({ title: p ? p.name : 'Product not found', description: p ? `${p.summary} Demo product with an illustrative price.` : 'This product could not be found.', image: p?.images[0].src });
+  usePageMeta({ title: p ? p.name : status === 'loading' ? 'Loading product' : 'Product not found', description: p ? `${p.summary} Demo product with an illustrative price.` : 'This product could not be found.', image: p?.images[0].src });
   const [active, setActive] = useState(0);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
-  const { add } = useCart();
+  const { add, items } = useCart();
+  if (status === 'loading' || status === 'idle') return <section className="container-x py-10"><ProductGridSkeleton count={2} /></section>;
+  if (status === 'error') return <section className="container-x py-10"><CatalogError /></section>;
   if (!p) return <NotFound />;
   const category = categoryBySlug(p.categorySlug);
   const related = products.filter((x) => x.categorySlug === p.categorySlug && x.slug !== p.slug).slice(0, 4);
-  const labels = ['Main view', 'Close-up', 'With box'];
+  const orderable = isOrderable(p);
+  const inCart = items.find((i) => i.slug === p.slug)?.qty ?? 0;
+  const canAdd = Math.max(0, maxQtyFor(p) - inCart);
+  const shown = p.images[active] ?? p.images[0];
 
   return (
     <>
@@ -170,37 +188,41 @@ export function ProductDetail() {
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
             <div className="overflow-hidden rounded-[28px] bg-white shadow-card ring-1 ring-line/60">
-              <Img key={p.images[active].src} image={p.images[active]} priority sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-square w-full object-cover" />
+              <Img key={shown.src} image={shown} priority sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-square w-full object-cover" />
             </div>
-            <ul className="mt-4 grid grid-cols-3 gap-3" aria-label="Product images">
+            {p.images.length > 1 && <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4" aria-label="Product images">
               {p.images.map((im, i) => (
-                <li key={im.src}>
-                  <button type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-label={`Show ${labels[i].toLowerCase()}`} className={cx('block w-full overflow-hidden rounded-2xl bg-white ring-2', active === i ? 'ring-teal' : 'ring-transparent hover:ring-line')}>
+                <li key={im.src + i}>
+                  <button type="button" onClick={() => setActive(i)} aria-pressed={active === i} aria-label={`Show image ${i + 1} of ${p.images.length}`} className={cx('block w-full overflow-hidden rounded-2xl bg-white ring-2', active === i ? 'ring-teal' : 'ring-transparent hover:ring-line')}>
                     <Img image={im} decorative sizes="(min-width: 1024px) 14vw, 30vw" className="aspect-square w-full object-cover" />
                   </button>
                 </li>
               ))}
-            </ul>
+            </ul>}
           </div>
           <div>
-            <p className="text-sm font-medium text-teal-700">{category?.name}</p>
+            <p className="flex items-center gap-3 text-sm font-medium text-teal-700">
+              {category?.name}
+              <StockBadge product={p} />
+            </p>
             <h1 className="mt-1 font-display text-4xl font-semibold leading-tight text-ink">{p.name}</h1>
-            <p className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl font-semibold text-ink">{formatPrice(p.price)}</span>
-              <span className="text-sm text-slate">illustrative demo price</span>
+            <p className="mt-4">
+              <PriceTag product={p} size="lg" note="illustrative demo price" />
             </p>
             <p className="mt-5 leading-relaxed text-slate">{p.description}</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
-              <QuantityStepper value={qty} onChange={(n) => setQty(Math.max(1, Math.min(MAX_QTY, n)))} label="Quantity" />
+              {orderable && <QuantityStepper value={Math.min(qty, Math.max(1, canAdd))} onChange={(n) => setQty(Math.max(1, Math.min(Math.max(1, canAdd), n)))} max={Math.max(1, canAdd)} label="Quantity" />}
               <button
                 type="button"
                 className={buttonClass('dark', 'lg')}
+                disabled={!orderable || canAdd < 1}
                 onClick={() => {
-                  add(p.slug, qty);
+                  add(p.slug, Math.min(qty, canAdd));
+                  setQty(1);
                   setAdded(true);
                 }}
               >
-                <ShoppingBag className="h-5 w-5" aria-hidden /> Add to cart
+                <ShoppingBag className="h-5 w-5" aria-hidden /> {!orderable ? 'Out of stock' : canAdd < 1 ? 'All available stock is in your cart' : 'Add to cart'}
               </button>
               <a href={whatsappUrl(`Hello SaraDev, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
                 <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp

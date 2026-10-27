@@ -272,7 +272,7 @@ await test('Mobile menu opens, traps nothing off-screen and closes with Escape',
 await test('Product gallery: thumbnails swap the main image and each view loads', async () => {
   await page.goto(BASE + '/store/stethoscope', { waitUntil: 'networkidle' });
   const seen = [];
-  for (const label of ['Show close-up', 'Show with box', 'Show main view']) {
+  for (const label of ['Show image 2 of 3', 'Show image 3 of 3', 'Show image 1 of 3']) {
     await page.getByRole('button', { name: label }).click();
     await page.waitForLoadState('networkidle');
     const main = page.locator('section img[fetchpriority="high"]').first();

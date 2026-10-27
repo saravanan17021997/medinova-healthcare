@@ -5,8 +5,10 @@ import { Img } from './Img';
 import { DemoBadge } from './ui';
 import { SpecialtyIcon } from './SpecialtyIcon';
 import { specialtyBySlug } from '@/data/specialties';
-import { categoryBySlug } from '@/data/products';
-import { formatPrice, cx } from '@/lib/format';
+import { useCatalog } from '@/state/catalog';
+import { isOrderable } from '@/services/catalog';
+import { PriceTag, StockBadge } from './store';
+import { cx } from '@/lib/format';
 import { useCart } from '@/state/cart';
 import { whatsappUrl } from '@/services/contact';
 
@@ -43,14 +45,19 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const { categoryBySlug } = useCatalog();
   const category = categoryBySlug(product.categorySlug);
+  const orderable = isOrderable(product);
   return (
     <article className="group flex flex-col overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-line/60">
       <Link to={`/store/${product.slug}`} className="block aspect-square overflow-hidden bg-mist">
         <Img image={product.images[0]} sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 92vw" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
       </Link>
       <div className="flex flex-1 flex-col p-5">
-        <p className="text-xs font-medium text-teal">{category?.name}</p>
+        <div className="flex items-center justify-between gap-2">
+          <p className="text-xs font-medium text-teal">{category?.name}</p>
+          <StockBadge product={product} />
+        </div>
         <h3 className="mt-1 font-semibold leading-snug text-ink">
           <Link to={`/store/${product.slug}`} className="hover:underline">
             {product.name}
@@ -58,15 +65,14 @@ export function ProductCard({ product }: { product: Product }) {
         </h3>
         <p className="mt-1 text-sm text-slate">{product.summary}</p>
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
-          <p className="text-lg font-semibold text-ink">
-            {formatPrice(product.price)}
-            <span className="ml-1.5 text-xs font-normal text-slate">demo price</span>
+          <p>
+            <PriceTag product={product} note="demo price" />
           </p>
           <div className="flex gap-1.5">
             <a href={whatsappUrl(`Hello, I have a question about the ${product.name} (demo product).`)} target="_blank" rel="noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist" aria-label={`Ask about ${product.name} on WhatsApp`}>
               <MessageCircle className="h-5 w-5" aria-hidden />
             </a>
-            <button type="button" onClick={() => add(product.slug)} className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white hover:bg-navy" aria-label={`Add ${product.name} to cart`}>
+            <button type="button" onClick={() => add(product.slug)} disabled={!orderable} className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white hover:bg-navy disabled:cursor-not-allowed disabled:bg-slate/30" aria-label={orderable ? `Add ${product.name} to cart` : `${product.name} is out of stock`}>
               <ShoppingBag className="h-[18px] w-[18px]" aria-hidden />
             </button>
           </div>

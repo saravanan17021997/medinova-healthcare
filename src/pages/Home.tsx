@@ -4,7 +4,8 @@ import { site } from '@/config/site';
 import { HERO } from '@/data/img';
 import { specialties } from '@/data/specialties';
 import { doctors } from '@/data/doctors';
-import { categories, products } from '@/data/products';
+import { useCatalog } from '@/state/catalog';
+import { ProductGridSkeleton } from '@/components/store';
 import { Img } from '@/components/Img';
 import { DoctorCard, ProductCard, SpecialtyCard } from '@/components/cards';
 import { SpecialtyIcon } from '@/components/SpecialtyIcon';
@@ -95,7 +96,8 @@ function AppointmentBand() {
 }
 
 function Essentials() {
-  const featured = products.filter((p) => p.featured).slice(0, 4);
+  const { status, categories, products } = useCatalog(true);
+  const featured = [...products.filter((p) => p.featured), ...products.filter((p) => !p.featured)].slice(0, 4);
   return (
     <section aria-labelledby="essentials-heading" className="container-x mt-24">
       <SectionHeading id="essentials-heading" title="Everyday health essentials" intro="A sample catalogue of home-care items. Prices are illustrative and orders are simulated." action={<LinkButton to="/store" variant="outline">Visit the store</LinkButton>} />
@@ -103,17 +105,21 @@ function Essentials() {
         {categories.map((c) => (
           <li key={c.slug} className="shrink-0">
             <Link to={`/store?category=${c.slug}`} className="flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 text-sm font-medium text-ink ring-1 ring-line/70 hover:ring-teal">
-              <img src={c.icon} alt="" width={64} height={64} className="h-8 w-8" loading="lazy" />
+              {c.icon ? <img src={c.icon} alt="" width={64} height={64} className="h-8 w-8" loading="lazy" /> : <span className="w-2" />}
               {c.name}
             </Link>
           </li>
         ))}
       </ul>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {featured.map((p) => (
-          <ProductCard key={p.slug} product={p} />
-        ))}
-      </div>
+      {status === 'loading' || status === 'idle' ? (
+        <ProductGridSkeleton count={4} />
+      ) : status === 'error' ? null : (
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((p) => (
+            <ProductCard key={p.slug} product={p} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

@@ -13,7 +13,7 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'alt' | 'width' |
   decorative?: boolean;
 };
 
-const smallVariant = (src: string) => src.replace(/\.webp$/, '-sm.webp');
+const smallVariant = (image: ImageAsset) => image.smallSrc || image.src.replace(/\.webp$/, '-sm.webp');
 
 /**
  * The one image component used across the site: intrinsic width/height to
@@ -22,7 +22,7 @@ const smallVariant = (src: string) => src.replace(/\.webp$/, '-sm.webp');
  */
 export function Img({ image, sizes = '100vw', priority = false, decorative = false, className, ...rest }: Props) {
   const [failed, setFailed] = useState(false);
-  const raster = image.src.endsWith('.webp') && image.smallWidth;
+  const raster = Boolean(image.smallWidth && (image.smallSrc || image.src.endsWith('.webp')));
 
   if (failed) {
     return (
@@ -40,7 +40,7 @@ export function Img({ image, sizes = '100vw', priority = false, decorative = fal
   return (
     <img
       src={image.src}
-      srcSet={raster ? `${smallVariant(image.src)} ${image.smallWidth}w, ${image.src} ${image.width}w` : undefined}
+      srcSet={raster ? `${smallVariant(image)} ${image.smallWidth}w, ${image.src} ${image.width}w` : undefined}
       sizes={raster ? sizes : undefined}
       width={image.width}
       height={image.height}

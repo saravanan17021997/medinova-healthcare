@@ -52,12 +52,28 @@ Node 18.18 or later is required (tested on Node 22).
 
 ## Admin panel
 
-Work in progress, built in stages. **Stage 3 (current):** sign-in, protected admin pages and a live dashboard. Products, doctors, appointments, orders and content editing follow in later stages, and the public website does not read from the database yet.
+Work in progress, built in stages.
+- **Stage 3:** sign-in, protected admin pages and a live dashboard.
+- **Stage 4 (current):** products, categories and product images. The public store reads them from the database.
+- **Later stages:** doctors, appointments, orders and content editing.
 
 | Route | What it does |
 |---|---|
 | `/admin/login` | Email and password sign-in through Supabase Auth. There is no public sign-up. |
 | `/admin`, `/admin/dashboard` | Admins only. Signed-out visitors are sent to the login page; signed-in accounts that are not on the admin list see "no admin access". |
+| `/admin/products` | Search by name or SKU; filter by category, status and stock; sort; 20 per page; publish or hide with one switch; delete with confirmation |
+| `/admin/products/new`, `/admin/products/:id` | Name, web address, SKU, category, price, sale price, stock, low-stock alert, texts, featured and published. Images: upload with progress, replace, reorder, describe, remove. |
+| `/admin/categories` | Add, edit, reorder and hide categories. A category that still has products cannot be deleted. |
+
+**How the store reads the catalogue**
+- With `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set, the Store, product pages, cart, checkout and home page read categories, products and images from Supabase. They use a plain REST call with the publishable key, so the public site does not download the Supabase library.
+- Row Level Security returns only published rows. A hidden product, or a product in a hidden category, never reaches the website.
+- The catalogue loads only on pages that show products, and always fresh on page load, so admin changes appear after a refresh.
+- Sale prices, "Only N left" and "Out of stock" are shown. Quantities cannot go above the stock.
+- If a cart item is sold out, hidden or deleted, checkout is blocked until it is fixed. The database order function (`sd_place_order`) checks the same rules again.
+- If Supabase cannot be reached, the store says so and offers Try again. It never shows old prices.
+- Without the two settings (for example, a local copy with no `.env`), the built-in sample catalogue in `src/data/products.ts` is used.
+- Uploaded images go to the `sd-media` bucket under `products/<product id>/`. Deleting or replacing an image also deletes its file.
 
 **How access works**
 - Supabase Auth signs the person in. The `sd_admins` table is the allow-list: its `user_id` is the Auth user's id, with `role` set to `owner` or `editor`.
@@ -80,12 +96,13 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` runs the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard) and `npm run verify:catalog` (products, categories, images and the database-backed store) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
 npx vite preview --outDir dist-test --port 4181
 BASE_URL=http://localhost:4181 npm run verify:admin
+BASE_URL=http://localhost:4181 npm run verify:catalog
 ```
 
 ## Images

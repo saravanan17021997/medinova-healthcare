@@ -6,6 +6,8 @@ export interface ImageAsset {
   height: number;
   /** Width of the "-sm" variant for srcset; omit for SVG. */
   smallWidth?: number;
+  /** Explicit URL of the small variant (database images). Defaults to "<name>-sm.webp". */
+  smallSrc?: string;
 }
 
 export interface Specialty {
@@ -45,6 +47,9 @@ export interface Category {
 }
 
 export interface Product {
+  /** Database id (absent for the built-in sample catalogue). */
+  id?: string;
+  sku?: string;
   slug: string;
   name: string;
   categorySlug: string;
@@ -56,4 +61,9 @@ export interface Product {
   inTheBox: string[];
   images: ImageAsset[];
   featured?: boolean;
+  /** Units available. Undefined = not tracked (built-in sample catalogue). */
+  stock?: number;
+  lowStockThreshold?: number;
+  /** Sale price, lower than price. */
+  discountPrice?: number | null;
 }

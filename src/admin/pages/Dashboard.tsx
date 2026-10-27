@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { AlertTriangle, CalendarCheck, MessageSquare, Package, PackageX, RefreshCw, ShoppingBag } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { buttonClass } from '@/components/ui';
@@ -169,7 +170,11 @@ export function AdminDashboard() {
                     <tbody>
                       {data.low_stock.map((p) => (
                         <tr key={p.id} className="border-t border-line">
-                          <td className="px-5 py-2.5 font-medium text-ink">{p.name}</td>
+                          <td className="px-5 py-2.5 font-medium text-ink">
+                            <Link to={`/admin/products/${p.id}`} className="hover:underline">
+                              {p.name}
+                            </Link>
+                          </td>
                           <td className="whitespace-nowrap px-5 py-2.5 font-mono text-sm text-slate">{p.sku}</td>
                           <td className={cx('px-5 py-2.5 text-right font-semibold tabular-nums', p.stock === 0 ? 'text-[#B3261E]' : 'text-ink')}>{p.stock}</td>
                           <td className="px-5 py-2.5 text-right tabular-nums text-slate">{p.low_stock_threshold}</td>

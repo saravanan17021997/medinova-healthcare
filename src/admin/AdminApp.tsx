@@ -4,6 +4,10 @@ import { RequireAdmin, useAdminMeta } from './components';
 import { AdminLayout } from './AdminLayout';
 import { AdminLogin } from './pages/Login';
 import { AdminDashboard } from './pages/Dashboard';
+import { AdminProducts } from './pages/Products';
+import { AdminProductForm } from './pages/ProductForm';
+import { AdminCategories } from './pages/Categories';
+import { ToastProvider } from './ui';
 
 function AdminNotFound() {
   useAdminMeta('Not found');
@@ -22,6 +26,7 @@ function AdminNotFound() {
 export default function AdminApp() {
   return (
     <AdminAuthProvider>
+      <ToastProvider>
       <Routes>
         <Route path="login" element={<AdminLogin />} />
         <Route
@@ -33,9 +38,14 @@ export default function AdminApp() {
         >
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="products/new" element={<AdminProductForm key="new" />} />
+          <Route path="products/:id" element={<AdminProductForm />} />
+          <Route path="categories" element={<AdminCategories />} />
           <Route path="*" element={<AdminNotFound />} />
         </Route>
       </Routes>
+      </ToastProvider>
     </AdminAuthProvider>
   );
 }
