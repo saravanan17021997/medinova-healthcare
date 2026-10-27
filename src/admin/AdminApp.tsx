@@ -15,6 +15,9 @@ import { AdminHomepage, AdminSectionForm } from './pages/Homepage';
 import { AdminNavigation } from './pages/Navigation';
 import { AdminFacilities, AdminFacilityForm } from './pages/Facilities';
 import { AdminSettings } from './pages/Settings';
+import { AdminOrders } from './pages/Orders';
+import { AdminMessages } from './pages/Messages';
+import { AdminUsers } from './pages/Users';
 import { ToastProvider } from './ui';
 
 function AdminNotFound() {
@@ -64,6 +67,9 @@ export default function AdminApp() {
           <Route path="facilities/new" element={<AdminFacilityForm key="new" />} />
           <Route path="facilities/:id" element={<AdminFacilityForm />} />
           <Route path="settings" element={<AdminSettings />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="messages" element={<AdminMessages />} />
+          <Route path="users" element={<AdminUsers />} />
           <Route path="*" element={<AdminNotFound />} />
         </Route>
       </Routes>

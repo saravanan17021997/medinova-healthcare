@@ -177,7 +177,7 @@ if (MODE === 'unconfigured') {
     await page.getByRole('heading', { name: 'Overview' }).waitFor();
     await page.getByText('Fingertip Pulse Oximeter').waitFor();
     const text = await page.locator('#admin-main').innerText();
-    for (const s of ['Published products', '12', 'Low stock', 'Orders', '2 pending', 'Appointment requests', '4 new', 'New messages', 'SD-DIA-001', 'Updated Products']) expect(text.includes(s), 'missing: ' + s);
+    for (const s of ['Published products', '12', 'Low stock', 'Orders', '2 new', 'Appointment requests', '4 new', 'New messages', 'SD-DIA-001', 'Updated Products']) expect(text.includes(s), 'missing: ' + s);
     expect((await page.title()) === 'Dashboard | SaraDev Admin', 'title ' + (await page.title()));
     expect(log.dashboardCalls === 1, 'dashboard calls ' + log.dashboardCalls);
     if (SHOTS) await page.screenshot({ path: SHOTS + '/admin-dashboard-desktop.png', fullPage: true });
@@ -203,12 +203,12 @@ if (MODE === 'unconfigured') {
     expect(log.dashboardCalls === before + 1, 'refresh did not reload');
   });
 
-  await test('Unbuilt sections are visibly disabled, not broken links', async () => {
+  await test('Every admin section is a working link (nothing left "Soon")', async () => {
     const { page } = ownerCtx;
     const disabled = await page.locator('aside [aria-disabled="true"]').count();
-    expect(disabled === 3, 'disabled items ' + disabled);
+    expect(disabled === 0, 'disabled items ' + disabled);
     expect((await page.locator('aside a[href="/admin/dashboard"]').count()) === 1, 'dashboard link missing');
-    return '3 sections marked "Soon" (orders, messages, admin users)';
+    return 'every section is live; no "Soon" items left';
   });
 
   await test('Unknown admin page shows a friendly message inside the layout', async () => {

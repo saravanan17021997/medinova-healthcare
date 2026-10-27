@@ -15,7 +15,8 @@
     "verify:admin": "node scripts/verify-admin.mjs",
     "verify:catalog": "node scripts/verify-catalog.mjs",
     "verify:care": "node scripts/verify-care.mjs",
-    "verify:content": "node scripts/verify-content.mjs"
+    "verify:content": "node scripts/verify-content.mjs",
+    "verify:orders": "node scripts/verify-orders.mjs"
   },
   "dependencies": {
     "@fontsource/figtree": "^5.1.0",

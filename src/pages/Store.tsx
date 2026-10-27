@@ -13,6 +13,8 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { useCart } from '@/state/cart';
 import { whatsappUrl } from '@/services/contact';
 import { hello } from '@/config/live';
+import { ordersSource } from '@/services/orders';
+import { useSite } from '@/state/content';
 import { cx } from '@/lib/format';
 import { NotFound } from './NotFound';
 
@@ -26,6 +28,7 @@ type SortKey = keyof typeof SORTS;
 
 export function Store() {
   usePageMeta({ title: 'Health essentials', description: 'A sample catalogue of home-care essentials with illustrative prices. Orders on this demonstration site are simulated.' });
+  const site = useSite();
   const { status, categories, products, categoryBySlug, priceMax } = useCatalog(true);
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
@@ -87,7 +90,13 @@ export function Store() {
       </header>
 
       <section className="container-x mt-10">
-        <Notice className="mb-6">Sample catalogue for demonstration. Prices are illustrative and checkout is simulated: no payment is taken and nothing is delivered.</Notice>
+        <Notice className="mb-6">
+          {ordersSource === 'sample'
+            ? 'Sample catalogue for demonstration. Prices are illustrative and checkout is simulated: no payment is taken and nothing is delivered.'
+            : site.demo
+              ? 'Demonstration store: products and prices are examples. No payment is taken online; the team calls to confirm any order you send.'
+              : 'No payment is taken online. After you send an order, the team calls you to confirm it and arrange payment and delivery.'}
+        </Notice>
 
         <nav aria-label="Product categories">
           <ul className="flex gap-2 overflow-x-auto pb-2">

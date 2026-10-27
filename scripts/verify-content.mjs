@@ -210,7 +210,7 @@ await signIn(page);
 await test('Admin menu: Homepage, Navigation, Facilities and Site settings are available', async () => {
   const nav = page.getByRole('navigation', { name: 'Admin' });
   for (const n of ['Homepage', 'Navigation', 'Facilities', 'Site settings']) await nav.getByRole('link', { name: n }).waitFor();
-  expect((await nav.getByText('Soon').count()) === 3, 'expected 3 "Soon" items (Orders, Messages, Admin users)');
+  expect((await nav.getByText('Soon').count()) === 0, 'no "Soon" items expected');
 });
 
 await test('Site settings: checks phone, WhatsApp and email before saving', async () => {

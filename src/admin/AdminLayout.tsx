@@ -8,14 +8,14 @@ import { BRAND } from '@/data/img';
 import { cx } from '@/lib/format';
 import { useAdminAuth } from './auth';
 
-interface NavItem { label: string; to?: string; icon: LucideIcon }
+interface NavItem { label: string; to?: string; icon: LucideIcon; ownerOnly?: boolean }
 
-// Sections that are not built yet are shown as "Soon" so the menu does not change shape later.
+// Sections that are not built yet are shown as "Soon". Owner-only sections are hidden from editors.
 const NAV: { heading: string; items: NavItem[] }[] = [
   { heading: 'Overview', items: [{ label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard }] },
   { heading: 'Catalogue', items: [{ label: 'Products', to: '/admin/products', icon: Package }, { label: 'Categories', to: '/admin/categories', icon: Tags }] },
   { heading: 'Care', items: [{ label: 'Appointments', to: '/admin/appointments', icon: CalendarCheck }, { label: 'Doctors', to: '/admin/doctors', icon: Stethoscope }, { label: 'Specialties', to: '/admin/specialties', icon: HeartPulse }] },
-  { heading: 'Sales and enquiries', items: [{ label: 'Orders', icon: ShoppingBag }, { label: 'Messages', icon: MessageSquare }] },
+  { heading: 'Sales and enquiries', items: [{ label: 'Orders', to: '/admin/orders', icon: ShoppingBag }, { label: 'Messages', to: '/admin/messages', icon: MessageSquare }] },
   {
     heading: 'Website',
     items: [
@@ -23,12 +23,13 @@ const NAV: { heading: string; items: NavItem[] }[] = [
       { label: 'Navigation', to: '/admin/navigation', icon: ListTree },
       { label: 'Facilities', to: '/admin/facilities', icon: Building2 },
       { label: 'Site settings', to: '/admin/settings', icon: Settings },
-      { label: 'Admin users', icon: UserCog },
+      { label: 'Admin users', to: '/admin/users', icon: UserCog, ownerOnly: true },
     ],
   },
 ];
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
+  const { role } = useAdminAuth();
   return (
     <div className="flex h-full flex-col bg-ink text-white">
       <div className="flex h-16 shrink-0 items-center gap-3 px-5">
@@ -43,7 +44,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           <div key={group.heading} className="mt-5">
             <p className="px-3 text-xs font-semibold text-white/50">{group.heading}</p>
             <ul className="mt-2 space-y-0.5">
-              {group.items.map(({ label, to, icon: Icon }) => (
+              {group.items.filter((i) => !i.ownerOnly || role === 'owner').map(({ label, to, icon: Icon }) => (
                 <li key={label}>
                   {to ? (
                     <NavLink
@@ -94,6 +95,9 @@ const titleFor = (path: string) =>
   : path.startsWith('/admin/facilities/') ? 'Edit facility'
   : path.startsWith('/admin/facilities') ? 'Facilities'
   : path.startsWith('/admin/settings') ? 'Site settings'
+  : path.startsWith('/admin/orders') ? 'Orders'
+  : path.startsWith('/admin/messages') ? 'Messages'
+  : path.startsWith('/admin/users') ? 'Admin users'
   : path.startsWith('/admin/products/new') ? 'Add product'
   : path.startsWith('/admin/products/') ? 'Edit product'
   : path.startsWith('/admin/products') ? 'Products'

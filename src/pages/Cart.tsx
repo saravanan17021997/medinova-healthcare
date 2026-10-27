@@ -1,6 +1,6 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AlertTriangle, Trash2 } from 'lucide-react';
+import { AlertTriangle, Loader2, MessageCircle, Trash2 } from 'lucide-react';
 import { ILLUSTRATION } from '@/data/img';
 import { Img } from '@/components/Img';
 import { Breadcrumbs } from '@/components/PageHeader';
@@ -9,7 +9,9 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { useCart, type CartLine } from '@/state/cart';
 import { formatPrice } from '@/lib/format';
 import { isBlank, isEmail, isPhone, isPinCode, type Errors } from '@/lib/validation';
-import { submitEnquiry } from '@/services/enquiry';
+import { ordersSource, placeOrder } from '@/services/orders';
+import { whatsappUrl } from '@/services/contact';
+import { hello } from '@/config/live';
 import { useCatalog } from '@/state/catalog';
 import { CatalogError, ProductGridSkeleton } from '@/components/store';
 
@@ -36,10 +38,10 @@ function Summary({ subtotal, count, children }: { subtotal: number; count: numbe
         </div>
         <div className="flex justify-between">
           <dt className="text-slate">Delivery</dt>
-          <dd className="text-slate">Not available in demo</dd>
+          <dd className="text-slate">{ordersSource === 'database' ? 'Agreed when the team calls' : 'Not available in demo'}</dd>
         </div>
         <div className="flex justify-between border-t border-line/70 pt-3 text-lg">
-          <dt className="font-semibold">Total (demo)</dt>
+          <dt className="font-semibold">{ordersSource === 'database' ? 'Total' : 'Total (demo)'}</dt>
           <dd className="font-semibold" data-testid="total">
             {formatPrice(subtotal)}
           </dd>
@@ -136,13 +138,19 @@ interface Details {
 }
 
 export function Checkout() {
-  usePageMeta({ title: 'Demo checkout', description: 'A simulated checkout. No payment details are collected.' });
+  const live = ordersSource === 'database';
+  usePageMeta(live ? { title: 'Checkout', description: 'Send your order. No payment details are collected online.' } : { title: 'Demo checkout', description: 'A simulated checkout. No payment details are collected.' });
   const { lines, missing, hasProblems, count, subtotal, clear } = useCart();
+  const { reload } = useCatalog();
   const gate = useCartGate();
   const navigate = useNavigate();
   const [d, setD] = useState<Details>({ name: '', phone: '', email: '', address: '', city: '', pin: '' });
   const [errors, setErrors] = useState<Errors<Details>>({});
+  const [serverError, setServerError] = useState<{ message: string; stock: boolean } | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [trap, setTrap] = useState('');
   const formRef = useRef<HTMLFormElement>(null);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   if (gate) return <section className="container-x py-10">{gate}</section>;
   if (lines.length === 0 && missing.length === 0) {
@@ -168,53 +176,96 @@ export function Checkout() {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (busy) return;
     const err: Errors<Details> = {};
-    if (isBlank(d.name)) err.name = 'Enter your full name.';
+    if (isBlank(d.name) || d.name.trim().length < 2) err.name = 'Enter your full name.';
     if (!isPhone(d.phone)) err.phone = 'Enter a 10-digit mobile number, or an international number starting with +.';
     if (!isBlank(d.email) && !isEmail(d.email)) err.email = 'Enter an email address like name@example.com, or leave it empty.';
-    if (isBlank(d.address)) err.address = 'Enter a delivery address.';
-    if (isBlank(d.city)) err.city = 'Enter a town or city.';
+    if (isBlank(d.address) || d.address.trim().length < 3) err.address = 'Enter a delivery address.';
+    else if (d.address.length > 300) err.address = 'Keep the address to 300 characters.';
+    if (isBlank(d.city) || d.city.trim().length < 2) err.city = 'Enter a town or city.';
     if (!isPinCode(d.pin)) err.pin = 'Enter a 6-digit PIN code.';
     setErrors(err);
+    setServerError(null);
     if (Object.keys(err).length) {
       requestAnimationFrame(() => formRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
       return;
     }
     if (hasProblems) return;
-    const reference = `DEMO-${Date.now().toString(36).toUpperCase().slice(-6)}`;
     const snapshot: CartLine[] = lines.map((l) => ({ ...l }));
-    await submitEnquiry('order', { reference, customer: d, lines: snapshot.map((l) => ({ slug: l.product.slug, qty: l.qty, lineTotal: l.lineTotal })), subtotal });
+    // a filled-in hidden field means an automated form filler: pretend it worked, send nothing
+    if (trap) {
+      clear();
+      navigate('/order-confirmation', { replace: true, state: { reference: 'ORD-RECEIVED', name: d.name, phone: d.phone, lines: snapshot, subtotal, live } });
+      return;
+    }
+    setBusy(true);
+    const res = await placeOrder({ ...d, name: d.name.trim(), items: snapshot.map((l) => ({ slug: l.product.slug, qty: l.qty })) });
+    setBusy(false);
+    if (res.mode === 'error') {
+      // Stock is reloaded when they go back to the cart: reloading here would replace this message.
+      setServerError({ message: res.message, stock: res.stock });
+      requestAnimationFrame(() => errorRef.current?.focus());
+      return;
+    }
     clear();
-    navigate('/order-confirmation', { replace: true, state: { reference, name: d.name, lines: snapshot, subtotal } });
+    const total = res.mode === 'saved' ? res.subtotal : subtotal;
+    navigate('/order-confirmation', { replace: true, state: { reference: res.reference, name: d.name.trim(), phone: d.phone, lines: snapshot, subtotal: total, pricesChanged: res.mode === 'saved' && Math.abs(res.subtotal - subtotal) > 0.009, live: res.mode === 'saved' } });
   };
 
   return (
     <section className="container-x py-10">
-      <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Cart', to: '/cart' }, { label: 'Demo checkout' }]} />
-      <h1 className="font-display text-4xl font-semibold text-ink">Demo checkout</h1>
-      <Notice className="mt-5 max-w-3xl">This checkout is simulated. No payment is taken and no card details are requested. Placing the order shows a demo confirmation only.</Notice>
+      <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Cart', to: '/cart' }, { label: live ? 'Checkout' : 'Demo checkout' }]} />
+      <h1 className="font-display text-4xl font-semibold text-ink">{live ? 'Checkout' : 'Demo checkout'}</h1>
+      <Notice className="mt-5 max-w-3xl">
+        {live
+          ? 'No payment is taken online and no card details are requested. After you send the order, the team calls you to confirm it and arrange payment and delivery.'
+          : 'This checkout is simulated. No payment is taken and no card details are requested. Placing the order shows a demo confirmation only.'}
+      </Notice>
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
         <form ref={formRef} noValidate onSubmit={onSubmit} className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60 sm:p-9">
+          {serverError && (
+            <div ref={errorRef} tabIndex={-1} role="alert" id="order-error" className="mb-6 flex gap-3 rounded-2xl bg-coral/10 p-4 text-[15px] text-ink outline-none ring-1 ring-coral/40">
+              <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-coral" aria-hidden />
+              <div>
+                <p className="font-semibold">Your order was not sent</p>
+                <p className="mt-1">{serverError.message}</p>
+                {serverError.stock && (
+                  <Link to="/cart" onClick={reload} className="mt-2 inline-block font-semibold text-teal-700 underline underline-offset-2">
+                    Review your cart
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
           <h2 className="font-display text-2xl font-semibold text-ink">Contact and delivery</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <TextField id="co-name" label="Full name" autoComplete="name" value={d.name} onChange={(e) => set('name', e.target.value)} error={errors.name} />
+              <TextField id="co-name" label="Full name" autoComplete="name" maxLength={100} value={d.name} onChange={(e) => set('name', e.target.value)} error={errors.name} />
             </div>
-            <TextField id="co-phone" label="Mobile number" type="tel" inputMode="tel" autoComplete="tel" value={d.phone} onChange={(e) => set('phone', e.target.value)} error={errors.phone} />
+            <TextField id="co-phone" label="Mobile number" type="tel" inputMode="tel" autoComplete="tel" value={d.phone} onChange={(e) => set('phone', e.target.value)} error={errors.phone} hint={live ? 'The team calls this number to confirm your order.' : undefined} />
             <TextField id="co-email" label="Email" type="email" autoComplete="email" optional value={d.email} onChange={(e) => set('email', e.target.value)} error={errors.email} />
             <div className="sm:col-span-2">
-              <TextField id="co-address" label="Address" autoComplete="street-address" value={d.address} onChange={(e) => set('address', e.target.value)} error={errors.address} />
+              <TextField id="co-address" label="Address" autoComplete="street-address" maxLength={300} value={d.address} onChange={(e) => set('address', e.target.value)} error={errors.address} />
             </div>
-            <TextField id="co-city" label="Town or city" autoComplete="address-level2" value={d.city} onChange={(e) => set('city', e.target.value)} error={errors.city} />
+            <TextField id="co-city" label="Town or city" autoComplete="address-level2" maxLength={80} value={d.city} onChange={(e) => set('city', e.target.value)} error={errors.city} />
             <TextField id="co-pin" label="PIN code" inputMode="numeric" autoComplete="postal-code" maxLength={6} value={d.pin} onChange={(e) => set('pin', e.target.value)} error={errors.pin} />
+            <div className="sr-only" aria-hidden="true">
+              <label htmlFor="co-website">Leave this empty</label>
+              <input id="co-website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
+            </div>
           </div>
           <div className="mt-8 rounded-2xl bg-mist p-5">
             <h2 className="font-semibold text-ink">Payment</h2>
-            <p className="mt-1 text-[15px] text-slate">Not collected in this demo. A live store would hand over to a certified payment provider at this step.</p>
+            <p className="mt-1 text-[15px] text-slate">
+              {live ? 'Nothing is charged now. The team confirms the total with you on the phone and explains how to pay.' : 'Not collected in this demo. A live store would hand over to a certified payment provider at this step.'}
+            </p>
           </div>
-          <button type="submit" className={buttonClass('primary', 'lg', 'mt-8 w-full sm:w-auto')}>
-            Place demo order
+          <button type="submit" disabled={busy} className={buttonClass('primary', 'lg', 'mt-8 w-full sm:w-auto')}>
+            {busy && <Loader2 className="h-5 w-5 animate-spin motion-reduce:animate-none" aria-hidden />}
+            {live ? (busy ? 'Sending your order…' : 'Send order') : 'Place demo order'}
           </button>
+          {live && <p className="mt-3 text-sm text-slate">Prices and stock are checked again when you send the order.</p>}
         </form>
         <Summary subtotal={subtotal} count={count}>
           <ul className="mt-5 space-y-3 border-t border-line/70 pt-4">
@@ -236,18 +287,22 @@ export function Checkout() {
 interface ConfirmationState {
   reference: string;
   name: string;
+  phone?: string;
   lines: CartLine[];
   subtotal: number;
+  pricesChanged?: boolean;
+  live?: boolean;
 }
 
 export function OrderConfirmation() {
-  usePageMeta({ title: 'Demo order confirmation', description: 'A simulated order confirmation.' });
   const state = useLocation().state as ConfirmationState | null;
+  const live = Boolean(state?.live);
+  usePageMeta(live ? { title: 'Order received', description: 'Your order has been received.' } : { title: 'Demo order confirmation', description: 'A simulated order confirmation.' });
 
   if (!state) {
     return (
       <section className="container-x py-10">
-        <EmptyState image={ILLUSTRATION.emptyCart} title="No demo order to show" body="Confirmations appear here right after you place a demo order." action={<LinkButton to="/store">Go to the store</LinkButton>} />
+        <EmptyState image={ILLUSTRATION.emptyCart} title={ordersSource === 'database' ? 'No order to show' : 'No demo order to show'} body={ordersSource === 'database' ? 'Confirmations appear here right after you send an order.' : 'Confirmations appear here right after you place a demo order.'} action={<LinkButton to="/store">Go to the store</LinkButton>} />
       </section>
     );
   }
@@ -256,11 +311,15 @@ export function OrderConfirmation() {
     <section className="container-x py-12">
       <div className="mx-auto max-w-2xl rounded-[28px] bg-white p-7 text-center shadow-card ring-1 ring-line/60 sm:p-10">
         <img src={ILLUSTRATION.orderPlaced} alt="" width={480} height={360} className="mx-auto h-auto w-56" />
-        <p className="mt-4 inline-flex rounded-full bg-signal/25 px-3 py-1 text-sm font-semibold text-ink">Simulated order</p>
-        <h1 className="mt-3 font-display text-4xl font-semibold text-ink">Demo order placed</h1>
-        <p className="mx-auto mt-3 max-w-md text-slate">Thanks, {state.name}. This confirmation is simulated: nothing will be delivered and no payment was taken.</p>
+        {!live && <p className="mt-4 inline-flex rounded-full bg-signal/25 px-3 py-1 text-sm font-semibold text-ink">Simulated order</p>}
+        <h1 className="mt-3 font-display text-4xl font-semibold text-ink">{live ? 'Order received' : 'Demo order placed'}</h1>
+        <p className="mx-auto mt-3 max-w-md text-slate">
+          {live
+            ? `Thanks, ${state.name}. The team will call you${state.phone ? ` on ${state.phone}` : ''} to confirm your order and arrange payment and delivery. Nothing has been charged.`
+            : `Thanks, ${state.name}. This confirmation is simulated: nothing will be delivered and no payment was taken.`}
+        </p>
         <p className="mt-5 text-sm text-slate">
-          Demo reference <span className="font-semibold text-ink" data-testid="order-ref">{state.reference}</span>
+          {live ? 'Order reference' : 'Demo reference'} <span className="font-semibold text-ink" data-testid="order-ref">{state.reference}</span>
         </p>
         <ul className="mx-auto mt-6 max-w-md space-y-2 rounded-2xl bg-mist p-5 text-left text-[15px]">
           {state.lines.map((l) => (
@@ -268,17 +327,23 @@ export function OrderConfirmation() {
               <span className="text-slate">
                 {l.product.name} × {l.qty}
               </span>
-              <span className="font-medium">{formatPrice(l.lineTotal)}</span>
+              {!state.pricesChanged && <span className="font-medium">{formatPrice(l.lineTotal)}</span>}
             </li>
           ))}
           <li className="flex justify-between border-t border-line/70 pt-2 font-semibold">
-            <span>Total (demo)</span>
+            <span>{live ? 'Total' : 'Total (demo)'}</span>
             <span data-testid="confirm-total">{formatPrice(state.subtotal)}</span>
           </li>
         </ul>
-        <LinkButton to="/store" className="mt-8">
-          Continue browsing
-        </LinkButton>
+        {state.pricesChanged && <p className="mx-auto mt-3 max-w-md text-sm text-slate">A price changed while you were shopping, so the total above is the current one. The team will confirm it with you.</p>}
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <LinkButton to="/store">Continue browsing</LinkButton>
+          {live && (
+            <a href={whatsappUrl(`${hello()}, I have a question about my order ${state.reference}.`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'md')}>
+              <MessageCircle className="h-4 w-4" aria-hidden /> Ask about this order
+            </a>
+          )}
+        </div>
       </div>
     </section>
   );

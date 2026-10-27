@@ -10,3 +10,4 @@ scripts/verify-catalog.json
 scripts/verify-care.json
 scripts/verify-content.json
 scripts/verify-admin-configured.json
+scripts/verify-orders.json

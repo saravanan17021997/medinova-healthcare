@@ -7,6 +7,9 @@
 //   * storage accepts JPEG/PNG/WebP/AVIF up to 5 MB, admins only
 //   * site settings are public; menus, homepage sections and facilities only when published
 //   * menu and button links must match the database check (/page, https://, mailto:, tel:)
+//   * orders and messages: visitors only through sd_place_order / sd_submit_contact; admins may change
+//     only status and notes (never payment status); cancelling restores stock; owners alone delete
+//   * admin list: owners add (sd_add_admin), change and remove admins; the last owner is protected
 import { randomUUID } from 'node:crypto';
 import { contentSeed } from './content-seed.mjs';
 
@@ -15,15 +18,19 @@ const EXP = Math.floor(Date.now() / 1000) + 3600;
 
 export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
   const OWNER = { id: '11111111-1111-1111-1111-111111111111', email: 'owner@example.com', password: 'correct-horse' };
+  const EDITOR = { id: '22222222-2222-2222-2222-222222222222', email: 'editor@example.com', password: 'correct-horse' };
   const OTHER = { id: '33333333-3333-3333-3333-333333333333', email: 'moneymap.user@example.com', password: 'correct-horse' };
-  const users = [OWNER, OTHER];
+  const NEWHIRE = { id: '44444444-4444-4444-4444-444444444444', email: 'newhire@example.com', password: 'correct-horse' };
+  const users = [OWNER, EDITOR, OTHER, NEWHIRE];
   const jwt = (u) => `${b64({ alg: 'HS256', typ: 'JWT' })}.${b64({ sub: u.id, email: u.email, role: 'authenticated', exp: EXP })}.sig`;
   const userObj = (u) => ({ id: u.id, aud: 'authenticated', role: 'authenticated', email: u.email, email_confirmed_at: '2026-10-24T00:00:00Z', app_metadata: {}, user_metadata: {}, created_at: '2026-10-24T00:00:00Z' });
   const now = () => new Date().toISOString();
 
   // ---------------------------------------------------------------- data
-  const db = { sd_categories: [], sd_products: [], sd_product_images: [], sd_specialties: [], sd_doctors: [], sd_appointments: [], sd_site_settings: [], sd_nav_links: [], sd_page_sections: [], sd_facilities: [] };
+  const db = { sd_categories: [], sd_products: [], sd_product_images: [], sd_specialties: [], sd_doctors: [], sd_appointments: [], sd_orders: [], sd_order_items: [], sd_contact_messages: [], sd_admins: [], sd_site_settings: [], sd_nav_links: [], sd_page_sections: [], sd_facilities: [] };
   const clone = (x) => JSON.parse(JSON.stringify(x));
+  db.sd_admins.push({ id: OWNER.id, user_id: OWNER.id, email: OWNER.email, role: 'owner', created_at: '2026-10-24T05:00:00Z' });
+  db.sd_admins.push({ id: EDITOR.id, user_id: EDITOR.id, email: EDITOR.email, role: 'editor', created_at: '2026-10-25T05:00:00Z' });
   content.settings.forEach((r) => db.sd_site_settings.push({ id: randomUUID(), ...clone(r), updated_at: now() }));
   content.nav.forEach((r) => db.sd_nav_links.push({ id: randomUUID(), ...clone(r), created_at: now(), updated_at: now() }));
   content.sections.forEach((r) => db.sd_page_sections.push({ id: randomUUID(), ...clone(r), created_at: now(), updated_at: now() }));
@@ -60,8 +67,10 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
     if (cur) out.push(cur);
     return out.map((x) => x.trim()).filter(Boolean);
   };
-  const REL = { sd_products: { sd_product_images: 'product_id' }, sd_categories: { sd_products: 'category_id' }, sd_specialties: { sd_doctors: 'specialty_id' } };
-  const PRIVATE = new Set(['sd_appointments']);
+  const REL = { sd_products: { sd_product_images: 'product_id' }, sd_categories: { sd_products: 'category_id' }, sd_specialties: { sd_doctors: 'specialty_id' }, sd_orders: { sd_order_items: 'order_id' } };
+  const PRIVATE = new Set(['sd_appointments', 'sd_orders', 'sd_order_items', 'sd_contact_messages', 'sd_admins']);
+  const OWNER_DELETE = new Set(['sd_appointments', 'sd_orders', 'sd_contact_messages']);
+  const roleOf = (uid) => db.sd_admins.find((a) => a.user_id === uid)?.role ?? null;
 
   const visible = (table, row, admin) => {
     if (admin) return true;
@@ -139,6 +148,9 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
       if (!/^[a-z0-9_.]{1,60}$/.test(row.key ?? '')) return check('key');
       if (others.some((r) => r.key === row.key)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_site_settings_pkey"');
     }
+    if (table === 'sd_orders' && !['pending', 'confirmed', 'packed', 'shipped', 'delivered', 'cancelled'].includes(row.status)) return check('status');
+    if (table === 'sd_contact_messages' && !['new', 'read', 'replied', 'archived'].includes(row.status)) return check('status');
+    if (table === 'sd_admins' && !['owner', 'editor'].includes(row.role)) return check('role');
     if (table === 'sd_appointments' && !['new', 'contacted', 'confirmed', 'completed', 'cancelled'].includes(row.status)) return err(400, '23514', 'new row for relation "sd_appointments" violates check constraint "sd_appointments_status_check"');
     if (table === 'sd_products') {
       if (others.some((r) => r.sku === row.sku)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_products_sku_key"', `Key (sku)=(${row.sku}) already exists.`);
@@ -160,7 +172,8 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
     sd_doctors: { specialty_id: null, role: '', qualifications: null, registration_no: null, bio: null, languages: [], availability: [], modes: [], focus: [], photo_url: null, photo_small_url: null, photo_alt: '', photo_width: null, photo_height: null, is_demo: true, sort_order: 0, published: false },
   };
 
-  async function rest(route, req, url, admin) {
+  async function rest(route, req, url, admin, uid) {
+    const owner = roleOf(uid) === 'owner';
     const table = url.pathname.replace('/rest/v1/', '');
     const accept = req.headers()['accept'] || '';
     const single = accept.includes('vnd.pgrst.object');
@@ -177,6 +190,10 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
     if (!db[table]) return fail(err(404, '42P01', `relation "${table}" does not exist`));
     const method = req.method();
 
+    if (table === 'sd_admins' && !admin && uid && req.method() === 'GET') {
+      // you can always see your own row, so the app knows whether you are an admin
+      return send(200, db.sd_admins.filter((a) => a.user_id === uid && url.searchParams.get('user_id') === 'eq.' + uid).map((r) => project(table, r, select, true)));
+    }
     if (PRIVATE.has(table) && !admin) return fail(err(401, '42501', `permission denied for table ${table}`));
     if (method === 'GET') return send(200, applyQuery(table, url, admin).map((r) => project(table, r, select, admin)));
     if (!admin) {
@@ -185,7 +202,14 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
     }
     const body = req.postData() ? JSON.parse(req.postData()) : null;
     const ret = prefer.includes('return=representation');
-
+    const rlsFail = () => fail(err(403, '42501', `new row violates row-level security policy for table "${table}"`));
+    if (table === 'sd_order_items' || (table === 'sd_orders' && method === 'POST')) return fail(err(403, '42501', `permission denied for table ${table}`));
+    if (table === 'sd_admins' && !owner) return rlsFail();
+    if (table === 'sd_orders' && method === 'PATCH' && Object.keys(body).some((k) => !['status', 'admin_notes'].includes(k))) return fail(err(403, '42501', 'permission denied for table sd_orders'));
+    if (method === 'DELETE' && OWNER_DELETE.has(table) && !owner) {
+      // RLS: the delete silently matches no rows
+      return single ? route.fulfill({ status: 406, contentType: 'application/json', body: JSON.stringify({ code: 'PGRST116', message: 'JSON object requested, multiple (or no) rows returned', details: 'The result contains 0 rows' }) }) : send(200, []);
+    }
     if (method === 'POST') {
       const list = Array.isArray(body) ? body : [body];
       const created = [];
@@ -214,15 +238,24 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
         const next = { ...t, ...body, updated_at: now() };
         const e = checkRow(table, next, t.id);
         if (e) return fail(e);
+        if (table === 'sd_orders' && t.status === 'cancelled' && next.status !== 'cancelled') return fail(err(400, 'P0001', 'A cancelled order cannot be reopened.'));
+        if (table === 'sd_admins' && t.role === 'owner' && next.role !== 'owner' && db.sd_admins.filter((a) => a.role === 'owner').length <= 1) return fail(err(400, 'P0001', 'You cannot remove or demote the last owner. Add another owner first.'));
       }
-      targets.forEach((t) => Object.assign(t, body, { updated_at: now() }));
+      for (const t of targets) {
+        if (table === 'sd_orders' && body.status === 'cancelled' && t.status !== 'cancelled')
+          db.sd_order_items.filter((i) => i.order_id === t.id).forEach((i) => { const p = db.sd_products.find((x) => x.id === i.product_id); if (p) p.stock += i.qty; });
+      }
+      targets.forEach((t) => Object.assign(t, body, table === 'sd_admins' ? {} : { updated_at: now() }));
       return ret ? send(200, targets.map((r) => project(table, r, select, admin))) : route.fulfill({ status: 204, body: '' });
     }
     if (method === 'DELETE') {
       const targets = applyQuery(table, url, admin);
+      if (table === 'sd_admins' && targets.some((a) => a.role === 'owner') && db.sd_admins.filter((a) => a.role === 'owner' && !targets.includes(a)).length === 0)
+        return fail(err(400, 'P0001', 'You cannot remove or demote the last owner. Add another owner first.'));
       if (table === 'sd_categories' && targets.some((c) => db.sd_products.some((p) => p.category_id === c.id)))
         return fail(err(409, '23503', 'update or delete on table "sd_categories" violates foreign key constraint "sd_products_category_id_fkey" on table "sd_products"'));
       db[table] = db[table].filter((r) => !targets.includes(r));
+      if (table === 'sd_orders') db.sd_order_items = db.sd_order_items.filter((i) => !targets.some((t) => t.id === i.order_id));
       if (table === 'sd_products') db.sd_product_images = db.sd_product_images.filter((i) => !targets.some((t) => t.id === i.product_id));
       // real schema: ON DELETE SET NULL
       if (table === 'sd_specialties') db.sd_doctors.forEach((d) => targets.some((t) => t.id === d.specialty_id) && (d.specialty_id = null));
@@ -246,7 +279,7 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
       const json = (status, body) => route.fulfill({ status, contentType: 'application/json', headers: cors, body: JSON.stringify(body) });
       if (req.method() === 'OPTIONS') return route.fulfill({ status: 200, headers: cors });
       const u = tokenUser(req);
-      const admin = u?.id === OWNER.id;
+      const admin = Boolean(u && roleOf(u.id));
 
       if (url.pathname === '/auth/v1/token') {
         const b = JSON.parse(req.postData() || '{}');
@@ -257,11 +290,10 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
       if (url.pathname === '/auth/v1/user') return u ? json(200, userObj(u)) : json(401, { msg: 'invalid JWT' });
       if (url.pathname === '/auth/v1/logout') return route.fulfill({ status: 204, headers: cors });
 
-      if (url.pathname === '/rest/v1/sd_admins') return json(200, admin && url.searchParams.get('user_id') === 'eq.' + OWNER.id ? [{ role: 'owner' }] : []);
       if (url.pathname === '/rest/v1/rpc/sd_admin_dashboard') {
         if (!admin) return json(400, { message: 'Admins only.', code: 'P0001' });
         const pub = db.sd_products.filter((p) => p.published);
-        return json(200, { published_products: pub.length, low_stock: pub.filter((p) => p.stock <= p.low_stock_threshold).map(({ id, name, sku, stock, low_stock_threshold }) => ({ id, name, sku, stock, low_stock_threshold })), orders_by_status: {}, appointments_by_status: db.sd_appointments.reduce((m, a) => ({ ...m, [a.status]: (m[a.status] || 0) + 1 }), {}), new_messages: 0, recent_activity: [] });
+        return json(200, { published_products: pub.length, low_stock: pub.filter((p) => p.stock <= p.low_stock_threshold).map(({ id, name, sku, stock, low_stock_threshold }) => ({ id, name, sku, stock, low_stock_threshold })), orders_by_status: db.sd_orders.reduce((m, o) => ({ ...m, [o.status]: (m[o.status] || 0) + 1 }), {}), appointments_by_status: db.sd_appointments.reduce((m, a) => ({ ...m, [a.status]: (m[a.status] || 0) + 1 }), {}), new_messages: db.sd_contact_messages.filter((m) => m.status === 'new').length, recent_activity: [] });
       }
       if (url.pathname === '/rest/v1/rpc/sd_submit_appointment') {
         if (failCatalog) return json(503, { message: 'Service unavailable' });
@@ -284,9 +316,64 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
         log.appointmentsByAnon = (log.appointmentsByAnon || 0) + (u ? 0 : 1);
         return json(200, reference);
       }
+      const ref = (prefix) => prefix + '-' + new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(2, 10).replace(/-/g, '') + '-' + randomUUID().slice(0, 6).toUpperCase();
+      const cleanPhone = (v) => String(v || '').replace(/[\s()-]/g, '');
+      if (url.pathname === '/rest/v1/rpc/sd_place_order') {
+        if (failCatalog || log.failOrders) return json(503, { message: 'Service unavailable' });
+        const b = JSON.parse(req.postData() || '{}');
+        const fail = (m) => json(400, { code: 'P0001', message: m });
+        if (!Array.isArray(b.p_items) || b.p_items.length < 1 || b.p_items.length > 20) return fail('The cart must contain between 1 and 20 different products.');
+        if (!/^[1-9][0-9]{5}$/.test(String(b.p_pin || '').trim())) return fail('Enter a 6-digit PIN code.');
+        if (!/^\+?[0-9]{8,15}$/.test(cleanPhone(b.p_phone))) return fail('Enter a 10-digit mobile number, or an international number starting with +.');
+        const qty = {};
+        b.p_items.forEach((i) => (qty[i.slug] = (qty[i.slug] || 0) + Number(i.qty)));
+        const lines = [];
+        for (const [slug, n] of Object.entries(qty)) {
+          if (!(n >= 1 && n <= 10)) return fail('Quantity must be between 1 and 10 for each product.');
+          const p = db.sd_products.find((x) => x.slug === slug && x.published);
+          if (!p) return fail('A product in your cart is no longer available: ' + slug);
+          if (p.stock < n) return fail(`Only ${p.stock} left of ${p.name}.`);
+          const unit = p.discount_price ?? p.price;
+          lines.push({ p, n, unit });
+        }
+        const id = randomUUID();
+        const reference = ref('ORD');
+        const subtotal = lines.reduce((s, l) => s + l.unit * l.n, 0);
+        const count = lines.reduce((s, l) => s + l.n, 0);
+        db.sd_orders.push({ id, reference, customer_name: String(b.p_name).trim(), phone: cleanPhone(b.p_phone), email: b.p_email || null, address: b.p_address.trim(), city: b.p_city.trim(), pin: b.p_pin.trim(), status: 'pending', payment_status: 'unpaid', subtotal, item_count: count, admin_notes: null, created_at: now(), updated_at: now() });
+        lines.forEach((l) => {
+          db.sd_order_items.push({ id: randomUUID(), order_id: id, product_id: l.p.id, product_name: l.p.name, sku: l.p.sku, unit_price: l.unit, qty: l.n, line_total: l.unit * l.n });
+          l.p.stock -= l.n;
+        });
+        log.ordersByAnon = (log.ordersByAnon || 0) + (u ? 0 : 1);
+        return json(200, { reference, subtotal, item_count: count });
+      }
+      if (url.pathname === '/rest/v1/rpc/sd_submit_contact') {
+        if (failCatalog || log.failMessages) return json(503, { message: 'Service unavailable' });
+        const b = JSON.parse(req.postData() || '{}');
+        const fail = (m) => json(400, { code: 'P0001', message: m });
+        const phone = b.p_phone ? cleanPhone(b.p_phone) : null;
+        if (!phone && !b.p_email) return fail('Add a phone number or an email address so we can reply.');
+        if (!b.p_name || b.p_name.trim().length < 2) return fail('Enter a name (2 to 100 characters).');
+        const reference = ref('MSG');
+        db.sd_contact_messages.push({ id: randomUUID(), reference, name: b.p_name.trim(), phone, email: b.p_email || null, message: String(b.p_message).trim(), status: 'new', admin_notes: null, created_at: now(), updated_at: now() });
+        log.messagesByAnon = (log.messagesByAnon || 0) + (u ? 0 : 1);
+        return json(200, reference);
+      }
+      if (url.pathname === '/rest/v1/rpc/sd_add_admin') {
+        if (!u || roleOf(u.id) !== 'owner') return json(400, { code: 'P0001', message: 'Only an owner can add admins.' });
+        const b = JSON.parse(req.postData() || '{}');
+        const email = String(b.p_email || '').trim().toLowerCase();
+        const found = users.find((x) => x.email === email);
+        if (!found) return json(400, { code: 'P0001', message: `No login exists for ${b.p_email}. Create the user in Authentication first.` });
+        const existing = db.sd_admins.find((a) => a.user_id === found.id);
+        if (existing) existing.role = b.p_role;
+        else db.sd_admins.push({ id: found.id, user_id: found.id, email, role: b.p_role, created_at: now() });
+        return json(200, found.id);
+      }
       if (url.pathname.startsWith('/rest/v1/')) {
         if (failCatalog && !u) return json(503, { message: 'Service unavailable' });
-        return rest(route, req, url, admin);
+        return rest(route, req, url, admin, u?.id);
       }
 
       // storage
@@ -317,5 +404,5 @@ export function createMockSupabase({ SB, seed, care, content = contentSeed }) {
     });
   }
 
-  return { db, files, log, install, OWNER, OTHER };
+  return { db, files, log, install, OWNER, EDITOR, OTHER, NEWHIRE };
 }

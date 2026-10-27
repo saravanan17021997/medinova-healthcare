@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { Mail, MessageCircle, Phone } from 'lucide-react';
+import { Loader2, Mail, MessageCircle, Phone } from 'lucide-react';
 import { HERO, ILLUSTRATION } from '@/data/img';
 import { useSite } from '@/state/content';
 import { hello } from '@/config/live';
@@ -7,7 +7,7 @@ import { PageHeader } from '@/components/PageHeader';
 import { LocationPanel } from '@/components/LocationPanel';
 import { Notice, TextArea, TextField, buttonClass } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { submitEnquiry } from '@/services/enquiry';
+import { ordersSource, sendMessage } from '@/services/orders';
 import { telUrl, whatsappUrl } from '@/services/contact';
 import { isBlank, isEmail, isPhone, type Errors } from '@/lib/validation';
 
@@ -23,8 +23,12 @@ export function Contact() {
   const site = useSite();
   const [form, setForm] = useState<Form>({ name: '', phone: '', email: '', message: '' });
   const [errors, setErrors] = useState<Errors<Form>>({});
-  const [done, setDone] = useState<null | 'demo' | 'sent'>(null);
+  const [done, setDone] = useState<null | 'demo' | 'sent' | 'saved'>(null);
+  const [reference, setReference] = useState('');
   const [serverError, setServerError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [trap, setTrap] = useState('');
+  const live = ordersSource === 'database';
   const firstError = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
 
@@ -47,11 +51,21 @@ export function Contact() {
       requestAnimationFrame(() => firstError.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
       return;
     }
-    const res = await submitEnquiry('contact', { ...form });
+    if (busy) return;
+    setServerError('');
+    if (trap) {
+      // an automated form filler: show the usual confirmation, send nothing
+      setDone(live ? 'saved' : 'demo');
+      return;
+    }
+    setBusy(true);
+    const res = await sendMessage({ ...form, name: form.name.trim() });
+    setBusy(false);
     if (res.mode === 'error') {
       setServerError(res.message);
       return;
     }
+    setReference(res.reference ?? '');
     setDone(res.mode);
     requestAnimationFrame(() => doneRef.current?.focus());
   };
@@ -86,17 +100,28 @@ export function Contact() {
             <div className="text-center">
               <img src={ILLUSTRATION.contact} alt="" width={480} height={360} className="mx-auto h-auto w-56" />
               <h2 ref={doneRef} tabIndex={-1} className="mt-4 font-display text-3xl font-semibold text-ink outline-none">
-                {done === 'sent' ? 'Message sent' : 'Message ready'}
+                {done === 'demo' ? 'Message ready' : 'Message sent'}
               </h2>
-              <p className="mx-auto mt-2 max-w-md text-slate">{done === 'sent' ? 'Thanks. The team will reply using the details you gave.' : 'This is a demo, so your message was not sent anywhere. You can send it on WhatsApp instead.'}</p>
-              <a href={whatsappUrl(`${hello()}, this is ${form.name}.\n${form.message}`)} target="_blank" rel="noreferrer" className={buttonClass('primary', 'lg', 'mt-6')}>
-                <MessageCircle className="h-5 w-5" aria-hidden /> Send on WhatsApp
-              </a>
+              <p className="mx-auto mt-2 max-w-md text-slate">{done === 'demo' ? 'This is a demo, so your message was not sent anywhere. You can send it on WhatsApp instead.' : 'Thanks. The team will reply using the details you gave.'}</p>
+              {reference && (
+                <p className="mt-3 text-sm text-slate">
+                  Your reference: <span className="font-semibold text-ink" data-testid="message-ref">{reference}</span>
+                </p>
+              )}
+              {done === 'demo' && (
+                <a href={whatsappUrl(`${hello()}, this is ${form.name}.\n${form.message}`)} target="_blank" rel="noreferrer" className={buttonClass('primary', 'lg', 'mt-6')}>
+                  <MessageCircle className="h-5 w-5" aria-hidden /> Send on WhatsApp
+                </a>
+              )}
             </div>
           ) : (
             <form noValidate onSubmit={onSubmit}>
               <h2 className="font-display text-2xl font-semibold text-ink">Send us a message</h2>
-              {serverError && <Notice className="mt-4">{serverError}</Notice>}
+              {serverError && (
+                <div role="alert" id="contact-error" className="mt-4">
+                  <Notice>{serverError}</Notice>
+                </div>
+              )}
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <TextField id="c-name" label="Your name" autoComplete="name" value={form.name} onChange={(e) => set('name', e.target.value)} error={errors.name} />
@@ -107,9 +132,15 @@ export function Contact() {
                   <TextArea id="c-message" label="Message" rows={5} maxLength={600} value={form.message} onChange={(e) => set('message', e.target.value)} error={errors.message} hint="Please don’t include detailed medical information." />
                 </div>
               </div>
-              <button type="submit" className={buttonClass('primary', 'lg', 'mt-7')}>
-                Send message
+              <div className="sr-only" aria-hidden="true">
+                <label htmlFor="c-website">Leave this empty</label>
+                <input id="c-website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
+              </div>
+              <button type="submit" disabled={busy} className={buttonClass('primary', 'lg', 'mt-7')}>
+                {busy && <Loader2 className="h-5 w-5 animate-spin motion-reduce:animate-none" aria-hidden />}
+                {busy ? 'Sending…' : 'Send message'}
               </button>
+              {live && <p className="mt-3 text-sm text-slate">Only the clinic team can read your message.</p>}
             </form>
           )}
         </div>

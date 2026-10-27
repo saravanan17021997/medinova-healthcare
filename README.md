@@ -1,6 +1,6 @@
 # MediNova Healthcare: demonstration website
 
-A responsive healthcare website with a doctor directory, appointment requests, a small health-essentials store with cart and demo checkout, and a complete local image library.
+A responsive healthcare website with a doctor directory, appointment requests, a small health-essentials store with cart and checkout (saved to the database when Supabase is set up, a demo otherwise), and a complete local image library.
 
 Stack: React 18, Vite 5, TypeScript, Tailwind CSS 3, React Router 6 and Lucide icons. Fonts (Fraunces and Figtree) are self-hosted.
 
@@ -56,8 +56,9 @@ Work in progress, built in stages.
 - **Stage 3:** sign-in, protected admin pages and a live dashboard.
 - **Stage 4:** products, categories and product images. The public store reads them from the database.
 - **Stage 5:** doctors, specialties and appointment requests. The public pages read doctors and specialties from the database, and the appointment form saves requests to it.
-- **Stage 6 (current):** homepage sections, header and footer menus, facilities and site settings (name, contact details, hours, address, demo notices).
-- **Later stages:** orders, messages and admin users.
+- **Stage 6:** homepage sections, header and footer menus, facilities and site settings (name, contact details, hours, address, demo notices).
+- **Stage 7 (current):** checkout and the contact form save to the database; Orders, Messages and Admin users screens.
+- **Next:** stage 8, a final security review and the production checklist.
 
 | Route | What it does |
 |---|---|
@@ -75,6 +76,9 @@ Work in progress, built in stages.
 | `/admin/navigation` | Header menu (up to 7 shown), footer links (up to 8) and social media links (up to 6, `https://` only). Add, edit, reorder, show or hide, delete. |
 | `/admin/facilities` | Add, edit, reorder and hide facilities, with an image for each. |
 | `/admin/settings` | Clinic name and tagline, phone, WhatsApp, email, opening hours, address and directions, demo notices and the footer line. |
+| `/admin/orders` | Orders from the store. Filter by status with counts, search by name, phone or reference, 20 per page. Open one for its items, totals, address, Call and WhatsApp links, status and team notes. Cancelling (after a confirmation) puts the items back in stock and cannot be undone. Payment status is shown but cannot be changed here. Owners can delete delivered or cancelled orders. |
+| `/admin/messages` | Messages from the contact page. Opening a new message marks it Read. Reply by phone, WhatsApp or email, then mark it Replied or Archived, with team notes. Owners can delete. |
+| `/admin/users` | Owners only (hidden from editors). Add an admin by the email of an existing Supabase login, change roles, remove access. The last owner cannot be removed or made an editor. |
 
 **How the store reads the catalogue**
 - With `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set, the Store, product pages, cart, checkout and home page read categories, products and images from Supabase. They use a plain REST call with the publishable key, so the public site does not download the Supabase library.
@@ -93,6 +97,14 @@ Work in progress, built in stages.
 - Visitors can create a request but cannot read any. Only admins can see requests.
 - A request is not a booking. The team calls the patient and sets the status: New, Contacted, Confirmed, Completed or Cancelled.
 - Doctor photos go to `doctors/<doctor id>/` and specialty images to `specialties/<specialty id>/` in the `sd-media` bucket.
+
+**How orders and messages work**
+- Checkout sends the cart to the database function `sd_place_order`. It reads every price (including sale prices) and stock level from the database itself, checks the product is still shown, caps each product at 10, and lowers the stock, all in one step: if anything fails, nothing is saved. The customer sees a reference such as `ORD-261027-1A2B3C`.
+- No card details are collected and there is no payment gateway. The order is a request; the team calls to confirm it and arrange payment. Payment status starts as "Not paid", and the browser is not allowed to change it (only status and notes can be updated), so nobody can mark an order as paid by hand.
+- If a price changed while the customer was shopping, the confirmation shows the database total and says so. If stock ran out, the order is refused with the amount left and nothing is saved.
+- The contact form sends the message to `sd_submit_contact`, which needs a phone number or an email. The visitor sees a reference such as `MSG-261027-1A2B3C`.
+- Visitors can send orders and messages but never read them. Both forms have a hidden field that automated form fillers tend to complete; those submissions are quietly dropped.
+- Without the Supabase settings, checkout and the contact form keep their earlier demo behaviour.
 
 **How site content works**
 - Every page reads the site settings and menus; the homepage also reads its sections, and the Facilities page its facilities. Only published rows reach the website.
@@ -125,7 +137,7 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) and `npm run verify:orders` (checkout, the contact form, orders, messages and admin users) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
@@ -134,6 +146,7 @@ BASE_URL=http://localhost:4181 npm run verify:admin
 BASE_URL=http://localhost:4181 npm run verify:catalog
 BASE_URL=http://localhost:4181 npm run verify:care
 BASE_URL=http://localhost:4181 npm run verify:content
+BASE_URL=http://localhost:4181 npm run verify:orders
 ```
 
 ## Images

@@ -6,6 +6,7 @@ import { SelectField, TextArea, buttonClass } from '@/components/ui';
 import { cx, formatDate } from '@/lib/format';
 import { useAdminMeta } from '../components';
 import { useAdminAuth } from '../auth';
+import { liveSite } from '@/config/live';
 import { ConfirmDialog, LoadError, PageHeader, dbError, formatWhen, useToast } from '../ui';
 
 interface Row {
@@ -93,7 +94,7 @@ function Detail({ row, onClose, onSaved, onDeleted }: { row: Row; onClose: () =>
             <a href={`tel:${row.phone}`} className={buttonClass('dark', 'sm')}>
               <Phone className="h-4 w-4" aria-hidden /> Call
             </a>
-            <a href={`https://wa.me/${waNumber(row.phone)}?text=${encodeURIComponent(`Hello ${row.patient_name}, this is SaraDev Healthcare about your appointment request ${row.reference}.`)}`} target="_blank" rel="noreferrer" className={buttonClass('outline', 'sm')}>
+            <a href={`https://wa.me/${waNumber(row.phone)}?text=${encodeURIComponent(`Hello ${row.patient_name}, this is ${liveSite().name} about your appointment request ${row.reference}.`)}`} target="_blank" rel="noreferrer" className={buttonClass('outline', 'sm')}>
               <MessageCircle className="h-4 w-4" aria-hidden /> WhatsApp
             </a>
             {row.email && (

@@ -29,18 +29,26 @@ const ACTION_LABEL: Record<string, string> = { INSERT: 'Added', UPDATE: 'Updated
 
 const sum = (o: Record<string, number>) => Object.values(o).reduce((a, b) => a + Number(b), 0);
 const when = (iso: string) => new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' }).format(new Date(iso));
-const label = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+const label = (s: string) => (s === 'pending' ? 'New' : s.charAt(0).toUpperCase() + s.slice(1));
 
-function StatCard({ icon, title, value, note, tone = 'default' }: { icon: ReactNode; title: string; value: number; note: string; tone?: 'default' | 'warn' }) {
-  return (
-    <div className="rounded-2xl bg-white p-5 shadow-card ring-1 ring-line/70">
+function StatCard({ icon, title, value, note, tone = 'default', to }: { icon: ReactNode; title: string; value: number; note: string; tone?: 'default' | 'warn'; to?: string }) {
+  const body = (
+    <>
       <div className="flex items-center gap-3">
         <span className={cx('flex h-10 w-10 items-center justify-center rounded-xl', tone === 'warn' && value > 0 ? 'bg-signal/25 text-ink' : 'bg-aqua-50 text-teal')}>{icon}</span>
         <h2 className="text-sm font-semibold text-slate">{title}</h2>
       </div>
       <p className="mt-4 font-display text-4xl font-semibold tabular-nums text-ink">{value}</p>
       <p className="mt-1 text-sm text-slate">{note}</p>
-    </div>
+    </>
+  );
+  const box = 'block rounded-2xl bg-white p-5 shadow-card ring-1 ring-line/70';
+  return to ? (
+    <Link to={to} className={cx(box, 'hover:ring-teal focus-visible:ring-2 focus-visible:ring-teal')}>
+      {body}
+    </Link>
+  ) : (
+    <div className={box}>{body}</div>
   );
 }
 
@@ -138,14 +146,17 @@ export function AdminDashboard() {
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             <StatCard icon={<Package className="h-5 w-5" aria-hidden />} title="Published products" value={Number(data.published_products)} note="Visible in the store" />
             <StatCard icon={<PackageX className="h-5 w-5" aria-hidden />} title="Low stock" value={data.low_stock.length} note="At or below their alert level" tone="warn" />
-            <StatCard icon={<ShoppingBag className="h-5 w-5" aria-hidden />} title="Orders" value={orders} note={`${Number(data.orders_by_status.pending ?? 0)} pending`} />
-            <StatCard icon={<CalendarCheck className="h-5 w-5" aria-hidden />} title="Appointment requests" value={appts} note={`${Number(data.appointments_by_status.new ?? 0)} new`} />
-            <StatCard icon={<MessageSquare className="h-5 w-5" aria-hidden />} title="New messages" value={Number(data.new_messages)} note="Not yet read" />
+            <StatCard icon={<ShoppingBag className="h-5 w-5" aria-hidden />} title="Orders" value={orders} note={`${Number(data.orders_by_status.pending ?? 0)} new`} to="/admin/orders?status=pending" />
+            <StatCard icon={<CalendarCheck className="h-5 w-5" aria-hidden />} title="Appointment requests" value={appts} note={`${Number(data.appointments_by_status.new ?? 0)} new`} to="/admin/appointments?status=new" />
+            <StatCard icon={<MessageSquare className="h-5 w-5" aria-hidden />} title="New messages" value={Number(data.new_messages)} note="Not yet read" to="/admin/messages?status=new" />
           </div>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-2">
             <Panel id="orders-heading" title="Orders by status">
               <StatusList statuses={ORDER_STATUSES} counts={data.orders_by_status} empty="No orders yet. Orders placed on the website will appear here." />
+              <Link to="/admin/orders" className="mt-4 inline-block text-sm font-semibold text-teal-700 underline-offset-4 hover:underline">
+                Open orders
+              </Link>
             </Panel>
             <Panel id="appointments-heading" title="Appointment requests by status">
               <StatusList statuses={APPOINTMENT_STATUSES} counts={data.appointments_by_status} empty="No appointment requests yet." />
