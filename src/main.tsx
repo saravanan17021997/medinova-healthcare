@@ -10,15 +10,18 @@ import './index.css';
 import { App } from './App';
 import { CartProvider } from './state/cart';
 import { CatalogProvider } from './state/catalog';
+import { CareProvider } from './state/care';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <CatalogProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </CatalogProvider>
+      <CareProvider>
+        <CatalogProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </CatalogProvider>
+      </CareProvider>
     </BrowserRouter>
   </StrictMode>,
 );

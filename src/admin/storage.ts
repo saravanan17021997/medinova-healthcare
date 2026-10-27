@@ -75,3 +75,11 @@ export async function removeFiles(paths: (string | null | undefined)[]) {
   if (!list.length || !supabase) return;
   await supabase.storage.from(BUCKET).remove(list).catch(() => undefined);
 }
+
+/** The storage path of a file in our bucket, or null for the built-in images that ship with the site. */
+export function pathFromPublicUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  const marker = `/storage/v1/object/public/${BUCKET}/`;
+  const i = url.indexOf(marker);
+  return i === -1 ? null : url.slice(i + marker.length).split('/').map(decodeURIComponent).join('/');
+}

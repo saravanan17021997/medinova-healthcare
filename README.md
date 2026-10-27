@@ -36,7 +36,7 @@ Node 18.18 or later is required (tested on Node 22).
 - **Appointment request:**
   - The form is validated and accessible, with an error summary that receives focus.
   - The doctor list filters by the chosen specialty, and a doctor profile can prefill the form.
-  - It produces a WhatsApp message and a simulated confirmation, or sends to `/api/enquiry` when that is enabled.
+  - With Supabase set up, it saves the request to the database and shows a reference. Without it, it produces a WhatsApp message and a simulated confirmation, or sends to `/api/enquiry` when that is enabled.
 - **Store:** 12 demo products with INR prices labelled "demo price".
   - The cart is saved in the browser.
   - Checkout collects **no card details** and creates a `DEMO-` reference only.
@@ -54,8 +54,9 @@ Node 18.18 or later is required (tested on Node 22).
 
 Work in progress, built in stages.
 - **Stage 3:** sign-in, protected admin pages and a live dashboard.
-- **Stage 4 (current):** products, categories and product images. The public store reads them from the database.
-- **Later stages:** doctors, appointments, orders and content editing.
+- **Stage 4:** products, categories and product images. The public store reads them from the database.
+- **Stage 5 (current):** doctors, specialties and appointment requests. The public pages read doctors and specialties from the database, and the appointment form saves requests to it.
+- **Later stages:** homepage and site content, orders, messages, settings and admin users.
 
 | Route | What it does |
 |---|---|
@@ -64,6 +65,10 @@ Work in progress, built in stages.
 | `/admin/products` | Search by name or SKU; filter by category, status and stock; sort; 20 per page; publish or hide with one switch; delete with confirmation |
 | `/admin/products/new`, `/admin/products/:id` | Name, web address, SKU, category, price, sale price, stock, low-stock alert, texts, featured and published. Images: upload with progress, replace, reorder, describe, remove. |
 | `/admin/categories` | Add, edit, reorder and hide categories. A category that still has products cannot be deleted. |
+| `/admin/appointments` | Requests from the website. Filter by status (with counts), search by name, phone or reference, 20 per page. Open one to call, WhatsApp or email the patient, change the status and keep team notes. Only an owner can delete a request. |
+| `/admin/doctors` | Search by name or role; filter by specialty and status (shown, hidden, demo, verified); show or hide with one switch; delete with confirmation |
+| `/admin/doctors/new`, `/admin/doctors/:id` | Name, web address, role, specialty, qualifications, registration number, bio, languages, consultation modes, usual days, areas of focus, photo, demo flag and published. A verified profile must have qualifications before it can be published. |
+| `/admin/specialties` | Add, edit, reorder and hide specialties, with an icon, image and reasons to visit. A specialty that still has doctors cannot be deleted. |
 
 **How the store reads the catalogue**
 - With `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` set, the Store, product pages, cart, checkout and home page read categories, products and images from Supabase. They use a plain REST call with the publishable key, so the public site does not download the Supabase library.
@@ -74,6 +79,14 @@ Work in progress, built in stages.
 - If Supabase cannot be reached, the store says so and offers Try again. It never shows old prices.
 - Without the two settings (for example, a local copy with no `.env`), the built-in sample catalogue in `src/data/products.ts` is used.
 - Uploaded images go to the `sd-media` bucket under `products/<product id>/`. Deleting or replacing an image also deletes its file.
+
+**How doctors and appointments work**
+- The home page, Specialties, Doctors, doctor profiles, the footer and the appointment form read published specialties and doctors from Supabase. A doctor whose specialty is hidden is not shown.
+- Seeded doctors are marked as demo profiles and keep the "Demo profile" notice. Untick **Demo profile** only once the details are real and checked.
+- The appointment form saves the request through the database function `sd_submit_appointment`. It checks the name, phone, date (today to six months ahead) and that the chosen doctor is published and in the chosen specialty. The visitor sees a reference such as `APT-261027-1A2B3C`.
+- Visitors can create a request but cannot read any. Only admins can see requests.
+- A request is not a booking. The team calls the patient and sets the status: New, Contacted, Confirmed, Completed or Cancelled.
+- Doctor photos go to `doctors/<doctor id>/` and specialty images to `specialties/<specialty id>/` in the `sd-media` bucket.
 
 **How access works**
 - Supabase Auth signs the person in. The `sd_admins` table is the allow-list: its `user_id` is the Auth user's id, with `role` set to `owner` or `editor`.
@@ -96,13 +109,14 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` (sign-in and dashboard) and `npm run verify:catalog` (products, categories, images and the database-backed store) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) and `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
 npx vite preview --outDir dist-test --port 4181
 BASE_URL=http://localhost:4181 npm run verify:admin
 BASE_URL=http://localhost:4181 npm run verify:catalog
+BASE_URL=http://localhost:4181 npm run verify:care
 ```
 
 ## Images

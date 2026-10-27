@@ -1,14 +1,14 @@
-import { useMemo, useRef, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { MessageCircle, Phone, RotateCcw, ShieldCheck } from 'lucide-react';
 import { HERO, ILLUSTRATION } from '@/data/img';
-import { specialties, specialtyBySlug } from '@/data/specialties';
-import { doctors, doctorBySlug } from '@/data/doctors';
+import { useCare } from '@/state/care';
+import { careSource, requestAppointment } from '@/services/care';
+import { CareError } from '@/components/care';
 import { Img } from '@/components/Img';
 import { PageHeader } from '@/components/PageHeader';
-import { Notice, SelectField, TextArea, TextField, buttonClass } from '@/components/ui';
+import { SelectField, TextArea, TextField, buttonClass } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
-import { submitEnquiry } from '@/services/enquiry';
 import { telUrl, whatsappUrl } from '@/services/contact';
 import { isBlank, isEmail, isPhone, type Errors } from '@/lib/validation';
 import { formatDate, todayIso } from '@/lib/format';
@@ -26,6 +26,11 @@ interface Form {
 }
 
 const TIMES = ['Morning (9 am to 12 pm)', 'Afternoon (12 pm to 4 pm)', 'Evening (4 pm to 7 pm)'];
+const sixMonths = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 180);
+  return d.toISOString().slice(0, 10);
+};
 const ORDER: (keyof Form)[] = ['name', 'phone', 'email', 'specialty', 'doctor', 'date', 'time', 'message'];
 
 function validate(f: Form): Errors<Form> {
@@ -37,6 +42,7 @@ function validate(f: Form): Errors<Form> {
   if (isBlank(f.specialty)) e.specialty = 'Choose a specialty.';
   if (isBlank(f.date)) e.date = 'Choose a preferred date.';
   else if (f.date < todayIso()) e.date = 'Choose today or a later date.';
+  else if (f.date > sixMonths()) e.date = 'Choose a date within the next six months.';
   if (isBlank(f.time)) e.time = 'Choose a preferred time of day.';
   if (f.message.length > 300) e.message = 'Keep the note under 300 characters.';
   return e;
@@ -44,19 +50,29 @@ function validate(f: Form): Errors<Form> {
 
 export function Appointment() {
   usePageMeta({ title: 'Book an appointment', description: 'Send an appointment request to SaraDev. In this demonstration nothing is booked.' });
+  const { status: careStatus, specialties, doctors, specialtyBySlug, doctorBySlug } = useCare(true);
   const [params] = useSearchParams();
   const initialSpecialty = specialtyBySlug(params.get('specialty') ?? '')?.slug ?? '';
-  const initialDoctor = doctorBySlug(params.get('doctor') ?? '')?.slug ?? '';
+  const initialDoctor = doctorBySlug(params.get('doctor') ?? '')?.slug ?? doctorBySlug((params.get('doctor') ?? '').toLowerCase())?.slug ?? '';
   const empty: Form = { name: '', phone: '', email: '', specialty: initialSpecialty, doctor: initialDoctor, date: '', time: '', message: '' };
   const [form, setForm] = useState<Form>(empty);
+  const [reference, setReference] = useState('');
+  const [trap, setTrap] = useState(''); // hidden field: people never see it, bots fill it in
+  const prefilled = useRef(false);
+  // the specialty / doctor from the link can only be applied once the lists have loaded
+  useEffect(() => {
+    if (careStatus !== 'ready' || prefilled.current) return;
+    prefilled.current = true;
+    if (initialSpecialty || initialDoctor) setForm((f) => ({ ...f, specialty: f.specialty || initialSpecialty, doctor: f.doctor || initialDoctor }));
+  }, [careStatus, initialSpecialty, initialDoctor]);
   const [errors, setErrors] = useState<Errors<Form>>({});
   const [status, setStatus] = useState<'idle' | 'sending' | 'done'>('idle');
   const [serverError, setServerError] = useState('');
-  const [sentMode, setSentMode] = useState<'demo' | 'sent'>('demo');
+  const [sentMode, setSentMode] = useState<'demo' | 'sent' | 'saved'>('demo');
   const summaryRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef<HTMLHeadingElement>(null);
 
-  const doctorOptions = useMemo(() => (form.specialty ? doctors.filter((d) => d.specialtySlug === form.specialty) : doctors), [form.specialty]);
+  const doctorOptions = useMemo(() => (form.specialty ? doctors.filter((d) => d.specialtySlug === form.specialty) : doctors), [form.specialty, doctors]);
 
   const set = <K extends keyof Form>(k: K, v: Form[K]) => {
     setForm((f) => {
@@ -95,13 +111,21 @@ export function Appointment() {
     }
     setStatus('sending');
     setServerError('');
-    const res = await submitEnquiry('appointment', { ...form });
+    if (trap) {
+      // a bot filled the hidden field: pretend it worked and send nothing
+      setSentMode('demo');
+      setStatus('done');
+      return;
+    }
+    const res = await requestAppointment({ ...form });
     if (res.mode === 'error') {
       setServerError(res.message);
       setStatus('idle');
+      requestAnimationFrame(() => document.getElementById('server-error')?.focus());
       return;
     }
     setSentMode(res.mode);
+    setReference(res.reference ?? '');
     setStatus('done');
     requestAnimationFrame(() => doneRef.current?.focus());
   };
@@ -117,9 +141,14 @@ export function Appointment() {
             <div className="text-center">
               <img src={ILLUSTRATION.appointment} alt="" width={480} height={360} className="mx-auto h-auto w-64" />
               <h2 ref={doneRef} tabIndex={-1} className="mt-4 font-display text-3xl font-semibold text-ink outline-none">
-                {sentMode === 'sent' ? 'Request sent' : 'Your request is ready to send'}
+                {sentMode === 'demo' ? 'Your request is ready to send' : 'Request sent'}
               </h2>
-              <p className="mx-auto mt-3 max-w-md text-slate">{sentMode === 'sent' ? 'The team will call you to confirm a time. Your appointment is not booked until they do.' : 'This is a demo, so nothing has been booked and nothing was sent. You can send the request yourself on WhatsApp.'}</p>
+              <p className="mx-auto mt-3 max-w-md text-slate">{sentMode === 'demo' ? 'This is a demo, so nothing has been booked and nothing was sent. You can send the request yourself on WhatsApp.' : 'The team will call you to confirm a time. Your appointment is not booked until they do.'}</p>
+              {reference && (
+                <p className="mt-4 text-[15px] text-slate">
+                  Your reference: <strong className="font-semibold text-ink" data-testid="appointment-ref">{reference}</strong>
+                </p>
+              )}
               <dl className="mx-auto mt-6 max-w-md space-y-2 rounded-2xl bg-mist p-5 text-left text-[15px]">
                 {[
                   ['Patient', form.name],
@@ -135,14 +164,15 @@ export function Appointment() {
                 ))}
               </dl>
               <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-                <a href={whatsappUrl(message())} target="_blank" rel="noreferrer" className={buttonClass('primary', 'lg')}>
-                  <MessageCircle className="h-5 w-5" aria-hidden /> Send on WhatsApp
+                <a href={whatsappUrl(reference ? `${message()}\nReference: ${reference}` : message())} target="_blank" rel="noreferrer" className={buttonClass(sentMode === 'demo' ? 'primary' : 'outline', 'lg')}>
+                  <MessageCircle className="h-5 w-5" aria-hidden /> {sentMode === 'demo' ? 'Send on WhatsApp' : 'Also message on WhatsApp'}
                 </a>
                 <button
                   type="button"
                   className={buttonClass('outline', 'lg')}
                   onClick={() => {
                     setForm(empty);
+                    setReference('');
                     setStatus('idle');
                   }}
                 >
@@ -171,21 +201,30 @@ export function Appointment() {
                   </ul>
                 </div>
               )}
-              {serverError && <Notice className="mt-6">{serverError}</Notice>}
+              {serverError && (
+                <div id="server-error" tabIndex={-1} role="alert" className="mt-6 rounded-2xl border border-[#B3261E]/40 bg-[#FCEEEE] p-4 text-[15px] text-[#8C1D18] outline-none">
+                  {serverError}
+                </div>
+              )}
+              {careStatus === 'error' && <CareError className="mt-6" />}
+              <div aria-hidden className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden">
+                <label htmlFor="website">Leave this empty</label>
+                <input id="website" name="website" tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
+              </div>
 
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
                 <TextField id="name" label="Patient name" autoComplete="name" value={form.name} onChange={(e) => set('name', e.target.value)} error={errors.name} />
                 <TextField id="phone" label="Contact number" type="tel" inputMode="tel" autoComplete="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} error={errors.phone} hint="We’ll call this number to confirm." />
                 <TextField id="email" label="Email" type="email" autoComplete="email" optional value={form.email} onChange={(e) => set('email', e.target.value)} error={errors.email} />
                 <SelectField id="specialty" label="Specialty" value={form.specialty} onChange={(e) => set('specialty', e.target.value)} error={errors.specialty}>
-                  <option value="">Choose a specialty</option>
+                  <option value="">{careStatus === 'ready' ? 'Choose a specialty' : 'Loading specialties…'}</option>
                   {specialties.map((s) => (
                     <option key={s.slug} value={s.slug}>
                       {s.name}
                     </option>
                   ))}
                 </SelectField>
-                <SelectField id="doctor" label="Doctor" optional value={form.doctor} onChange={(e) => set('doctor', e.target.value)} hint="Demo profiles. Leave as “Any available” if you have no preference.">
+                <SelectField id="doctor" label="Doctor" optional value={form.doctor} onChange={(e) => set('doctor', e.target.value)} hint={`${doctorOptions.some((d) => d.isDemo !== false) ? 'Demo profiles. ' : ''}Leave as “Any available” if you have no preference.`}>
                   <option value="">Any available</option>
                   {doctorOptions.map((d) => (
                     <option key={d.slug} value={d.slug}>
@@ -243,7 +282,7 @@ export function Appointment() {
             </div>
           </div>
           <p className="flex gap-2.5 px-2 text-sm text-slate">
-            <ShieldCheck className="h-5 w-5 shrink-0 text-teal" aria-hidden /> We only ask for what we need to call you back. This demo stores nothing.
+            <ShieldCheck className="h-5 w-5 shrink-0 text-teal" aria-hidden /> We only ask for what we need to call you back. {careSource === 'database' ? 'Your request is stored securely and only the clinic team can see it.' : 'This demo stores nothing.'}
           </p>
         </aside>
       </section>

@@ -2,11 +2,12 @@ import { Link } from 'react-router-dom';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { site } from '@/config/site';
 import { BRAND } from '@/data/img';
-import { specialties } from '@/data/specialties';
+import { useCare } from '@/state/care';
 import { telUrl, whatsappUrl } from '@/services/contact';
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { specialties } = useCare(true);
   return (
     <footer className="mt-24 bg-ink text-white">
       <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">

@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { CalendarCheck, Languages, MessageCircle, Search, Video, Building2 } from 'lucide-react';
 import { HERO, ILLUSTRATION } from '@/data/img';
-import { doctors, doctorBySlug, allLanguages } from '@/data/doctors';
-import { specialties, specialtyBySlug } from '@/data/specialties';
+import { useCare } from '@/state/care';
+import { CardGridSkeleton, CareError } from '@/components/care';
 import { Img } from '@/components/Img';
 import { DoctorCard } from '@/components/cards';
 import { PageHeader, Breadcrumbs } from '@/components/PageHeader';
@@ -12,10 +12,11 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { whatsappUrl } from '@/services/contact';
 import { NotFound } from './NotFound';
 
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 export function Doctors() {
   usePageMeta({ title: 'Find a doctor', description: 'Search SaraDev’s fictional demo team profiles by name, specialty, language and availability.' });
+  const { status, doctors, specialties, allLanguages } = useCare(true);
   const [params, setParams] = useSearchParams();
   const q = params.get('q') ?? '';
   const specialty = params.get('specialty') ?? '';
@@ -38,7 +39,7 @@ export function Doctors() {
           (!language || d.languages.includes(language)) &&
           (!day || d.availability.includes(day)),
       ),
-    [q, specialty, language, day],
+    [doctors, q, specialty, language, day],
   );
 
   const selectClass = 'h-12 w-full rounded-xl border border-line bg-white px-4 text-base';
@@ -47,7 +48,7 @@ export function Doctors() {
     <>
       <PageHeader title="Find a doctor" intro="Filter the team by specialty, language or day, then request an appointment with the person you’d like to see." image={HERO.professional} crumbs={[{ label: 'Home', to: '/' }, { label: 'Doctors' }]} />
       <section className="container-x mt-10">
-        <Notice className="mb-6">Every profile here is a fictional demonstration with an illustrated portrait. They are not real people or licensed practitioners.</Notice>
+        {doctors.some((d) => d.isDemo !== false) && <Notice className="mb-6">Profiles marked “Fictional demo profile” are demonstrations with illustrated portraits. They are not real people or licensed practitioners.</Notice>}
         <form role="search" className="grid gap-3 rounded-3xl bg-white p-4 shadow-card ring-1 ring-line/60 sm:grid-cols-2 lg:grid-cols-4" onSubmit={(e) => e.preventDefault()}>
           <div className="relative">
             <label htmlFor="doctor-q" className="sr-only">
@@ -92,6 +93,12 @@ export function Doctors() {
             </select>
           </div>
         </form>
+        {status === 'idle' || status === 'loading' ? (
+          <CardGridSkeleton count={5} tall className="mt-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5" />
+        ) : status === 'error' ? (
+          <CareError className="mt-6" />
+        ) : (
+        <>
         <p className="mt-6 text-sm text-slate" aria-live="polite">
           Showing {list.length} of {doctors.length} profiles
         </p>
@@ -104,6 +111,8 @@ export function Doctors() {
         ) : (
           <EmptyState image={ILLUSTRATION.emptySearch} title="No profiles match these filters" body="Try removing a filter, or choose a different day or language." action={<button type="button" className="font-semibold text-teal-700 underline" onClick={() => setParams({}, { replace: true })}>Clear all filters</button>} />
         )}
+        </>
+        )}
       </section>
     </>
   );
@@ -111,9 +120,14 @@ export function Doctors() {
 
 export function DoctorProfile() {
   const { slug = '' } = useParams();
-  const d = doctorBySlug(slug);
+  const { status, doctorBySlug, specialtyBySlug } = useCare(true);
+  // older links used capitals (e.g. /doctors/Saravanan): slugs are lowercase now
+  const d = doctorBySlug(slug) ?? doctorBySlug(slug.toLowerCase());
   const s = d ? specialtyBySlug(d.specialtySlug) : undefined;
-  usePageMeta({ title: d ? `${d.name} (demo profile)` : 'Profile not found', description: d ? `${d.role}, ${s?.name}. A fictional demonstration profile.` : 'This profile could not be found.', image: d?.image.src });
+  const demo = d?.isDemo !== false;
+  usePageMeta({ title: d ? `${d.name}${demo ? ' (demo profile)' : ''}` : status === 'ready' ? 'Profile not found' : 'Loading profile', description: d ? `${d.role}, ${s?.name}.${demo ? ' A fictional demonstration profile.' : ''}` : 'This profile could not be found.', image: d?.image.src });
+  if (status === 'idle' || status === 'loading') return <section className="container-x py-10"><CardGridSkeleton count={2} tall /></section>;
+  if (status === 'error') return <section className="container-x py-10"><CareError /></section>;
   if (!d || !s) return <NotFound />;
 
   return (
@@ -126,7 +140,7 @@ export function DoctorProfile() {
           </div>
         </div>
         <div>
-          <DemoBadge>Fictional demo profile</DemoBadge>
+          {demo && <DemoBadge>Fictional demo profile</DemoBadge>}
           <h1 className="mt-3 font-display text-4xl font-semibold leading-tight text-ink sm:text-5xl">{d.name}</h1>
           <p className="mt-2 text-lg text-slate">
             {d.role},{' '}
@@ -134,7 +148,19 @@ export function DoctorProfile() {
               {s.name}
             </Link>
           </p>
-          <Notice className="mt-6">This profile is a sample for demonstration. It has no qualifications or registration because it does not describe a real clinician. Replace it with verified details.</Notice>
+          {d.qualifications && <p className="mt-2 font-medium text-ink">{d.qualifications}</p>}
+          {demo ? (
+            <Notice className="mt-6">This profile is a sample for demonstration. It does not describe a real clinician. Replace it with verified details.</Notice>
+          ) : d.registrationNo ? (
+            <p className="mt-3 text-sm text-slate">Registration number: {d.registrationNo}</p>
+          ) : null}
+          {d.bio && (
+            <div className="mt-6 max-w-2xl space-y-3 leading-relaxed text-slate">
+              {d.bio.split(/\n{2,}/).map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
+          )}
           <dl className="mt-8 grid gap-6 sm:grid-cols-2">
             <div>
               <dt className="flex items-center gap-2 text-sm font-semibold text-ink">
@@ -161,10 +187,12 @@ export function DoctorProfile() {
                 </ul>
               </dd>
             </div>
-            <div className="sm:col-span-2">
-              <dt className="text-sm font-semibold text-ink">Areas of focus</dt>
-              <dd className="mt-1 text-slate">{d.focus.join(', ')}</dd>
-            </div>
+            {d.focus.length > 0 && (
+              <div className="sm:col-span-2">
+                <dt className="text-sm font-semibold text-ink">Areas of focus</dt>
+                <dd className="mt-1 text-slate">{d.focus.join(', ')}</dd>
+              </div>
+            )}
           </dl>
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <LinkButton to={`/appointment?specialty=${s.slug}&doctor=${d.slug}`} size="lg">

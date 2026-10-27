@@ -11,8 +11,8 @@ import { createMockSupabase } from './lib/mock-supabase.mjs';
 const BASE = (process.env.BASE_URL || 'http://localhost:4181').replace(/\/$/, '');
 const SB = (process.env.SUPABASE_URL || 'https://test-project.supabase.co').replace(/\/$/, '');
 const SHOTS = process.env.SHOTS || '';
-const { products } = await loadData();
-const mock = createMockSupabase({ SB, seed: products });
+const { products, specialties, doctors } = await loadData();
+const mock = createMockSupabase({ SB, seed: products, care: { specialties: specialties.specialties, doctors: doctors.doctors } });
 const { db, files, log, OWNER } = mock;
 
 const results = [];

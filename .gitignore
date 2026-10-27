@@ -7,3 +7,4 @@ dist
 .DS_Store
 .vercel
 scripts/verify-catalog.json
+scripts/verify-care.json

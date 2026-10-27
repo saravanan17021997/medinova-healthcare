@@ -10,7 +10,7 @@ import { randomUUID } from 'node:crypto';
 const b64 = (o) => Buffer.from(JSON.stringify(o)).toString('base64url');
 const EXP = Math.floor(Date.now() / 1000) + 3600;
 
-export function createMockSupabase({ SB, seed }) {
+export function createMockSupabase({ SB, seed, care }) {
   const OWNER = { id: '11111111-1111-1111-1111-111111111111', email: 'owner@example.com', password: 'correct-horse' };
   const OTHER = { id: '33333333-3333-3333-3333-333333333333', email: 'moneymap.user@example.com', password: 'correct-horse' };
   const users = [OWNER, OTHER];
@@ -19,7 +19,11 @@ export function createMockSupabase({ SB, seed }) {
   const now = () => new Date().toISOString();
 
   // ---------------------------------------------------------------- data
-  const db = { sd_categories: [], sd_products: [], sd_product_images: [] };
+  const db = { sd_categories: [], sd_products: [], sd_product_images: [], sd_specialties: [], sd_doctors: [], sd_appointments: [] };
+  if (care) {
+    care.specialties.forEach((s, i) => db.sd_specialties.push({ id: randomUUID(), slug: s.slug, name: s.name, summary: s.summary, description: s.description, reasons: s.reasons, icon: s.icon, image_url: s.image.src, image_small_url: s.image.src.replace(/\.webp$/, '-sm.webp'), image_alt: s.image.alt, image_width: s.image.width, image_height: s.image.height, sort_order: i + 1, published: true, created_at: now(), updated_at: now() }));
+    care.doctors.forEach((d, i) => db.sd_doctors.push({ id: randomUUID(), slug: d.slug.toLowerCase(), name: d.name, specialty_id: db.sd_specialties.find((s) => s.slug === d.specialtySlug).id, role: d.role, qualifications: null, registration_no: null, bio: null, languages: d.languages, availability: d.availability, modes: d.modes, focus: d.focus, photo_url: d.image.src, photo_small_url: d.image.src.replace(/\.webp$/, '-sm.webp'), photo_alt: d.image.alt, photo_width: d.image.width, photo_height: d.image.height, is_demo: true, sort_order: i + 1, published: true, created_at: now(), updated_at: now() }));
+  }
   seed.categories.forEach((c, i) => db.sd_categories.push({ id: randomUUID(), slug: c.slug, name: c.name, description: c.description, icon_url: c.icon, sort_order: i + 1, published: true, created_at: now(), updated_at: now() }));
   const code = { monitoring: 'MON', 'first-aid': 'AID', protective: 'PRO', diagnostic: 'DIA', storage: 'STO', mobility: 'MOB' };
   const n = {};
@@ -48,10 +52,12 @@ export function createMockSupabase({ SB, seed }) {
     if (cur) out.push(cur);
     return out.map((x) => x.trim()).filter(Boolean);
   };
-  const REL = { sd_products: { sd_product_images: 'product_id' }, sd_categories: { sd_products: 'category_id' } };
+  const REL = { sd_products: { sd_product_images: 'product_id' }, sd_categories: { sd_products: 'category_id' }, sd_specialties: { sd_doctors: 'specialty_id' } };
+  const PRIVATE = new Set(['sd_appointments']);
 
   const visible = (table, row, admin) => {
     if (admin) return true;
+    if (PRIVATE.has(table)) return false;
     if (table === 'sd_product_images') return db.sd_products.some((p) => p.id === row.product_id && p.published);
     return row.published === true;
   };
@@ -103,6 +109,11 @@ export function createMockSupabase({ SB, seed }) {
   function checkRow(table, row, id) {
     const others = db[table].filter((r) => r.id !== id);
     if ('slug' in row && others.some((r) => r.slug === row.slug)) return err(409, '23505', `duplicate key value violates unique constraint "${table}_slug_key"`, `Key (slug)=(${row.slug}) already exists.`);
+    if (table === 'sd_doctors') {
+      if (!(row.availability ?? []).every((d) => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].includes(d))) return err(400, '23514', 'new row for relation "sd_doctors" violates check constraint "sd_doctors_availability_check"');
+      if (!(row.modes ?? []).every((m) => ['In person', 'Video'].includes(m))) return err(400, '23514', 'new row for relation "sd_doctors" violates check constraint "sd_doctors_modes_check"');
+    }
+    if (table === 'sd_appointments' && !['new', 'contacted', 'confirmed', 'completed', 'cancelled'].includes(row.status)) return err(400, '23514', 'new row for relation "sd_appointments" violates check constraint "sd_appointments_status_check"');
     if (table === 'sd_products') {
       if (others.some((r) => r.sku === row.sku)) return err(409, '23505', 'duplicate key value violates unique constraint "sd_products_sku_key"', `Key (sku)=(${row.sku}) already exists.`);
       if (row.discount_price !== null && row.discount_price !== undefined && !(row.discount_price >= 0 && row.discount_price < row.price)) return err(400, '23514', 'new row for relation "sd_products" violates check constraint "sd_products_check"');
@@ -116,6 +127,8 @@ export function createMockSupabase({ SB, seed }) {
     sd_products: { discount_price: null, stock: 0, low_stock_threshold: 5, summary: '', description: '', features: [], in_the_box: [], featured: false, published: false, is_demo: true, sort_order: 0 },
     sd_categories: { description: '', icon_url: null, sort_order: 0, published: true },
     sd_product_images: { small_url: null, storage_path: null, alt: '', width: null, height: null, sort_order: 0 },
+    sd_specialties: { summary: '', description: '', reasons: [], icon: 'Stethoscope', image_url: null, image_small_url: null, image_alt: '', image_width: null, image_height: null, sort_order: 0, published: true },
+    sd_doctors: { specialty_id: null, role: '', qualifications: null, registration_no: null, bio: null, languages: [], availability: [], modes: [], focus: [], photo_url: null, photo_small_url: null, photo_alt: '', photo_width: null, photo_height: null, is_demo: true, sort_order: 0, published: false },
   };
 
   async function rest(route, req, url, admin) {
@@ -135,6 +148,7 @@ export function createMockSupabase({ SB, seed }) {
     if (!db[table]) return fail(err(404, '42P01', `relation "${table}" does not exist`));
     const method = req.method();
 
+    if (PRIVATE.has(table) && !admin) return fail(err(401, '42501', `permission denied for table ${table}`));
     if (method === 'GET') return send(200, applyQuery(table, url, admin).map((r) => project(table, r, select, admin)));
     if (!admin) {
       log.writesByAnon++;
@@ -171,6 +185,9 @@ export function createMockSupabase({ SB, seed }) {
         return fail(err(409, '23503', 'update or delete on table "sd_categories" violates foreign key constraint "sd_products_category_id_fkey" on table "sd_products"'));
       db[table] = db[table].filter((r) => !targets.includes(r));
       if (table === 'sd_products') db.sd_product_images = db.sd_product_images.filter((i) => !targets.some((t) => t.id === i.product_id));
+      // real schema: ON DELETE SET NULL
+      if (table === 'sd_specialties') db.sd_doctors.forEach((d) => targets.some((t) => t.id === d.specialty_id) && (d.specialty_id = null));
+      if (table === 'sd_doctors') db.sd_appointments.forEach((a) => targets.some((t) => t.id === a.doctor_id) && (a.doctor_id = null));
       return ret ? send(200, targets.map((r) => project(table, r, select, admin))) : route.fulfill({ status: 204, body: '' });
     }
     return fail(err(405, 'PGRST000', 'method not allowed'));
@@ -205,7 +222,28 @@ export function createMockSupabase({ SB, seed }) {
       if (url.pathname === '/rest/v1/rpc/sd_admin_dashboard') {
         if (!admin) return json(400, { message: 'Admins only.', code: 'P0001' });
         const pub = db.sd_products.filter((p) => p.published);
-        return json(200, { published_products: pub.length, low_stock: pub.filter((p) => p.stock <= p.low_stock_threshold).map(({ id, name, sku, stock, low_stock_threshold }) => ({ id, name, sku, stock, low_stock_threshold })), orders_by_status: {}, appointments_by_status: {}, new_messages: 0, recent_activity: [] });
+        return json(200, { published_products: pub.length, low_stock: pub.filter((p) => p.stock <= p.low_stock_threshold).map(({ id, name, sku, stock, low_stock_threshold }) => ({ id, name, sku, stock, low_stock_threshold })), orders_by_status: {}, appointments_by_status: db.sd_appointments.reduce((m, a) => ({ ...m, [a.status]: (m[a.status] || 0) + 1 }), {}), new_messages: 0, recent_activity: [] });
+      }
+      if (url.pathname === '/rest/v1/rpc/sd_submit_appointment') {
+        if (failCatalog) return json(503, { message: 'Service unavailable' });
+        const b = JSON.parse(req.postData() || '{}');
+        const fail = (m) => json(400, { code: 'P0001', message: m });
+        const spec = db.sd_specialties.find((s) => s.slug === b.p_specialty_slug && s.published);
+        if (!spec) return fail('Choose a specialty from the list.');
+        let doc = null;
+        if (b.p_doctor_slug) {
+          doc = db.sd_doctors.find((d) => d.slug === b.p_doctor_slug && d.published);
+          if (!doc || doc.specialty_id !== spec.id) return fail('Choose a doctor who works in the selected specialty.');
+        }
+        const phone = String(b.p_phone || '').replace(/[\s()-]/g, '');
+        if (!/^\+?[0-9]{8,15}$/.test(phone)) return fail('Enter a 10-digit mobile number, or an international number starting with +.');
+        if (!b.p_name || b.p_name.trim().length < 2) return fail('Enter a name (2 to 100 characters).');
+        const today = new Date(Date.now() + 5.5 * 3600e3).toISOString().slice(0, 10);
+        if (b.p_preferred_date && b.p_preferred_date < today) return fail('Choose a date from today up to six months ahead.');
+        const reference = 'APT-' + today.slice(2).replace(/-/g, '') + '-' + randomUUID().slice(0, 6).toUpperCase();
+        db.sd_appointments.push({ id: randomUUID(), reference, patient_name: b.p_name.trim(), phone, email: b.p_email || null, specialty_id: spec.id, doctor_id: doc?.id ?? null, specialty_name: spec.name, doctor_name: doc?.name ?? null, preferred_date: b.p_preferred_date, time_of_day: b.p_time_of_day, notes: b.p_notes || null, status: 'new', admin_notes: null, created_at: now(), updated_at: now() });
+        log.appointmentsByAnon = (log.appointmentsByAnon || 0) + (u ? 0 : 1);
+        return json(200, reference);
       }
       if (url.pathname.startsWith('/rest/v1/')) {
         if (failCatalog && !u) return json(503, { message: 'Service unavailable' });

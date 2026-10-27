@@ -2,8 +2,8 @@ import { useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalendarCheck, Check, Search } from 'lucide-react';
 import { HERO, ILLUSTRATION } from '@/data/img';
-import { specialties, specialtyBySlug } from '@/data/specialties';
-import { doctorsForSpecialty } from '@/data/doctors';
+import { useCare } from '@/state/care';
+import { CardGridSkeleton, CareError } from '@/components/care';
 import { Img } from '@/components/Img';
 import { DoctorCard, SpecialtyCard } from '@/components/cards';
 import { PageHeader, Breadcrumbs } from '@/components/PageHeader';
@@ -14,11 +14,12 @@ import { NotFound } from './NotFound';
 
 export function Specialties() {
   usePageMeta({ title: 'Specialties', description: 'Browse SaraDev’s demonstration specialties, from general medicine to diagnostics, and see who you can book with.' });
+  const { status, specialties } = useCare(true);
   const [q, setQ] = useState('');
   const list = useMemo(() => {
     const t = q.trim().toLowerCase();
     return t ? specialties.filter((s) => [s.name, s.summary, ...s.reasons].join(' ').toLowerCase().includes(t)) : specialties;
-  }, [q]);
+  }, [q, specialties]);
 
   return (
     <>
@@ -33,7 +34,11 @@ export function Specialties() {
       </PageHeader>
       <section className="container-x mt-12">
         <Notice className="mb-8">Demonstration categories only. A real site should list only the services the organisation has confirmed.</Notice>
-        {list.length ? (
+        {status === 'idle' || status === 'loading' ? (
+          <CardGridSkeleton count={8} />
+        ) : status === 'error' ? (
+          <CareError />
+        ) : list.length ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {list.map((s) => (
               <SpecialtyCard key={s.slug} specialty={s} />
@@ -49,8 +54,11 @@ export function Specialties() {
 
 export function SpecialtyDetail() {
   const { slug = '' } = useParams();
+  const { status, specialties, specialtyBySlug, doctorsForSpecialty } = useCare(true);
   const s = specialtyBySlug(slug);
-  usePageMeta({ title: s ? s.name : 'Specialty not found', description: s ? s.description : 'This specialty could not be found.', image: s?.image.src });
+  usePageMeta({ title: s ? s.name : status === 'ready' ? 'Specialty not found' : 'Loading specialty', description: s ? s.description : 'This specialty could not be found.', image: s?.image.src });
+  if (status === 'idle' || status === 'loading') return <section className="container-x py-10"><CardGridSkeleton count={2} tall /></section>;
+  if (status === 'error') return <section className="container-x py-10"><CareError /></section>;
   if (!s) return <NotFound />;
   const team = doctorsForSpecialty(s.slug);
   const others = specialties.filter((x) => x.slug !== s.slug).slice(0, 4);
@@ -93,11 +101,15 @@ export function SpecialtyDetail() {
         </div>
         <div>
           <h2 className="font-display text-2xl font-semibold text-ink">Who you can see</h2>
-          <div className="mt-4 grid grid-cols-2 gap-4 sm:max-w-md">
-            {team.map((d) => (
-              <DoctorCard key={d.slug} doctor={d} />
-            ))}
-          </div>
+          {team.length ? (
+            <div className="mt-4 grid grid-cols-2 gap-4 sm:max-w-md">
+              {team.map((d) => (
+                <DoctorCard key={d.slug} doctor={d} />
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 rounded-2xl bg-white p-5 text-[15px] text-slate ring-1 ring-line/60">No profiles are listed for this specialty yet. You can still request an appointment and the team will find someone for you.</p>
+          )}
         </div>
       </section>
 

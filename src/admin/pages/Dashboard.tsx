@@ -149,6 +149,9 @@ export function AdminDashboard() {
             </Panel>
             <Panel id="appointments-heading" title="Appointment requests by status">
               <StatusList statuses={APPOINTMENT_STATUSES} counts={data.appointments_by_status} empty="No appointment requests yet." />
+              <Link to="/admin/appointments" className="mt-4 inline-block text-sm font-semibold text-teal-700 underline-offset-4 hover:underline">
+                Open appointment requests
+              </Link>
             </Panel>
           </div>
 

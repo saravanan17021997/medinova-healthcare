@@ -11,6 +11,8 @@ export interface ImageAsset {
 }
 
 export interface Specialty {
+  /** Database id (absent for the built-in sample data). */
+  id?: string;
   slug: string;
   name: string;
   summary: string;
@@ -21,6 +23,7 @@ export interface Specialty {
 }
 
 export interface Doctor {
+  id?: string;
   slug: string;
   name: string;
   specialtySlug: string;
@@ -30,6 +33,12 @@ export interface Doctor {
   modes: ('In person' | 'Video')[];
   focus: string[];
   image: ImageAsset;
+  /** Verified details, entered in the admin panel. */
+  qualifications?: string | null;
+  registrationNo?: string | null;
+  bio?: string | null;
+  /** Fictional sample profile: shown with a "Fictional demo profile" label. Sample data is always demo. */
+  isDemo?: boolean;
 }
 
 export interface Facility {

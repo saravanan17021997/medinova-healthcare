@@ -4,7 +4,7 @@ import type { Doctor, Product, Specialty } from '@/types';
 import { Img } from './Img';
 import { DemoBadge } from './ui';
 import { SpecialtyIcon } from './SpecialtyIcon';
-import { specialtyBySlug } from '@/data/specialties';
+import { useCare } from '@/state/care';
 import { useCatalog } from '@/state/catalog';
 import { isOrderable } from '@/services/catalog';
 import { PriceTag, StockBadge } from './store';
@@ -30,6 +30,7 @@ export function SpecialtyCard({ specialty, compact = false }: { specialty: Speci
 }
 
 export function DoctorCard({ doctor }: { doctor: Doctor }) {
+  const { specialtyBySlug } = useCare();
   const specialty = specialtyBySlug(doctor.specialtySlug);
   return (
     <Link to={`/doctors/${doctor.slug}`} className="group flex flex-col items-center rounded-3xl bg-white p-5 text-center shadow-card ring-1 ring-line/60 transition-shadow hover:shadow-lift">
@@ -38,7 +39,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
       </div>
       <h3 className="mt-4 font-display text-xl font-semibold text-ink">{doctor.name}</h3>
       <p className="text-sm text-slate">{specialty?.name}</p>
-      <DemoBadge className="mt-3">Fictional demo profile</DemoBadge>
+      {doctor.isDemo !== false && <DemoBadge className="mt-3">Fictional demo profile</DemoBadge>}
     </Link>
   );
 }

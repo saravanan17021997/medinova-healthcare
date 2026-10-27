@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
-  CalendarCheck, ExternalLink, FileText, LayoutDashboard, LogOut, Menu, MessageSquare, Package,
+  CalendarCheck, ExternalLink, FileText, HeartPulse, LayoutDashboard, LogOut, Menu, MessageSquare, Package,
   Settings, ShoppingBag, Stethoscope, Tags, UserCog, X, type LucideIcon,
 } from 'lucide-react';
 import { BRAND } from '@/data/img';
@@ -14,7 +14,7 @@ interface NavItem { label: string; to?: string; icon: LucideIcon }
 const NAV: { heading: string; items: NavItem[] }[] = [
   { heading: 'Overview', items: [{ label: 'Dashboard', to: '/admin/dashboard', icon: LayoutDashboard }] },
   { heading: 'Catalogue', items: [{ label: 'Products', to: '/admin/products', icon: Package }, { label: 'Categories', to: '/admin/categories', icon: Tags }] },
-  { heading: 'Care', items: [{ label: 'Doctors and specialties', icon: Stethoscope }, { label: 'Appointments', icon: CalendarCheck }] },
+  { heading: 'Care', items: [{ label: 'Appointments', to: '/admin/appointments', icon: CalendarCheck }, { label: 'Doctors', to: '/admin/doctors', icon: Stethoscope }, { label: 'Specialties', to: '/admin/specialties', icon: HeartPulse }] },
   { heading: 'Sales and enquiries', items: [{ label: 'Orders', icon: ShoppingBag }, { label: 'Messages', icon: MessageSquare }] },
   { heading: 'Website', items: [{ label: 'Pages and content', icon: FileText }, { label: 'Settings', icon: Settings }, { label: 'Admin users', icon: UserCog }] },
 ];
@@ -71,7 +71,14 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 const titleFor = (path: string) =>
-  path.startsWith('/admin/products/new') ? 'Add product'
+  path.startsWith('/admin/doctors/new') ? 'Add doctor'
+  : path.startsWith('/admin/doctors/') ? 'Edit doctor'
+  : path.startsWith('/admin/doctors') ? 'Doctors'
+  : path.startsWith('/admin/specialties/new') ? 'Add specialty'
+  : path.startsWith('/admin/specialties/') ? 'Edit specialty'
+  : path.startsWith('/admin/specialties') ? 'Specialties'
+  : path.startsWith('/admin/appointments') ? 'Appointments'
+  : path.startsWith('/admin/products/new') ? 'Add product'
   : path.startsWith('/admin/products/') ? 'Edit product'
   : path.startsWith('/admin/products') ? 'Products'
   : path.startsWith('/admin/categories') ? 'Categories'

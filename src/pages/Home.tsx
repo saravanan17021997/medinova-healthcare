@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { CalendarCheck, Clock, MapPin, MessageCircle, Phone, Search, ShoppingBag } from 'lucide-react';
 import { site } from '@/config/site';
 import { HERO } from '@/data/img';
-import { specialties } from '@/data/specialties';
-import { doctors } from '@/data/doctors';
+import { useCare } from '@/state/care';
+import { CardGridSkeleton, CareError } from '@/components/care';
 import { useCatalog } from '@/state/catalog';
 import { ProductGridSkeleton } from '@/components/store';
 import { Img } from '@/components/Img';
@@ -16,7 +16,9 @@ import { usePageMeta } from '@/hooks/usePageMeta';
 import { whatsappUrl } from '@/services/contact';
 
 function Hero() {
-  const quick = ['general-medicine', 'cardiology', 'paediatrics', 'dentistry'].map((s) => specialties.find((x) => x.slug === s)!);
+  const { specialties } = useCare(true);
+  const preferred = ['general-medicine', 'cardiology', 'paediatrics', 'dentistry'].map((s) => specialties.find((x) => x.slug === s)).filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const quick = preferred.length >= 2 ? preferred : specialties.slice(0, 4);
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-aqua-50/60 to-mist">
       {/* the care pathway: one line that connects the visitor to care */}
@@ -192,6 +194,8 @@ function Visit() {
 }
 
 export function Home() {
+  const { status, specialties, doctors } = useCare(true);
+  const anyDemo = doctors.some((d) => d.isDemo !== false);
   usePageMeta({ title: site.name, description: 'Explore healthcare services, discover medical professionals, request appointments and browse healthcare essentials. A SaraDev demonstration website.' });
   return (
     <>
@@ -199,21 +203,31 @@ export function Home() {
 
       <section aria-labelledby="specialties-heading" className="container-x mt-20">
         <SectionHeading id="specialties-heading" title="Find the right specialty" intro="Start with what you need help with. Each specialty page explains what to expect and who you can see." action={<LinkButton to="/specialties" variant="outline">All specialties</LinkButton>} />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {specialties.map((s) => (
-            <SpecialtyCard key={s.slug} specialty={s} compact />
-          ))}
-        </div>
+        {status === 'ready' ? (
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {specialties.map((s) => (
+              <SpecialtyCard key={s.slug} specialty={s} compact />
+            ))}
+          </div>
+        ) : status === 'error' ? (
+          <CareError />
+        ) : (
+          <CardGridSkeleton count={5} className="lg:grid-cols-5" />
+        )}
       </section>
 
       <section aria-labelledby="team-heading" className="container-x mt-24">
         <SectionHeading id="team-heading" title="Meet the care team" intro="Browse profiles by specialty, language and the days each person is available." action={<LinkButton to="/doctors" variant="outline">Find a doctor</LinkButton>} />
-        <Notice className="mb-6">These are fictional demonstration profiles with illustrated portraits, not real clinicians. Replace them with verified details before publishing.</Notice>
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-          {doctors.slice(0, 4).map((d) => (
-            <DoctorCard key={d.slug} doctor={d} />
-          ))}
-        </div>
+        {anyDemo && <Notice className="mb-6">These are fictional demonstration profiles with illustrated portraits, not real clinicians. Replace them with verified details before publishing.</Notice>}
+        {status === 'ready' ? (
+          <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+            {doctors.slice(0, 4).map((d) => (
+              <DoctorCard key={d.slug} doctor={d} />
+            ))}
+          </div>
+        ) : status === 'error' ? null : (
+          <CardGridSkeleton count={4} tall className="grid-cols-2" />
+        )}
       </section>
 
       <AppointmentBand />

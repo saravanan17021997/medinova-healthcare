@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "verify": "node scripts/verify-site.mjs",
     "verify:admin": "node scripts/verify-admin.mjs",
-    "verify:catalog": "node scripts/verify-catalog.mjs"
+    "verify:catalog": "node scripts/verify-catalog.mjs",
+    "verify:care": "node scripts/verify-care.mjs"
   },
   "dependencies": {
     "@fontsource/figtree": "^5.1.0",

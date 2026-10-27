@@ -7,6 +7,10 @@ import { AdminDashboard } from './pages/Dashboard';
 import { AdminProducts } from './pages/Products';
 import { AdminProductForm } from './pages/ProductForm';
 import { AdminCategories } from './pages/Categories';
+import { AdminDoctors } from './pages/Doctors';
+import { AdminDoctorForm } from './pages/DoctorForm';
+import { AdminSpecialties, AdminSpecialtyForm } from './pages/Specialties';
+import { AdminAppointments } from './pages/Appointments';
 import { ToastProvider } from './ui';
 
 function AdminNotFound() {
@@ -42,6 +46,13 @@ export default function AdminApp() {
           <Route path="products/new" element={<AdminProductForm key="new" />} />
           <Route path="products/:id" element={<AdminProductForm />} />
           <Route path="categories" element={<AdminCategories />} />
+          <Route path="doctors" element={<AdminDoctors />} />
+          <Route path="doctors/new" element={<AdminDoctorForm key="new" />} />
+          <Route path="doctors/:id" element={<AdminDoctorForm />} />
+          <Route path="specialties" element={<AdminSpecialties />} />
+          <Route path="specialties/new" element={<AdminSpecialtyForm key="new" />} />
+          <Route path="specialties/:id" element={<AdminSpecialtyForm />} />
+          <Route path="appointments" element={<AdminAppointments />} />
           <Route path="*" element={<AdminNotFound />} />
         </Route>
       </Routes>
