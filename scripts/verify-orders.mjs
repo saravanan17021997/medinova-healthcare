@@ -30,7 +30,7 @@ const test = async (name, fn) => {
 const expect = (c, m) => { if (!c) throw new Error(m); };
 const until = async (fn, msg, ms = 8000) => {
   const t = Date.now();
-  while (!fn()) {
+  while (!(await fn())) {
     if (Date.now() - t > ms) throw new Error(msg);
     await new Promise((r) => setTimeout(r, 100));
   }
@@ -117,18 +117,21 @@ await test('Stock ran out before sending: the order is refused and nothing is sa
   const before = db.sd_orders.length;
   const keep = prod(A).stock;
   const { page, ctx } = await open({ cart: [{ slug: A, qty: 3 }] });
+  try {
   await page.goto(BASE + '/checkout');
   await page.getByRole('button', { name: 'Send order' }).waitFor();
   prod(A).stock = 1;
   await fillCheckout(page);
   await page.getByRole('button', { name: 'Send order' }).click();
   await page.locator('#order-error').getByText(`Only 1 left of ${prod(A).name}.`).waitFor();
-  expect(await page.evaluate(() => document.activeElement?.id === 'order-error'), 'focus not moved to the problem');
+  await until(async () => page.evaluate(() => document.activeElement?.id === 'order-error'), 'focus not moved to the problem', 3000);
   expect(db.sd_orders.length === before, 'an order was saved');
   await page.locator('#order-error').getByRole('link', { name: 'Review your cart' }).click();
   await page.getByText('Fix the items marked in your cart before checking out.').waitFor();
-  await ctx.close();
-  prod(A).stock = keep;
+  } finally {
+    await ctx.close();
+    prod(A).stock = keep;
+  }
 });
 
 await test('Checkout: missing details are caught before anything is sent', async () => {

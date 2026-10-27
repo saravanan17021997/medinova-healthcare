@@ -34,7 +34,7 @@ const str = (v: unknown, fallback: string, max = 500) => (typeof v === 'string' 
 const optStr = (v: unknown, max = 500) => (typeof v === 'string' && v.length <= max ? v.trim() : '');
 const bool = (v: unknown, fallback: boolean) => (typeof v === 'boolean' ? v : fallback);
 const obj = (v: unknown): Record<string, unknown> => (v && typeof v === 'object' && !Array.isArray(v) ? (v as Record<string, unknown>) : {});
-const safeImageUrl = (v: unknown): v is string => typeof v === 'string' && /^(\/(?!\/)|https:\/\/)/.test(v);
+const safeImageUrl = (v: unknown): v is string => typeof v === 'string' && /^(\/(?!\/)|https:\/\/[^/])/.test(v) && !/[\s\\\u0000-\u001f]/.test(v);
 
 // ---------------------------------------------------------------- settings
 /** Builds the site settings from the saved rows, keeping the built-in value wherever a saved one is missing or invalid. */

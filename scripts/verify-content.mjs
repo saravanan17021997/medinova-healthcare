@@ -275,6 +275,8 @@ await test('Site settings: turning demo notices off removes them from the websit
   await p2.waitForLoadState('networkidle');
   expect(!(await p2.getByText('This is a demonstration website.').count()), 'banner still shown');
   expect(!(await p2.getByText('(demo)').count()), '"(demo)" labels still shown');
+  await p2.locator('main').getByText('Digital Thermometer').first().waitFor();
+  expect(!(await p2.getByText('demo price').count()), '"demo price" labels still shown');
   await ctx.close();
   await page.getByRole('switch', { name: 'Show demo notices' }).click();
   await page.getByRole('button', { name: 'Save settings' }).click();

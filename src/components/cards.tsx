@@ -11,6 +11,8 @@ import { PriceTag, StockBadge } from './store';
 import { cx } from '@/lib/format';
 import { useCart } from '@/state/cart';
 import { whatsappUrl } from '@/services/contact';
+import { hello } from '@/config/live';
+import { useSite } from '@/state/content';
 
 export function SpecialtyCard({ specialty, compact = false }: { specialty: Specialty; compact?: boolean }) {
   return (
@@ -45,6 +47,7 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const demo = useSite().demo;
   const { add } = useCart();
   const { categoryBySlug } = useCatalog();
   const category = categoryBySlug(product.categorySlug);
@@ -67,10 +70,10 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mt-1 text-sm text-slate">{product.summary}</p>
         <div className="mt-auto flex items-center justify-between gap-2 pt-4">
           <p>
-            <PriceTag product={product} note="demo price" />
+            <PriceTag product={product} note={demo ? 'demo price' : undefined} />
           </p>
           <div className="flex gap-1.5">
-            <a href={whatsappUrl(`Hello, I have a question about the ${product.name} (demo product).`)} target="_blank" rel="noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist" aria-label={`Ask about ${product.name} on WhatsApp`}>
+            <a href={whatsappUrl(`${hello()}, I have a question about the ${product.name}${demo ? ' (demo product)' : ''}.`)} target="_blank" rel="noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-mist" aria-label={`Ask about ${product.name} on WhatsApp`}>
               <MessageCircle className="h-5 w-5" aria-hidden />
             </a>
             <button type="button" onClick={() => add(product.slug)} disabled={!orderable} className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-white hover:bg-navy disabled:cursor-not-allowed disabled:bg-slate/30" aria-label={orderable ? `Add ${product.name} to cart` : `${product.name} is out of stock`}>

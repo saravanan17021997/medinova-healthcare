@@ -173,6 +173,7 @@ export function Store() {
 }
 
 export function ProductDetail() {
+  const site = useSite();
   const { slug = '' } = useParams();
   const { status, products, productBySlug, categoryBySlug } = useCatalog(true);
   const p = productBySlug(slug);
@@ -217,7 +218,7 @@ export function ProductDetail() {
             </p>
             <h1 className="mt-1 font-display text-4xl font-semibold leading-tight text-ink">{p.name}</h1>
             <p className="mt-4">
-              <PriceTag product={p} size="lg" note="illustrative demo price" />
+              <PriceTag product={p} size="lg" note={site.demo ? 'illustrative demo price' : undefined} />
             </p>
             <p className="mt-5 leading-relaxed text-slate">{p.description}</p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -234,7 +235,7 @@ export function ProductDetail() {
               >
                 <ShoppingBag className="h-5 w-5" aria-hidden /> {!orderable ? 'Out of stock' : canAdd < 1 ? 'All available stock is in your cart' : 'Add to cart'}
               </button>
-              <a href={whatsappUrl(`${hello()}, I have a question about the ${p.name} (demo product, quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
+              <a href={whatsappUrl(`${hello()}, I have a question about the ${p.name} (${site.demo ? 'demo product, ' : ''}quantity ${qty}).`)} target="_blank" rel="noreferrer" className={buttonClass('outline', 'lg')}>
                 <MessageCircle className="h-5 w-5" aria-hidden /> Ask on WhatsApp
               </a>
             </div>

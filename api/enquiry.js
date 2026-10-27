@@ -9,19 +9,42 @@
 //   SUPABASE_URL               https://<project>.supabase.co
 //   SUPABASE_SERVICE_ROLE_KEY  service role key (server only) for inserting rows
 //   SUPABASE_TABLE             table name, default "enquiries"
+//   ALLOWED_ORIGINS            optional, comma-separated extra sites allowed to post here
 // Then set VITE_ENQUIRY_API_ENABLED=true so the site starts calling this endpoint.
+//
+// Note: with the Supabase settings in place the website already saves appointments,
+// messages and orders through the sd_ database functions. This endpoint is only for
+// sending copies to n8n or Power Automate. You do not need the service role key for
+// that, and it is safer not to set it. Never put it in a VITE_ variable.
 
 const KINDS = new Set(['appointment', 'contact', 'product', 'order']);
 const MAX_BYTES = 20_000;
+
+/** Only this website (and any extra sites listed in ALLOWED_ORIGINS) may post enquiries. */
+function allowedOrigin(req) {
+  const origin = req.headers.origin;
+  if (!origin) return false;
+  let host;
+  try {
+    host = new URL(origin).host;
+  } catch {
+    return false;
+  }
+  if (host === req.headers['x-forwarded-host'] || host === req.headers.host) return true;
+  const extra = (process.env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean);
+  return extra.includes(origin);
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Use POST.' });
   }
+  if (!allowedOrigin(req)) return res.status(403).json({ error: 'Enquiries can only be sent from this website.' });
+  if (!String(req.headers['content-type'] || '').toLowerCase().startsWith('application/json')) return res.status(415).json({ error: 'Send JSON.' });
 
   const body = typeof req.body === 'string' ? safeJson(req.body) : req.body;
-  if (!body || !KINDS.has(body.kind) || typeof body.payload !== 'object') {
+  if (!body || !KINDS.has(body.kind) || !body.payload || typeof body.payload !== 'object' || Array.isArray(body.payload)) {
     return res.status(400).json({ error: 'Expected { kind, payload }.' });
   }
   if (JSON.stringify(body).length > MAX_BYTES) return res.status(413).json({ error: 'Enquiry too large.' });

@@ -1,10 +1,14 @@
 // Links that come from the database (menus, buttons) are checked twice: when an
 // admin saves them, and again before the website renders them.
 
-/** A site path ("/doctors", not "//elsewhere"), a secure web address, an email or a phone link. */
-export const isSafeHref = (href: unknown): href is string => typeof href === 'string' && /^(\/(?!\/)|https:\/\/[^\s/]|mailto:[^\s]|tel:\+?[0-9])/.test(href) && !/\s/.test(href);
+// Browsers treat a backslash like "/", so "/" + backslash + "evil.example" would leave the site: backslashes and
+// control characters are never allowed.
+const UNSAFE_CHARS = /[\s\\\u0000-\u001f\u007f]/;
 
-export const isInternal = (href: string) => href.startsWith('/') && !href.startsWith('//');
+/** A site path ("/doctors", not "//elsewhere"), a secure web address, an email or a phone link. */
+export const isSafeHref = (href: unknown): href is string => typeof href === 'string' && !UNSAFE_CHARS.test(href) && /^(\/(?!\/)|https:\/\/[^/]|mailto:.|tel:\+?[0-9])/.test(href);
+
+export const isInternal = (href: string) => href.startsWith('/') && !href.startsWith('//') && !UNSAFE_CHARS.test(href);
 
 /** Pages a menu or button can point to. */
 export const SITE_PAGES: { path: string; label: string }[] = [
@@ -25,6 +29,7 @@ export function checkLink(raw: string, { webOnly = false }: { webOnly?: boolean 
   const href = raw.trim();
   if (!href) return 'Enter a link.';
   if (/\s/.test(href)) return 'A link cannot contain spaces.';
+  if (UNSAFE_CHARS.test(href)) return 'A link cannot contain backslashes (\\) or hidden characters.';
   if (href.length > 500) return 'Keep the link under 500 characters.';
   if (webOnly) return /^https:\/\/[^/\s]+\.[^/\s]+/.test(href) ? null : 'Use a full web address starting with https://';
   if (href.startsWith('//')) return 'Start with a single / for a page on this website, or with https:// for another website.';

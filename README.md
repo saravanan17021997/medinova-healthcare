@@ -138,6 +138,7 @@ Work in progress, built in stages.
 3. `03_sd_storage.sql`: the `sd-media` image bucket
 4. `04_sd_first_admin.sql`: makes your login the first owner
 5. `05_sd_verify_access.sql`: read-only security check; every row should say `true`
+6. `06_sd_security_review.sql`: read-only full security review (22 checks); every row should say `ok = true`
 
 All objects use the `sd_` prefix, so other apps in the same Supabase project are not touched.
 
@@ -244,14 +245,24 @@ No domain has been bought and no deployment has been made as part of this projec
 
 ## Going live checklist
 
-- [ ] Replace the fictional doctors in `src/data/doctors.ts` with verified practitioners (name, qualifications, registration number, languages, days), each with their consent and a real photo.
-- [ ] Replace the demo products and prices in `src/data/products.ts`, or connect a real catalogue. Keep prescription medicines out of the store unless you meet the legal requirements for selling them.
-- [ ] Set the real phone number, email and WhatsApp number. Set `location.verified: true` with the real address and a Maps query in `src/config/site.ts`.
-- [ ] Remove or reword the demo notices (`src/config/site.ts`, the "Fictional demo profile" badges and the "demo price" labels) only once the content is real.
-- [ ] Replace illustrations with licensed photographs if you want photos. Run `npm run build`, then `npm run manifest`.
-- [ ] Set `VITE_ALLOW_INDEXING=true` and `VITE_SITE_URL`.
-- [ ] Turn on testimonials only with real, consented patient feedback.
-- [ ] Add a privacy policy covering what enquiry forms collect and where it goes.
+See [docs/LAUNCH_CHECKLIST.md](docs/LAUNCH_CHECKLIST.md). It covers what to replace before real customers use the site, the Supabase and Vercel settings to check, a five-minute test after every deploy, and the monthly checks.
+
+## Security
+
+- **Database:** Row Level Security on every `sd_` table.
+  - Visitors read only published content.
+  - Visitors write only through the three form functions (`sd_submit_appointment`, `sd_submit_contact`, `sd_place_order`), which check every field again.
+  - Admins are an allow-list (`sd_admins`), and only owners can change it. The last owner is protected.
+  - The browser can change an order's status and notes, but never its payment status, total or items.
+  - `06_sd_security_review.sql` checks all of this in one read-only query.
+- **Browser:** only the publishable key, and the app refuses a secret or `service_role` key.
+  - Links and image addresses from the database are checked before they are shown: only site pages, `https://`, `mailto:` and `tel:`, with no backslashes or hidden characters.
+  - The admin code loads only on `/admin`.
+- **Headers** (`vercel.json`):
+  - A Content Security Policy: scripts only from this site; connections only to this site and Supabase; images only from this site and Supabase.
+  - `X-Frame-Options: DENY`, `nosniff`, a strict referrer policy and a permissions policy, HSTS, and `Cross-Origin-Opener-Policy`.
+  - `npm run serve:vercel` serves `dist/` with exactly these headers, so they can be tested before deploying.
+- **`/api/enquiry`** (optional) accepts only JSON posted from this website (or `ALLOWED_ORIGINS`) and needs no secret key for n8n or Power Automate.
 
 ## Project structure
 
