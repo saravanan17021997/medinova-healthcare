@@ -50,6 +50,44 @@ Node 18.18 or later is required (tested on Node 22).
   - A skip link, visible focus and semantic landmarks.
   - Reduced-motion support and alt text on every meaningful image.
 
+## Admin panel
+
+Work in progress, built in stages. **Stage 3 (current):** sign-in, protected admin pages and a live dashboard. Products, doctors, appointments, orders and content editing follow in later stages, and the public website does not read from the database yet.
+
+| Route | What it does |
+|---|---|
+| `/admin/login` | Email and password sign-in through Supabase Auth. There is no public sign-up. |
+| `/admin`, `/admin/dashboard` | Admins only. Signed-out visitors are sent to the login page; signed-in accounts that are not on the admin list see "no admin access". |
+
+**How access works**
+- Supabase Auth signs the person in. The `sd_admins` table is the allow-list: its `user_id` is the Auth user's id, with `role` set to `owner` or `editor`.
+- The screens check that list only to decide what to show. The real protection is in the database: Row Level Security on every `sd_` table, plus `sd_admin_dashboard()`, which refuses anyone not on the list.
+- The browser only gets the **publishable (anon) key**. If a `service_role` or `sb_secret_` key is pasted into `VITE_SUPABASE_ANON_KEY`, the admin panel refuses to start.
+- `/admin` is excluded from search engines (`X-Robots-Tag` header, `noindex` meta, `Disallow: /admin` in robots.txt) and is never cached.
+- The admin code and the Supabase library are a separate download, fetched only when someone opens `/admin`.
+
+**Database** (`supabase/` folder, run in Supabase → SQL Editor, in order)
+1. `01_sd_schema.sql`: tables, Row Level Security, functions
+2. `02_sd_seed.sql`: copies the current website content
+3. `03_sd_storage.sql`: the `sd-media` image bucket
+4. `04_sd_first_admin.sql`: makes your login the first owner
+5. `05_sd_verify_access.sql`: read-only security check; every row should say `true`
+
+All objects use the `sd_` prefix, so other apps in the same Supabase project are not touched.
+
+**Setup**
+1. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env` (local) and in Vercel → Settings → Environment Variables.
+2. Restart `npm run dev`, or redeploy.
+3. Open `/admin/login`.
+
+**Tests:** `npm run verify:admin` runs the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+
+```bash
+VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
+npx vite preview --outDir dist-test --port 4181
+BASE_URL=http://localhost:4181 npm run verify:admin
+```
+
 ## Images
 
 All 94 assets (165 files including responsive variants) are **original illustrations generated in code**, stored locally under `public/`:
@@ -79,6 +117,8 @@ Copy `.env.example` to `.env` for local work, or add the variables in **Vercel �
 |---|---|---|
 | `VITE_SITE_URL` | browser | Canonical URL for the sitemap, Open Graph and JSON-LD |
 | `VITE_ALLOW_INDEXING` | browser | `true` allows search engines. The default `false` adds `noindex` and `Disallow: /`, because the content is fictional. |
+| `VITE_SUPABASE_URL` | browser | Supabase project URL, used by the admin panel |
+| `VITE_SUPABASE_ANON_KEY` | browser | Supabase **publishable (anon)** key. Public by design. Never the service_role or secret key. |
 | `VITE_WHATSAPP_NUMBER` | browser | International format without `+`. If empty, WhatsApp asks which chat to use. |
 | `VITE_ENQUIRY_API_ENABLED` | browser | `true` sends forms to `/api/enquiry` instead of demo mode |
 | `VITE_CHATBOT_ENABLED`, `VITE_CHATBOT_URL` | browser | Optional chatbot iframe launcher |

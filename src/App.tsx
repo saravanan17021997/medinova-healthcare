@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { Home } from './pages/Home';
@@ -9,10 +10,22 @@ import { Store, ProductDetail } from './pages/Store';
 import { Cart, Checkout, OrderConfirmation } from './pages/Cart';
 import { Contact } from './pages/Contact';
 import { NotFound } from './pages/NotFound';
+import { Splash } from './admin/Splash';
+
+// The admin panel (and the Supabase client) is a separate download, fetched only on /admin.
+const AdminApp = lazy(() => import('./admin/AdminApp'));
 
 export function App() {
   return (
     <Routes>
+      <Route
+        path="admin/*"
+        element={
+          <Suspense fallback={<Splash label="Loading the admin panel…" />}>
+            <AdminApp />
+          </Suspense>
+        }
+      />
       <Route element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="specialties" element={<Specialties />} />

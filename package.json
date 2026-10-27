@@ -11,11 +11,13 @@
     "dev": "vite",
     "build": "node scripts/check-images.mjs && node scripts/generate-sitemap.mjs && tsc -b && vite build",
     "preview": "vite preview",
-    "verify": "node scripts/verify-site.mjs"
+    "verify": "node scripts/verify-site.mjs",
+    "verify:admin": "node scripts/verify-admin.mjs"
   },
   "dependencies": {
     "@fontsource/figtree": "^5.1.0",
     "@fontsource/fraunces": "^5.1.0",
+    "@supabase/supabase-js": "2.45.4",
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

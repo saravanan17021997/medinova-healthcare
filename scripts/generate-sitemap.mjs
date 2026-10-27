@@ -15,7 +15,7 @@ const routes = ['/', '/specialties', '/doctors', '/facilities', '/appointment', 
 const today = new Date().toISOString().slice(0, 10);
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((r) => `  <url><loc>${site}${r}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`;
 fs.writeFileSync(path.join(root, 'public/sitemap.xml'), xml);
-fs.writeFileSync(path.join(root, 'public/robots.txt'), allow ? `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n` : `# Demonstration site with fictional content: not for search engines.\n# Set VITE_ALLOW_INDEXING=true for a real deployment.\nUser-agent: *\nDisallow: /\n`);
+fs.writeFileSync(path.join(root, 'public/robots.txt'), allow ? `User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${site}/sitemap.xml\n` : `# Demonstration site with fictional content: not for search engines.\n# Set VITE_ALLOW_INDEXING=true for a real deployment.\nUser-agent: *\nDisallow: /\n`);
 console.log(`Sitemap: ${routes.length} routes for ${site}. Indexing ${allow ? 'allowed' : 'disabled (demo)'}.`);
 
 function readEnv(file) {
