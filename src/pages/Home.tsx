@@ -8,6 +8,7 @@ import type { Cta, PageSection } from '@/services/content';
 import { careSource } from '@/services/care';
 import { isInternal } from '@/lib/links';
 import { FeatureIcon } from '@/components/FeatureIcon';
+import { HeroSlider } from '@/components/HeroSlider';
 import { useCare } from '@/state/care';
 import { CardGridSkeleton, CareError } from '@/components/care';
 import { useCatalog } from '@/state/catalog';
@@ -75,10 +76,8 @@ function Hero({ section }: { section: PageSection }) {
             </ul>
           </div>
         </div>
-        <div className="relative mx-auto w-full max-w-[560px]">
-          <div className="arch-lg aspect-[5/6] overflow-hidden bg-white shadow-lift ring-1 ring-line/60">
-            <Img image={section.image ?? HERO.team} priority sizes="(min-width: 1024px) 46vw, 92vw" className="h-full w-full object-cover object-[50%_40%]" />
-          </div>
+        <div className="relative mx-auto w-full max-w-[600px]">
+          <HeroSlider slides={section.slides} fallback={section.image ?? HERO.team} priority />
           <span aria-hidden className="pathway-node absolute -right-1 top-[6%] hidden h-5 w-5 rounded-full bg-aqua ring-8 ring-aqua/20 lg:block" />
         </div>
       </div>

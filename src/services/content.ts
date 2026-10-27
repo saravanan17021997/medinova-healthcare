@@ -109,24 +109,52 @@ export const SECTION_KEYS = ['home.hero', 'home.specialties', 'home.team', 'home
 export type SectionKey = (typeof SECTION_KEYS)[number];
 export interface Cta { label: string; href: string }
 export interface Feature { icon: string; title: string; body: string }
-export interface PageSection { key: SectionKey; heading: string; body: string; image: ImageAsset | null; cta: Cta | null; cta2: Cta | null; steps: string[]; features: Feature[] }
+/** One picture in the homepage hero slider. */
+export interface Slide { id: string; image: ImageAsset; title: string; description: string }
+export interface PageSection { key: SectionKey; heading: string; body: string; image: ImageAsset | null; cta: Cta | null; cta2: Cta | null; steps: string[]; features: Feature[]; slides: Slide[] }
+
+/**
+ * Hero slides are stored in the "items" list of the home.hero section:
+ * { id, image_url, image_small_url, image_alt, image_width, image_height, title, description, enabled }.
+ * Only enabled slides with a safe image address are shown, in list order (up to 8).
+ */
+export const MAX_SLIDES = 8;
+export function buildSlides(items: unknown): Slide[] {
+  if (!Array.isArray(items)) return [];
+  return items
+    .map(obj)
+    .filter((x) => x.enabled === true && safeImageUrl(x.image_url))
+    .slice(0, MAX_SLIDES)
+    .map((x, i) => {
+      const w = Number(x.image_width), h = Number(x.image_height);
+      const width = Number.isFinite(w) && w > 0 ? Math.round(w) : 1600;
+      const height = Number.isFinite(h) && h > 0 ? Math.round(h) : 1000;
+      const title = optStr(x.title, 80);
+      return {
+        id: optStr(x.id, 60) || `slide-${i}`,
+        image: { src: x.image_url as string, alt: optStr(x.image_alt, 200) || title, width, height, ...(safeImageUrl(x.image_small_url) ? { smallSrc: x.image_small_url, smallWidth: Math.round(width / 2) } : {}) },
+        title,
+        description: optStr(x.description, 200),
+      };
+    });
+}
 
 /** The built-in homepage, used until the saved one has loaded and whenever a value is missing. */
 export const DEFAULT_SECTIONS: PageSection[] = [
   {
     key: 'home.hero', heading: 'Healthcare that puts you first',
     body: 'Explore healthcare services, discover medical professionals, request appointments, and browse healthcare essentials in one convenient digital experience.',
-    image: HERO.team, cta: { label: 'Book an appointment', href: '/appointment' }, cta2: { label: 'Explore services', href: '/specialties' }, steps: [], features: [],
+    image: HERO.team, cta: { label: 'Book an appointment', href: '/appointment' }, cta2: { label: 'Explore services', href: '/specialties' }, steps: [], features: [], slides: [],
   },
-  { key: 'home.specialties', heading: 'Find the right specialty', body: 'Start with what you need help with. Each specialty page explains what to expect and who you can see.', image: null, cta: null, cta2: null, steps: [], features: [] },
-  { key: 'home.team', heading: 'Meet the care team', body: 'Browse profiles by specialty, language and the days each person is available.', image: null, cta: null, cta2: null, steps: [], features: [] },
+  { key: 'home.specialties', heading: 'Find the right specialty', body: 'Start with what you need help with. Each specialty page explains what to expect and who you can see.', image: null, cta: null, cta2: null, steps: [], features: [], slides: [] },
+  { key: 'home.team', heading: 'Meet the care team', body: 'Browse profiles by specialty, language and the days each person is available.', image: null, cta: null, cta2: null, steps: [], features: [], slides: [] },
   {
     key: 'home.appointment', heading: 'Request an appointment in three steps', body: '', image: HERO.consultation, cta: { label: 'Start your request', href: '/appointment' }, cta2: null,
-    steps: ['Choose a specialty, and a doctor if you have one in mind.', 'Pick a day and a time of day that suits you.', 'The team calls you back to confirm a slot.'], features: [],
+    steps: ['Choose a specialty, and a doctor if you have one in mind.', 'Pick a day and a time of day that suits you.', 'The team calls you back to confirm a slot.'], features: [], slides: [],
   },
-  { key: 'home.essentials', heading: 'Everyday health essentials', body: 'A sample catalogue of home-care items. Prices are illustrative and orders are simulated.', image: null, cta: null, cta2: null, steps: [], features: [] },
+  { key: 'home.essentials', heading: 'Everyday health essentials', body: 'A sample catalogue of home-care items. Prices are illustrative and orders are simulated.', image: null, cta: null, cta2: null, steps: [], features: [], slides: [] },
   {
-    key: 'home.why', heading: 'Why people choose SaraDev', body: 'Everything you need before, between and after visits, in one place.', image: HERO.reception, cta: null, cta2: null, steps: [],
+    key: 'home.why', heading: 'Why people choose SaraDev', body: 'Everything you need before, between and after visits, in one place.', image: HERO.reception, cta: null, cta2: null, steps: [], slides: [],
     features: [
       { icon: 'Search', title: 'Find the right care', body: 'Browse specialties and team profiles, and filter by language and availability.' },
       { icon: 'CalendarCheck', title: 'Request a time that suits you', body: 'Send an appointment request in a few steps, without waiting on hold.' },
@@ -134,7 +162,7 @@ export const DEFAULT_SECTIONS: PageSection[] = [
       { icon: 'ShoppingBag', title: 'Order everyday essentials', body: 'Pick up home-care items from the same place you manage your visits.' },
     ],
   },
-  { key: 'home.visit', heading: 'Visit or contact us', body: '', image: null, cta: null, cta2: null, steps: [], features: [] },
+  { key: 'home.visit', heading: 'Visit or contact us', body: '', image: null, cta: null, cta2: null, steps: [], features: [], slides: [] },
 ];
 const DEFAULT_BY_KEY = new Map(DEFAULT_SECTIONS.map((s) => [s.key, s]));
 
@@ -164,6 +192,7 @@ export function buildSections(rows: SectionRow[]): PageSection[] {
         d.key === 'home.why'
           ? items.map(obj).map((f) => ({ icon: optStr(f.icon, 40), title: optStr(f.title, 80), body: optStr(f.body, 300) })).filter((f) => f.title).slice(0, 6)
           : [],
+      slides: d.key === 'home.hero' ? buildSlides(items) : [],
     });
   }
   const hero = out.find((s) => s.key === 'home.hero') ?? DEFAULT_SECTIONS[0];

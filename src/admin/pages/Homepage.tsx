@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, Loader2, Pencil, Pin, Plus, Trash2 } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, Images, Loader2, Pencil, Pin, Plus, Trash2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { TextArea, TextField, buttonClass } from '@/components/ui';
 import { FEATURE_ICONS, FeatureIcon } from '@/components/FeatureIcon';
 import { cx } from '@/lib/format';
 import { SITE_PAGES, checkLink } from '@/lib/links';
-import { SECTION_KEYS, type SectionKey } from '@/services/content';
+import { SECTION_KEYS, buildSlides, type SectionKey } from '@/services/content';
 import { useAdminMeta } from '../components';
 import { Card, LoadError, PageHeader, Toggle, dbError, useToast } from '../ui';
 import { PhotoField } from '../PhotoField';
@@ -25,7 +25,7 @@ export const SECTION_INFO: Record<SectionKey, Info> = {
 };
 const isKey = (k: string): k is SectionKey => (SECTION_KEYS as readonly string[]).includes(k);
 
-interface Row { id: string; key: SectionKey; heading: string; image_url: string | null; image_small_url: string | null; sort_order: number; published: boolean }
+interface Row { id: string; key: SectionKey; heading: string; image_url: string | null; image_small_url: string | null; sort_order: number; published: boolean; items: unknown }
 
 export function AdminHomepage() {
   useAdminMeta('Homepage');
@@ -37,7 +37,7 @@ export function AdminHomepage() {
   const load = useCallback(async () => {
     if (!supabase) return;
     setError(null);
-    const { data, error: e } = await supabase.from('sd_page_sections').select('id,key,heading,image_url,image_small_url,sort_order,published').order('sort_order');
+    const { data, error: e } = await supabase.from('sd_page_sections').select('id,key,heading,image_url,image_small_url,sort_order,published,items').order('sort_order');
     if (e) return setError('Homepage sections could not be loaded. ' + dbError(e));
     const list = (data as Row[]).filter((r) => isKey(r.key));
     // the top of the page always comes first, whatever its number
@@ -63,6 +63,11 @@ export function AdminHomepage() {
     load();
   };
 
+  const heroItems = rows?.find((r) => r.key === 'home.hero')?.items;
+  const total = Array.isArray(heroItems) ? heroItems.length : 0;
+  const on = buildSlides(heroItems).length;
+  const slideNote = !rows ? 'The pictures at the top of the homepage.' : total === 0 ? 'No slides yet: the top of the page shows its main image.' : `${on} of ${total} ${total === 1 ? 'slide' : 'slides'} shown at the top of the homepage.`;
+
   const toggle = async (r: Row, published: boolean) => {
     if (!supabase) return;
     const { error: e } = await supabase.from('sd_page_sections').update({ published }).eq('id', r.id).select('id').single();
@@ -82,6 +87,16 @@ export function AdminHomepage() {
           </a>
         }
       />
+      <Link to="/admin/homepage/slider" className="mb-5 flex items-center gap-4 rounded-2xl bg-white p-4 shadow-card ring-1 ring-line/70 hover:ring-teal sm:p-5" data-testid="slider-link">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-aqua-50 text-teal">
+          <Images className="h-5 w-5" aria-hidden />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-ink">Hero image slider</span>
+          <span className="block text-sm text-slate">{slideNote}</span>
+        </span>
+        <span className="text-sm font-semibold text-teal-700">Manage slides</span>
+      </Link>
       {error ? (
         <LoadError message={error} onRetry={load} />
       ) : !rows ? (
@@ -410,6 +425,11 @@ export function AdminSectionForm() {
                 label={key === 'home.hero' ? 'Main image' : 'Section image'} hint="Landscape, ideally 1600 × 1000 px. JPEG, PNG, WebP or AVIF up to 5 MB."
                 removedNote="The homepage shows the built-in image until you add a new one." onChange={setImage}
               />
+              {key === 'home.hero' && (
+                <p className="text-sm text-slate lg:col-span-2">
+                  This image is shown when the <Link to="/admin/homepage/slider" className="font-semibold text-teal-700 underline underline-offset-2">Hero image slider</Link> has no slides switched on.
+                </p>
+              )}
               <TextField id="sc-alt" label="Image description" optional value={form.image_alt} onChange={(e) => set('image_alt', e.target.value)} error={errors.image_alt} hint="What the image shows, for people using screen readers." />
             </div>
           </Card>

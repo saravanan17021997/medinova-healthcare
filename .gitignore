@@ -11,3 +11,4 @@ scripts/verify-care.json
 scripts/verify-content.json
 scripts/verify-admin-configured.json
 scripts/verify-orders.json
+scripts/verify-slider.json

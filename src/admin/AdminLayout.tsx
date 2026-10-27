@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
-  Building2, CalendarCheck, ExternalLink, HeartPulse, House, LayoutDashboard, ListTree, LogOut, Menu, MessageSquare, Package,
+  Building2, CalendarCheck, Images, ExternalLink, HeartPulse, House, LayoutDashboard, ListTree, LogOut, Menu, MessageSquare, Package,
   Settings, ShoppingBag, Stethoscope, Tags, UserCog, X, type LucideIcon,
 } from 'lucide-react';
 import { BRAND } from '@/data/img';
 import { cx } from '@/lib/format';
 import { useAdminAuth } from './auth';
 
-interface NavItem { label: string; to?: string; icon: LucideIcon; ownerOnly?: boolean }
+interface NavItem { label: string; to?: string; icon: LucideIcon; ownerOnly?: boolean; notOn?: string }
 
 // Sections that are not built yet are shown as "Soon". Owner-only sections are hidden from editors.
 const NAV: { heading: string; items: NavItem[] }[] = [
@@ -19,7 +19,8 @@ const NAV: { heading: string; items: NavItem[] }[] = [
   {
     heading: 'Website',
     items: [
-      { label: 'Homepage', to: '/admin/homepage', icon: House },
+      { label: 'Homepage', to: '/admin/homepage', icon: House, notOn: '/admin/homepage/slider' },
+      { label: 'Hero slider', to: '/admin/homepage/slider', icon: Images },
       { label: 'Navigation', to: '/admin/navigation', icon: ListTree },
       { label: 'Facilities', to: '/admin/facilities', icon: Building2 },
       { label: 'Site settings', to: '/admin/settings', icon: Settings },
@@ -30,6 +31,7 @@ const NAV: { heading: string; items: NavItem[] }[] = [
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const { role } = useAdminAuth();
+  const { pathname } = useLocation();
   return (
     <div className="flex h-full flex-col bg-ink text-white">
       <div className="flex h-16 shrink-0 items-center gap-3 px-5">
@@ -44,14 +46,14 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           <div key={group.heading} className="mt-5">
             <p className="px-3 text-xs font-semibold text-white/50">{group.heading}</p>
             <ul className="mt-2 space-y-0.5">
-              {group.items.filter((i) => !i.ownerOnly || role === 'owner').map(({ label, to, icon: Icon }) => (
+              {group.items.filter((i) => !i.ownerOnly || role === 'owner').map(({ label, to, icon: Icon, notOn }) => (
                 <li key={label}>
                   {to ? (
                     <NavLink
                       to={to}
                       onClick={onNavigate}
                       className={({ isActive }) =>
-                        cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium', isActive ? 'bg-white/10 text-white ring-1 ring-white/15' : 'text-white/80 hover:bg-white/5 hover:text-white')
+                        cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium', isActive && !(notOn && pathname.startsWith(notOn)) ? 'bg-white/10 text-white ring-1 ring-white/15' : 'text-white/80 hover:bg-white/5 hover:text-white')
                       }
                     >
                       <Icon className="h-[18px] w-[18px]" aria-hidden />
@@ -88,6 +90,7 @@ const titleFor = (path: string) =>
   : path.startsWith('/admin/specialties/') ? 'Edit specialty'
   : path.startsWith('/admin/specialties') ? 'Specialties'
   : path.startsWith('/admin/appointments') ? 'Appointments'
+  : path.startsWith('/admin/homepage/slider') ? 'Hero image slider'
   : path.startsWith('/admin/homepage/') ? 'Edit homepage section'
   : path.startsWith('/admin/homepage') ? 'Homepage'
   : path.startsWith('/admin/navigation') ? 'Navigation'

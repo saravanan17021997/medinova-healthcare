@@ -72,6 +72,7 @@ Work in progress, built in stages.
 | `/admin/doctors/new`, `/admin/doctors/:id` | Name, web address, role, specialty, qualifications, registration number, bio, languages, consultation modes, usual days, areas of focus, photo, demo flag and published. A verified profile must have qualifications before it can be published. |
 | `/admin/specialties` | Add, edit, reorder and hide specialties, with an icon, image and reasons to visit. A specialty that still has doctors cannot be deleted. |
 | `/admin/homepage` | The homepage sections in display order. Reorder or hide any section except the top one, which is always first. |
+| `/admin/homepage/slider` | The hero image slider: upload several images at once, preview (optionally including hidden slides), edit each slide's title, description and image description, replace its image, reorder, show or hide, and delete. Up to 8 slides. |
 | `/admin/homepage/:section` | Heading and text, buttons (with link checks), the appointment steps, the "why choose us" points with icons, and the section image. |
 | `/admin/navigation` | Header menu (up to 7 shown), footer links (up to 8) and social media links (up to 6, `https://` only). Add, edit, reorder, show or hide, delete. |
 | `/admin/facilities` | Add, edit, reorder and hide facilities, with an image for each. |
@@ -106,6 +107,14 @@ Work in progress, built in stages.
 - Visitors can send orders and messages but never read them. Both forms have a hidden field that automated form fillers tend to complete; those submissions are quietly dropped.
 - Without the Supabase settings, checkout and the contact form keep their earlier demo behaviour.
 
+**How the hero image slider works**
+- Slides are stored in the existing `home.hero` row of `sd_page_sections`, in its `items` list, so no new table was needed. Each slide has an image, title, description, image description, width, height and a shown/hidden switch. Images go to `sections/<hero id>/slides/` in the `sd-media` bucket.
+- The homepage shows the slides that are switched on, in order. Each image is shown whole (never cropped or stretched) inside a fixed 4:3 frame, so the page does not jump. It changes every 4.5 seconds with a cross-fade, and has arrows, dots, a Pause button, left and right arrow keys and swipe on phones.
+- It pauses while the pointer or keyboard focus is on it and while the browser tab is hidden. With "reduce motion" switched on in the visitor's device settings, it does not move by itself.
+- With no slides switched on, the top of the page shows its main image, as before.
+- New uploads start hidden. Saving only succeeds if nobody else changed the section since the page was opened; otherwise the latest version is loaded, so one admin cannot overwrite another's change. A deleted or replaced slide's file is deleted too, unless another slide or the main image still uses it.
+- Hidden slides are not shown, but because the list is part of the public homepage data, their titles and image addresses can be seen by someone reading the page's network requests. Do not put anything private in a hidden slide.
+
 **How site content works**
 - Every page reads the site settings and menus; the homepage also reads its sections, and the Facilities page its facilities. Only published rows reach the website.
 - Each value is checked before it is used. Anything missing or malformed, and every link that is not a page on the site, `https://`, `mailto:` or `tel:`, is ignored and the built-in value from `src/config/site.ts` is used instead.
@@ -137,7 +146,7 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) and `npm run verify:orders` (checkout, the contact form, orders, messages and admin users) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) and `npm run verify:orders` (checkout, the contact form, orders, messages and admin users) and `npm run verify:slider` (the hero image slider and its admin screen) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
@@ -147,6 +156,7 @@ BASE_URL=http://localhost:4181 npm run verify:catalog
 BASE_URL=http://localhost:4181 npm run verify:care
 BASE_URL=http://localhost:4181 npm run verify:content
 BASE_URL=http://localhost:4181 npm run verify:orders
+BASE_URL=http://localhost:4181 npm run verify:slider
 ```
 
 ## Images

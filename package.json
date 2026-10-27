@@ -16,7 +16,8 @@
     "verify:catalog": "node scripts/verify-catalog.mjs",
     "verify:care": "node scripts/verify-care.mjs",
     "verify:content": "node scripts/verify-content.mjs",
-    "verify:orders": "node scripts/verify-orders.mjs"
+    "verify:orders": "node scripts/verify-orders.mjs",
+    "verify:slider": "node scripts/verify-slider.mjs"
   },
   "dependencies": {
     "@fontsource/figtree": "^5.1.0",
