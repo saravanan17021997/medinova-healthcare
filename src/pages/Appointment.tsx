@@ -138,7 +138,7 @@ export function Appointment() {
     <>
       <PageHeader title="Book an appointment" intro="Tell us who the appointment is for and when suits you. The team will call you back to confirm a time." image={HERO.appointment} crumbs={[{ label: 'Home', to: '/' }, { label: 'Book an appointment' }]} />
       <section className="container-x mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60 sm:p-9">
+        <div className="glass-panel rounded-[28px] p-6 sm:p-9">
           {status === 'done' ? (
             <div className="text-center">
               <img src={ILLUSTRATION.appointment} alt="" width={480} height={360} className="mx-auto h-auto w-64" />
@@ -268,10 +268,10 @@ export function Appointment() {
         </div>
 
         <aside className="flex flex-col gap-6">
-          <div className="overflow-hidden rounded-[28px] shadow-card ring-1 ring-line/60">
+          <div className="overflow-hidden rounded-[28px] shadow-glass ring-1 ring-white/80">
             <Img image={HERO.consultation} sizes="(min-width: 1024px) 34vw, 92vw" className="aspect-[16/11] w-full object-cover" />
           </div>
-          <div className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60">
+          <div className="surface rounded-[28px] p-6">
             <h2 className="font-semibold text-ink">Prefer to talk?</h2>
             <p className="mt-1 text-[15px] text-slate">Call or message the team during opening hours.</p>
             <div className="mt-4 flex flex-col gap-2">

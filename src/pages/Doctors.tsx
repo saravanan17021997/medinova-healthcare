@@ -50,7 +50,7 @@ export function Doctors() {
       <PageHeader title="Find a doctor" intro="Filter the team by specialty, language or day, then request an appointment with the person you’d like to see." image={HERO.professional} crumbs={[{ label: 'Home', to: '/' }, { label: 'Doctors' }]} />
       <section className="container-x mt-10">
         {doctors.some((d) => d.isDemo !== false) && <Notice className="mb-6">Profiles marked “Fictional demo profile” are demonstrations with illustrated portraits. They are not real people or licensed practitioners.</Notice>}
-        <form role="search" className="grid gap-3 rounded-3xl bg-white p-4 shadow-card ring-1 ring-line/60 sm:grid-cols-2 lg:grid-cols-4" onSubmit={(e) => e.preventDefault()}>
+        <form role="search" className="surface grid gap-3 rounded-3xl p-4 sm:grid-cols-2 lg:grid-cols-4" onSubmit={(e) => e.preventDefault()}>
           <div className="relative">
             <label htmlFor="doctor-q" className="sr-only">
               Search by name
@@ -136,7 +136,7 @@ export function DoctorProfile() {
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Doctors', to: '/doctors' }, { label: d.name }]} />
       <div className="grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14">
         <div>
-          <div className="arch aspect-[4/5] overflow-hidden bg-aqua-50 shadow-card ring-1 ring-line/60">
+          <div className="arch aspect-[4/5] overflow-hidden bg-aqua-50 shadow-glass ring-1 ring-white/80">
             <Img image={d.image} priority sizes="(min-width: 1024px) 380px, 92vw" className="h-full w-full object-cover object-top" />
           </div>
         </div>

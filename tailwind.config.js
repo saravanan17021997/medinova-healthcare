@@ -4,13 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0B2545',
-        navy: { DEFAULT: '#13315C', 600: '#1D4A7A', 400: '#2C5E92' },
-        teal: { DEFAULT: '#0E7C7B', 700: '#0A6463', 500: '#13A09C' },
-        aqua: { DEFAULT: '#5BC0BE', 300: '#97D7D4', 100: '#CDEDEB', 50: '#E8F6F5' },
-        mist: { DEFAULT: '#F3F8F9', 200: '#E1EEF0', 300: '#D3E5E8' },
-        line: '#C9DCE1',
-        slate: { DEFAULT: '#4A6270', 400: '#6F8794' },
+        // Navy and teal identity. teal-500 is the brand accent (#0F8B8D) for icons, glows and
+        // gradients; teal (DEFAULT) and teal-700 are deeper so text and white-on-teal buttons
+        // keep at least 4.5:1 contrast.
+        ink: '#102B4E',
+        navy: { DEFAULT: '#163A66', 600: '#1F4C80', 400: '#2C5E92' },
+        teal: { DEFAULT: '#0C7C7E', 700: '#0A6B6D', 800: '#085A5C', 500: '#0F8B8D', 400: '#2AA6A6' },
+        aqua: { DEFAULT: '#63D1CE', 300: '#9ADFDC', 100: '#CFF0EE', 50: '#E9F8F7' },
+        mist: { DEFAULT: '#F2FAFA', 200: '#E2F0F1', 300: '#D2E6E8' },
+        line: '#C8DCE0',
+        slate: { DEFAULT: '#42566D', 400: '#667B8F' },
         signal: '#F2B134',
         coral: '#E07A5F',
       },
@@ -19,8 +22,10 @@ export default {
         sans: ['Figtree', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
       },
       boxShadow: {
-        card: '0 1px 2px rgba(11,37,69,0.06), 0 8px 24px -12px rgba(11,37,69,0.18)',
-        lift: '0 2px 4px rgba(11,37,69,0.06), 0 18px 40px -18px rgba(11,37,69,0.35)',
+        card: '0 1px 2px rgba(16,43,78,0.05), 0 10px 28px -16px rgba(16,43,78,0.22)',
+        lift: '0 2px 4px rgba(16,43,78,0.05), 0 20px 44px -20px rgba(16,43,78,0.36)',
+        glass: '0 1px 1px rgba(16,43,78,0.04), 0 16px 40px -18px rgba(16,43,78,0.30)',
+        glow: '0 10px 28px -10px rgba(15,139,141,0.55)',
       },
       maxWidth: { content: '76rem' },
     },

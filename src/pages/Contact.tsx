@@ -1,11 +1,11 @@
 import { useRef, useState, type FormEvent } from 'react';
-import { Loader2, Mail, MessageCircle, Phone } from 'lucide-react';
+import { AlertCircle, Loader2, Mail, MessageCircle, Phone } from 'lucide-react';
 import { HERO, ILLUSTRATION } from '@/data/img';
 import { useSite } from '@/state/content';
 import { hello } from '@/config/live';
 import { PageHeader } from '@/components/PageHeader';
 import { LocationPanel } from '@/components/LocationPanel';
-import { Notice, TextArea, TextField, buttonClass } from '@/components/ui';
+import { TextArea, TextField, buttonClass } from '@/components/ui';
 import { usePageMeta } from '@/hooks/usePageMeta';
 import { ordersSource, sendMessage } from '@/services/orders';
 import { telUrl, whatsappUrl } from '@/services/contact';
@@ -82,7 +82,7 @@ export function Contact() {
       <section className="container-x mt-12">
         <ul className="grid gap-5 md:grid-cols-3">
           {methods.map(({ icon: Icon, title, body, href, label, external }) => (
-            <li key={title} className="flex flex-col rounded-3xl bg-white p-6 shadow-card ring-1 ring-line/60">
+            <li key={title} className="surface flex flex-col rounded-3xl p-6">
               <Icon className="h-6 w-6 text-teal" aria-hidden />
               <h2 className="mt-3 font-semibold text-ink">{title}</h2>
               <p className="mt-1 text-[15px] text-slate">{body}</p>
@@ -95,7 +95,7 @@ export function Contact() {
       </section>
 
       <section className="container-x mt-10 grid gap-8 lg:grid-cols-[1.3fr_1fr]">
-        <div className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60 sm:p-9" ref={firstError}>
+        <div className="glass-panel rounded-[28px] p-6 sm:p-9" ref={firstError}>
           {done ? (
             <div className="text-center">
               <img src={ILLUSTRATION.contact} alt="" width={480} height={360} className="mx-auto h-auto w-56" />
@@ -118,8 +118,9 @@ export function Contact() {
             <form noValidate onSubmit={onSubmit}>
               <h2 className="font-display text-2xl font-semibold text-ink">Send us a message</h2>
               {serverError && (
-                <div role="alert" id="contact-error" className="mt-4">
-                  <Notice>{serverError}</Notice>
+                <div role="alert" id="contact-error" className="mt-4 flex gap-2.5 rounded-2xl border border-[#B3261E]/40 bg-[#FCEEEE] p-4 text-[15px] text-[#8C1D18]">
+                  <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden />
+                  <span>{serverError}</span>
                 </div>
               )}
               <div className="mt-6 grid gap-5 sm:grid-cols-2">
@@ -144,7 +145,7 @@ export function Contact() {
             </form>
           )}
         </div>
-        <div className="flex flex-col gap-5 rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60 sm:p-8">
+        <div className="glass-panel flex flex-col gap-5 rounded-[28px] p-6 sm:p-8">
           <img src={ILLUSTRATION.location} alt="A map with a route to a location pin" width={480} height={360} loading="lazy" className="mx-auto h-auto w-full max-w-[320px]" />
           <LocationPanel />
         </div>

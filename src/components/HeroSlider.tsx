@@ -28,6 +28,10 @@ const prefersReducedMotion = () => typeof window !== 'undefined' && window.match
 export function HeroSlider({ slides, fallback, interval = 4500, priority = false, label = 'Featured images' }: Props) {
   const list: Slide[] = slides.length ? slides : [{ id: 'main', image: fallback, title: '', description: '' }];
   const n = list.length;
+  // The frame takes the shape of the first image (kept between 5:4 and about 16:9), so the usual
+  // wide photos fill it; any other shape is still shown whole, with soft space around it.
+  const first = list[0].image;
+  const ratio = Math.min(1.8, Math.max(1.25, first.width && first.height ? first.width / first.height : 4 / 3));
   const [index, setIndex] = useState(0);
   const [stopped, setStopped] = useState(prefersReducedMotion);
   const [hovered, setHovered] = useState(false);
@@ -92,7 +96,8 @@ export function HeroSlider({ slides, fallback, interval = 4500, priority = false
       className="w-full"
     >
       <div
-        className="relative aspect-[4/3] w-full touch-pan-y select-none overflow-hidden rounded-[28px] bg-gradient-to-br from-aqua-50 via-white to-mist shadow-lift ring-1 ring-line/60"
+        className="relative w-full touch-pan-y select-none overflow-hidden rounded-[24px] bg-gradient-to-br from-aqua-50 via-white to-mist ring-1 ring-white/80"
+        style={{ aspectRatio: String(ratio) }}
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
         onPointerCancel={() => (start.current = null)}
@@ -109,19 +114,19 @@ export function HeroSlider({ slides, fallback, interval = 4500, priority = false
                 aria-hidden={!active}
                 data-active={active || undefined}
                 data-testid="hero-slide"
-                className={cx('absolute inset-0 p-3 transition-opacity duration-700 ease-out motion-reduce:transition-none sm:p-4', active ? 'opacity-100' : 'pointer-events-none opacity-0')}
+                className={cx('absolute inset-0 p-1.5 transition-opacity duration-700 ease-out motion-reduce:transition-none', active ? 'opacity-100' : 'pointer-events-none opacity-0')}
               >
-                <Img image={s.image} priority={priority && i === 0} draggable={false} sizes="(min-width: 1024px) 46vw, 92vw" className="h-full w-full object-contain" />
+                <Img image={s.image} priority={priority && i === 0} draggable={false} sizes="(min-width: 1024px) 46vw, 92vw" className="h-full w-full rounded-[18px] object-contain" />
               </div>
             );
           })}
         </div>
         {n > 1 && (
           <>
-            <button type="button" onClick={() => go(current - 1)} aria-label="Previous slide" className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-ink shadow-card ring-1 ring-line/70 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
+            <button type="button" onClick={() => go(current - 1)} aria-label="Previous slide" className="glass absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-ink transition-colors hover:bg-white hover:text-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
               <ChevronLeft className="h-5 w-5" aria-hidden />
             </button>
-            <button type="button" onClick={() => go(current + 1)} aria-label="Next slide" className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-ink shadow-card ring-1 ring-line/70 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
+            <button type="button" onClick={() => go(current + 1)} aria-label="Next slide" className="glass absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-ink transition-colors hover:bg-white hover:text-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
               <ChevronRight className="h-5 w-5" aria-hidden />
             </button>
           </>
@@ -130,7 +135,7 @@ export function HeroSlider({ slides, fallback, interval = 4500, priority = false
 
       {hasCaptions && (
         // every caption shares one grid cell, so the box is as tall as the longest and never jumps
-        <div className="mt-4 grid px-1" data-testid="hero-caption">
+        <div className="mt-4 grid px-2" data-testid="hero-caption">
           {list.map((s, i) => (
             <div key={s.id} aria-hidden={i !== current} className={cx('[grid-area:1/1] transition-opacity duration-500 motion-reduce:transition-none', i === current ? 'opacity-100' : 'pointer-events-none opacity-0')}>
               {s.title && <p className="font-semibold text-ink">{s.title}</p>}
@@ -141,7 +146,7 @@ export function HeroSlider({ slides, fallback, interval = 4500, priority = false
       )}
 
       {n > 1 && (
-        <div className="mt-4 flex items-center justify-center gap-3">
+        <div className="mt-3 flex items-center justify-center gap-3">
           <div className="flex items-center gap-1" role="group" aria-label="Choose a slide">
             {list.map((s, i) => (
               <button key={s.id} type="button" onClick={() => go(i)} aria-label={`Show slide ${i + 1} of ${n}`} aria-current={i === current ? 'true' : undefined} className="group flex h-8 w-8 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
@@ -149,7 +154,7 @@ export function HeroSlider({ slides, fallback, interval = 4500, priority = false
               </button>
             ))}
           </div>
-          <button type="button" onClick={() => setStopped((v) => !v)} aria-label={stopped ? 'Play slideshow' : 'Pause slideshow'} className="flex h-8 w-8 items-center justify-center rounded-full text-ink ring-1 ring-line hover:bg-mist focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
+          <button type="button" onClick={() => setStopped((v) => !v)} aria-label={stopped ? 'Play slideshow' : 'Pause slideshow'} className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-ink ring-1 ring-ink/10 transition-colors hover:bg-white hover:text-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal">
             {stopped ? <Play className="h-3.5 w-3.5" aria-hidden /> : <Pause className="h-3.5 w-3.5" aria-hidden />}
           </button>
         </div>

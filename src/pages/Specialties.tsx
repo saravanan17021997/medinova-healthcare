@@ -80,14 +80,14 @@ export function SpecialtyDetail() {
               </LinkButton>
             </div>
           </div>
-          <div className="overflow-hidden rounded-[28px] bg-white shadow-card ring-1 ring-line/60">
+          <div className="surface overflow-hidden rounded-[28px]">
             <Img image={s.image} priority sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[4/3] w-full object-cover" />
           </div>
         </div>
       </header>
 
       <section className="container-x mt-12 grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        <div className="rounded-3xl bg-white p-7 shadow-card ring-1 ring-line/60">
+        <div className="surface rounded-3xl p-7">
           <h2 className="font-display text-2xl font-semibold text-ink">Common reasons to visit</h2>
           <ul className="mt-4 space-y-3">
             {s.reasons.map((r) => (
@@ -108,7 +108,7 @@ export function SpecialtyDetail() {
               ))}
             </div>
           ) : (
-            <p className="mt-4 rounded-2xl bg-white p-5 text-[15px] text-slate ring-1 ring-line/60">No profiles are listed for this specialty yet. You can still request an appointment and the team will find someone for you.</p>
+            <p className="surface mt-4 rounded-2xl p-5 text-[15px] text-slate">No profiles are listed for this specialty yet. You can still request an appointment and the team will find someone for you.</p>
           )}
         </div>
       </section>

@@ -141,7 +141,7 @@ await test('Checkout: missing details are caught before anything is sent', async
   await page.getByRole('button', { name: 'Send order' }).click();
   await page.getByText('Enter your full name.').waitFor();
   await page.getByText('Enter a 6-digit PIN code.').waitFor();
-  expect(await page.evaluate(() => document.activeElement?.id === 'co-name'), 'focus not on the first problem');
+  await until(async () => page.evaluate(() => document.activeElement?.id === 'co-name'), 'focus not on the first problem', 3000);
   expect(log.calls.filter((c) => c.includes('sd_place_order')).length === before, 'request was sent');
   await ctx.close();
 });

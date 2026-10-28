@@ -116,7 +116,7 @@ export function Store() {
           </ul>
         </nav>
 
-        <div className="mt-4 grid gap-3 rounded-2xl bg-white p-4 ring-1 ring-line/60 sm:grid-cols-3 lg:max-w-3xl">
+        <div className="surface mt-4 grid gap-3 rounded-2xl p-4 sm:grid-cols-3 lg:max-w-3xl">
           <div>
             <label htmlFor="price-min" className="text-sm font-semibold text-ink">
               Min price (₹)
@@ -198,7 +198,7 @@ export function ProductDetail() {
         <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Store', to: '/store' }, { label: category?.name ?? '', to: `/store?category=${category?.slug}` }, { label: p.name }]} />
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <div>
-            <div className="overflow-hidden rounded-[28px] bg-white shadow-card ring-1 ring-line/60">
+            <div className="surface overflow-hidden rounded-[28px]">
               <Img key={shown.src} image={shown} priority sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-square w-full object-cover" />
             </div>
             {p.images.length > 1 && <ul className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4" aria-label="Product images">

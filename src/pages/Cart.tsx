@@ -25,7 +25,7 @@ function useCartGate() {
 
 function Summary({ subtotal, count, children }: { subtotal: number; count: number; children?: React.ReactNode }) {
   return (
-    <div className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60">
+    <div className="surface rounded-[28px] p-6">
       <h2 className="font-display text-2xl font-semibold text-ink">Order summary</h2>
       <dl className="mt-5 space-y-2.5 text-[15px]">
         <div className="flex justify-between">
@@ -65,7 +65,7 @@ export function Cart() {
         <EmptyState image={ILLUSTRATION.emptyCart} title="Your cart is empty" body="Browse the store and add the essentials you need. Items stay in your cart on this device." action={<LinkButton to="/store">Browse the store</LinkButton>} />
       ) : (
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-          <ul className="divide-y divide-line/70 rounded-[28px] bg-white px-5 shadow-card ring-1 ring-line/60 sm:px-7">
+          <ul className="glass-panel divide-y divide-line/70 rounded-[28px] px-5 sm:px-7">
             {lines.map((l) => (
               <li key={l.product.slug} className="flex gap-4 py-5" data-testid="cart-line">
                 <Link to={`/store/${l.product.slug}`} className="shrink-0 overflow-hidden rounded-2xl bg-mist">
@@ -223,7 +223,7 @@ export function Checkout() {
           : 'This checkout is simulated. No payment is taken and no card details are requested. Placing the order shows a demo confirmation only.'}
       </Notice>
       <div className="mt-8 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-        <form ref={formRef} noValidate onSubmit={onSubmit} className="rounded-[28px] bg-white p-6 shadow-card ring-1 ring-line/60 sm:p-9">
+        <form ref={formRef} noValidate onSubmit={onSubmit} className="glass-panel rounded-[28px] p-6 sm:p-9">
           {serverError && (
             <div ref={errorRef} tabIndex={-1} role="alert" id="order-error" className="mb-6 flex gap-3 rounded-2xl bg-coral/10 p-4 text-[15px] text-ink outline-none ring-1 ring-coral/40">
               <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-coral" aria-hidden />
@@ -309,7 +309,7 @@ export function OrderConfirmation() {
 
   return (
     <section className="container-x py-12">
-      <div className="mx-auto max-w-2xl rounded-[28px] bg-white p-7 text-center shadow-card ring-1 ring-line/60 sm:p-10">
+      <div className="glass-panel mx-auto max-w-2xl rounded-[28px] p-7 text-center sm:p-10">
         <img src={ILLUSTRATION.orderPlaced} alt="" width={480} height={360} className="mx-auto h-auto w-56" />
         {!live && <p className="mt-4 inline-flex rounded-full bg-signal/25 px-3 py-1 text-sm font-semibold text-ink">Simulated order</p>}
         <h1 className="mt-3 font-display text-4xl font-semibold text-ink">{live ? 'Order received' : 'Demo order placed'}</h1>

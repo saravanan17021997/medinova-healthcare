@@ -8,6 +8,7 @@
   }
   body {
     @apply bg-mist font-sans text-[17px] leading-relaxed text-ink antialiased;
+    background-image: linear-gradient(180deg, #f6fcfc 0%, #f2fafa 40%, #eef7f8 100%);
     font-feature-settings: 'ss01';
   }
   h1,
@@ -19,7 +20,7 @@
     text-wrap: pretty;
   }
   :focus-visible {
-    outline: 3px solid #0e7c7b;
+    outline: 3px solid #0c7c7e;
     outline-offset: 2px;
     border-radius: 6px;
   }
@@ -27,7 +28,7 @@
   select:focus-visible,
   textarea:focus-visible {
     outline-offset: 0;
-    border-color: #0e7c7b;
+    border-color: #0c7c7e;
   }
 }
 
@@ -41,6 +42,89 @@
   }
   .arch-lg {
     border-radius: 50% 50% 32px 32px / 36% 36% 32px 32px;
+  }
+
+  /* ---------- glass system ----------
+     glass:       frosted surface over colour (header, hero frame, pills, decorations)
+     glass-panel: more opaque frosted surface for text-dense panels and forms
+     surface:     solid-feeling translucent card without blur (cheap enough for long grids) */
+  .glass,
+  .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    box-shadow:
+      0 0 0 1px rgba(16, 43, 78, 0.05),
+      0 1px 1px rgba(16, 43, 78, 0.04),
+      0 16px 40px -18px rgba(16, 43, 78, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+  .glass {
+    background-color: rgba(255, 255, 255, 0.62);
+  }
+  .glass-panel {
+    background-color: rgba(255, 255, 255, 0.86);
+  }
+  .surface {
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow:
+      0 0 0 1px rgba(16, 43, 78, 0.06),
+      0 1px 2px rgba(16, 43, 78, 0.05),
+      0 12px 30px -18px rgba(16, 43, 78, 0.28);
+  }
+  /* gentle elevation with a teal glow, for cards that are links */
+  .lift {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .lift:hover,
+  .lift:focus-visible {
+    transform: translateY(-3px);
+    box-shadow:
+      0 0 0 1px rgba(15, 139, 141, 0.28),
+      0 22px 44px -22px rgba(15, 139, 141, 0.5);
+  }
+  /* blurred colour behind glass */
+  .orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    pointer-events: none;
+  }
+  .float-y {
+    animation: float-y 7s ease-in-out infinite alternate;
+  }
+  .float-y-slow {
+    animation: float-y 9s ease-in-out 1.5s infinite alternate;
+  }
+}
+
+/* Without backdrop blur, glass becomes a calm near-white surface so text stays readable. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.92);
+  }
+  .glass-panel {
+    background-color: rgba(255, 255, 255, 0.97);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-panel,
+  .surface {
+    background-color: #fff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@keyframes float-y {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
   }
 }
 
@@ -76,6 +160,14 @@
   }
   .pathway-line {
     stroke-dashoffset: 0;
+  }
+  .float-y,
+  .float-y-slow {
+    animation: none !important;
+  }
+  .lift:hover,
+  .lift:focus-visible {
+    transform: none;
   }
   .pathway-node {
     opacity: 1;

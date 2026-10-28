@@ -1,15 +1,15 @@
 import { forwardRef, type ReactNode, type InputHTMLAttributes, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
 import { Link, type LinkProps } from 'react-router-dom';
-import { Info, Minus, Plus } from 'lucide-react';
+import { AlertCircle, Info, Minus, Plus } from 'lucide-react';
 import { cx } from '@/lib/format';
 
 // ---------------------------------------------------------------- buttons
-const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50';
+const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-[color,background-color,border-color,box-shadow] duration-200 disabled:cursor-not-allowed disabled:opacity-50';
 const variants = {
-  primary: 'bg-teal text-white hover:bg-teal-700',
+  primary: 'bg-teal text-white shadow-glow hover:bg-teal-700',
   dark: 'bg-ink text-white hover:bg-navy',
-  outline: 'border border-ink/20 bg-white text-ink hover:border-ink/40 hover:bg-mist',
-  ghost: 'text-ink hover:bg-mist',
+  outline: 'border border-ink/15 bg-white/80 text-ink hover:border-teal/50 hover:bg-white hover:text-teal-700',
+  ghost: 'text-ink hover:bg-ink/5',
   light: 'bg-white text-ink hover:bg-aqua-50',
 };
 const sizes = { md: 'h-11 px-5 text-[15px]', lg: 'h-12 px-6 text-base', sm: 'h-9 px-4 text-sm' };
@@ -72,8 +72,9 @@ function Shell({ id, label, error, hint, optional, children }: FieldShell & { ch
         </p>
       )}
       {error && (
-        <p id={`${id}-error`} className="text-sm font-medium text-[#B3261E]">
-          {error}
+        <p id={`${id}-error`} className="flex items-start gap-1.5 text-sm font-medium text-[#B3261E]">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+          <span>{error}</span>
         </p>
       )}
     </div>
@@ -81,7 +82,10 @@ function Shell({ id, label, error, hint, optional, children }: FieldShell & { ch
 }
 
 const fieldClass = (error?: string) =>
-  cx('h-12 w-full rounded-xl border bg-white px-4 text-base text-ink placeholder:text-slate-400', error ? 'border-[#B3261E]' : 'border-line hover:border-slate-400');
+  cx(
+    'h-12 w-full rounded-xl border bg-white px-4 text-base text-ink transition-[border-color,box-shadow] duration-200 placeholder:text-slate-400 focus:shadow-[0_0_0_4px_rgba(15,139,141,0.15)]',
+    error ? 'border-[#B3261E] focus:shadow-[0_0_0_4px_rgba(179,38,30,0.12)]' : 'border-line hover:border-slate-400 focus:border-teal',
+  );
 
 const describedBy = (id: string, error?: string, hint?: string) => (error ? `${id}-error` : hint ? `${id}-hint` : undefined);
 
@@ -96,7 +100,7 @@ export const TextField = forwardRef<HTMLInputElement, FieldShell & InputHTMLAttr
 export const SelectField = forwardRef<HTMLSelectElement, FieldShell & SelectHTMLAttributes<HTMLSelectElement>>(function SelectField({ id, label, error, hint, optional, className, children, ...p }, ref) {
   return (
     <Shell id={id} label={label} error={error} hint={hint} optional={optional}>
-      <select ref={ref} id={id} name={id} aria-invalid={Boolean(error)} aria-describedby={describedBy(id, error, hint)} className={cx(fieldClass(error), 'appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10', className)} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B2545' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...p}>
+      <select ref={ref} id={id} name={id} aria-invalid={Boolean(error)} aria-describedby={describedBy(id, error, hint)} className={cx(fieldClass(error), 'appearance-none bg-[length:16px] bg-[right_1rem_center] bg-no-repeat pr-10', className)} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23102B4E' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }} {...p}>
         {children}
       </select>
     </Shell>
@@ -114,7 +118,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, FieldShell & TextareaHTM
 // ---------------------------------------------------------------- quantity
 export function QuantityStepper({ value, onChange, max = 10, label }: { value: number; onChange: (n: number) => void; max?: number; label: string }) {
   return (
-    <div className="inline-flex h-11 items-center rounded-full border border-line bg-white" role="group" aria-label={label}>
+    <div className="inline-flex h-11 items-center rounded-full border border-line bg-white/90" role="group" aria-label={label}>
       <button type="button" className="flex h-11 w-11 items-center justify-center rounded-full text-ink hover:bg-mist disabled:opacity-40" onClick={() => onChange(value - 1)} disabled={value <= 1} aria-label="Decrease quantity">
         <Minus className="h-4 w-4" aria-hidden />
       </button>

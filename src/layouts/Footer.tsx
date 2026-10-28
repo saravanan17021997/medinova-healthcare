@@ -13,17 +13,19 @@ export function Footer() {
   const site = useSite();
   const nav = useNav();
   return (
-    <footer className="mt-24 bg-ink text-white">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <footer className="relative mt-24 overflow-hidden bg-[linear-gradient(180deg,#102B4E_0%,#0C2240_100%)] text-white">
+      <div aria-hidden className="orb -left-24 -top-24 h-80 w-80 bg-teal-500/20" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-aqua/50 to-transparent" />
+      <div className="container-x relative grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <img src={BRAND.logoWhite} alt={site.name} width={220} height={64} loading="lazy" className="h-11 w-auto" />
           <p className="mt-4 max-w-xs text-white/75">{site.tagline}</p>
-          {site.demo && <p className="mt-6 max-w-sm rounded-2xl bg-white/5 p-4 text-sm leading-relaxed text-white/75">{site.demoNotice}</p>}
+          {site.demo && <p className="mt-6 max-w-sm rounded-2xl bg-white/[0.06] p-4 text-sm leading-relaxed text-white/75 ring-1 ring-white/10 backdrop-blur">{site.demoNotice}</p>}
           {nav.social.length > 0 && (
             <ul className="mt-6 flex flex-wrap gap-2" aria-label="Follow us">
               {nav.social.map((n) => (
                 <li key={n.href}>
-                  <SiteLink item={{ ...n, newTab: true }} className="inline-flex rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white hover:bg-white/20" />
+                  <SiteLink item={{ ...n, newTab: true }} className="inline-flex rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-white ring-1 ring-white/15 transition-colors hover:bg-white/20" />
                 </li>
               ))}
             </ul>
@@ -34,7 +36,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-white/75">
             {specialties.slice(0, 6).map((s) => (
               <li key={s.slug}>
-                <Link to={`/specialties/${s.slug}`} className="hover:text-white hover:underline">
+                <Link to={`/specialties/${s.slug}`} className="transition-colors hover:text-aqua hover:underline">
                   {s.name}
                 </Link>
               </li>
@@ -46,7 +48,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-white/75">
             {nav.explore.map((n) => (
               <li key={n.href + n.label}>
-                <SiteLink item={n} className="hover:text-white hover:underline" />
+                <SiteLink item={n} className="transition-colors hover:text-aqua hover:underline" />
               </li>
             ))}
           </ul>
@@ -55,17 +57,17 @@ export function Footer() {
           <h2 className="font-semibold">Get in touch</h2>
           <ul className="mt-4 space-y-3 text-white/75">
             <li>
-              <a href={telUrl()} className="flex items-center gap-2.5 hover:text-white">
+              <a href={telUrl()} className="flex items-center gap-2.5 transition-colors hover:text-aqua">
                 <Phone className="h-4 w-4 text-aqua" aria-hidden /> {site.contact.phoneDisplay} {site.demo && <span className="text-xs">(demo)</span>}
               </a>
             </li>
             <li>
-              <a href={whatsappUrl(`${hello()}, I have a question.`)} target="_blank" rel="noreferrer" className="flex items-center gap-2.5 hover:text-white">
+              <a href={whatsappUrl(`${hello()}, I have a question.`)} target="_blank" rel="noreferrer" className="flex items-center gap-2.5 transition-colors hover:text-aqua">
                 <MessageCircle className="h-4 w-4 text-aqua" aria-hidden /> Message us on WhatsApp
               </a>
             </li>
             <li>
-              <a href={`mailto:${site.contact.email}`} className="flex items-center gap-2.5 hover:text-white">
+              <a href={`mailto:${site.contact.email}`} className="flex items-center gap-2.5 transition-colors hover:text-aqua">
                 <Mail className="h-4 w-4 text-aqua" aria-hidden /> {site.contact.email}
               </a>
             </li>
@@ -76,7 +78,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
+      <div className="relative border-t border-white/10">
         <div className="container-x flex flex-col gap-2 py-6 text-sm text-white/60 sm:flex-row sm:justify-between">
           <p>
             © {year} {site.name}.{site.demo && ' Demonstration website.'}

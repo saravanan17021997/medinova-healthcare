@@ -16,7 +16,7 @@ export function Facilities() {
       <section className="container-x mt-12">
         {site.demo && <Notice className="mb-8">Illustrations for demonstration. A live site should show only verified facilities, ideally with real photographs.</Notice>}
         {status === 'error' ? (
-          <div role="alert" className="rounded-3xl bg-white p-8 text-center shadow-card ring-1 ring-line/60">
+          <div role="alert" className="surface rounded-3xl p-8 text-center">
             <img src={ILLUSTRATION.error} alt="" width={480} height={360} className="mx-auto h-auto w-48" />
             <h2 className="mt-4 font-display text-2xl font-semibold text-ink">Facilities could not be loaded</h2>
             <p className="mx-auto mt-2 max-w-md text-slate">{error} Check your connection and try again.</p>
@@ -31,7 +31,7 @@ export function Facilities() {
         ) : (
           <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {facilities.map((f) => (
-              <li key={f.slug} className="overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-line/60" data-testid="facility-card">
+              <li key={f.slug} className="surface overflow-hidden rounded-3xl" data-testid="facility-card">
                 <Img image={f.image} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" className="aspect-[3/2] w-full object-cover" />
                 <div className="p-5">
                   <h2 className="font-semibold text-ink">{f.name}</h2>

@@ -14,7 +14,7 @@ export function Testimonials() {
       <SectionHeading id="testimonials-heading" title="What people say" />
       <ul className="grid gap-5 md:grid-cols-3">
         {testimonials.map((t) => (
-          <li key={t.quote} className="rounded-3xl bg-white p-6 shadow-card ring-1 ring-line/60">
+          <li key={t.quote} className="surface rounded-3xl p-6">
             <blockquote className="font-display text-lg leading-snug text-ink">“{t.quote}”</blockquote>
             <p className="mt-4 text-sm text-slate">{t.attribution}</p>
           </li>

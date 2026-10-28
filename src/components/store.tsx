@@ -40,7 +40,7 @@ export function ProductGridSkeleton({ count = 8 }: { count?: number }) {
   return (
     <div role="status" aria-label="Loading products" className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="overflow-hidden rounded-3xl bg-white ring-1 ring-line/60">
+        <div key={i} className="surface overflow-hidden rounded-3xl">
           <div className="aspect-square animate-pulse bg-mist motion-reduce:animate-none" />
           <div className="space-y-2 p-5">
             <div className="h-3 w-1/3 animate-pulse rounded bg-mist motion-reduce:animate-none" />

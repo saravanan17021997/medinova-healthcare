@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { ReactNode } from 'react';
-import { CalendarCheck, Clock, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { CalendarCheck, Clock, HeartPulse, MapPin, MessageCircle, Phone, Stethoscope } from 'lucide-react';
 import { HERO } from '@/data/img';
 import { hello } from '@/config/live';
 import { useSections, useSite } from '@/state/content';
@@ -43,15 +43,19 @@ function Hero({ section }: { section: PageSection }) {
   const preferred = ['general-medicine', 'cardiology', 'paediatrics', 'dentistry'].map((s) => specialties.find((x) => x.slug === s)).filter((s): s is NonNullable<typeof s> => Boolean(s));
   const quick = preferred.length >= 2 ? preferred : specialties.slice(0, 4);
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-white via-aqua-50/60 to-mist">
+    // Pulled up under the floating header, so the glass bar sits over the hero's soft colour.
+    <section className="relative -mt-[76px] overflow-hidden pt-[76px] lg:-mt-[80px] lg:pt-[80px]">
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_520px_at_78%_18%,rgba(99,209,206,0.24),transparent_62%),linear-gradient(180deg,#ffffff_0%,#f4fbfb_55%,#f2fafa_100%)]" />
+      <div aria-hidden className="orb -left-28 top-40 h-72 w-72 bg-aqua/25" />
+      <div aria-hidden className="orb -right-24 -top-10 h-[26rem] w-[26rem] bg-teal-500/15" />
       {/* the care pathway: one line that connects the visitor to care */}
       <svg aria-hidden className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block" viewBox="0 0 1200 640" preserveAspectRatio="none">
-        <path className="pathway-line" pathLength={1} d="M-20,560 C180,560 300,600 470,540 C620,486 620,330 760,250 C860,192 930,120 1040,96" fill="none" stroke="#5BC0BE" strokeWidth="3" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        <path className="pathway-line" pathLength={1} d="M-20,560 C180,560 300,600 470,540 C620,486 620,330 760,250 C860,192 930,120 1040,96" fill="none" stroke="#63D1CE" strokeOpacity="0.8" strokeWidth="2.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
       </svg>
-      <div className="container-x relative grid items-center gap-10 pb-16 pt-10 lg:grid-cols-[1.05fr_1fr] lg:gap-14 lg:pb-24 lg:pt-16">
+      <div className="container-x relative grid items-center gap-12 pb-16 pt-8 lg:grid-cols-[1fr_1.08fr] lg:gap-14 lg:pb-24 lg:pt-14">
         <div>
-          <h1 className="font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.01em] text-ink sm:text-6xl lg:text-[4.1rem]">{section.heading}</h1>
-          {section.body && <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate sm:text-xl">{section.body}</p>}
+          <h1 className="font-display text-[2.6rem] font-semibold leading-[1.05] tracking-[-0.015em] text-ink sm:text-6xl lg:text-[4.1rem]">{section.heading}</h1>
+          {section.body && <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate sm:text-xl">{section.body}</p>}
           {(section.cta || section.cta2) && (
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               {section.cta && (
@@ -64,11 +68,13 @@ function Hero({ section }: { section: PageSection }) {
           )}
           <div className="mt-10">
             <p className="text-sm font-semibold text-ink">Popular specialties</p>
-            <ul className="mt-3 flex flex-wrap gap-2">
+            <ul className="mt-3 flex flex-wrap gap-2.5">
               {quick.map((s) => (
                 <li key={s.slug}>
-                  <Link to={`/specialties/${s.slug}`} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-ink shadow-card ring-1 ring-line/70 hover:ring-teal">
-                    <SpecialtyIcon name={s.icon} className="h-4 w-4 text-teal" />
+                  <Link to={`/specialties/${s.slug}`} className="glass inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-sm font-medium text-ink transition duration-200 hover:-translate-y-0.5 hover:text-teal-700 motion-reduce:hover:translate-y-0">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-teal-500/10">
+                      <SpecialtyIcon name={s.icon} className="h-4 w-4 text-teal" />
+                    </span>
                     {s.name}
                   </Link>
                 </li>
@@ -76,9 +82,19 @@ function Hero({ section }: { section: PageSection }) {
             </ul>
           </div>
         </div>
-        <div className="relative mx-auto w-full max-w-[600px]">
-          <HeroSlider slides={section.slides} fallback={section.image ?? HERO.team} priority />
-          <span aria-hidden className="pathway-node absolute -right-1 top-[6%] hidden h-5 w-5 rounded-full bg-aqua ring-8 ring-aqua/20 lg:block" />
+        <div className="relative mx-auto w-full max-w-[640px]">
+          <div aria-hidden className="absolute -inset-8 rounded-[48px] bg-[radial-gradient(closest-side,rgba(99,209,206,0.38),rgba(99,209,206,0)_100%)]" />
+          <div className="glass relative rounded-[32px] p-3 sm:p-4">
+            <HeroSlider slides={section.slides} fallback={section.image ?? HERO.team} priority />
+          </div>
+          {/* restrained decorations, only where there is room for them */}
+          <span aria-hidden className="glass float-y absolute -left-7 top-10 hidden h-14 w-14 items-center justify-center rounded-2xl lg:flex">
+            <Stethoscope className="h-6 w-6 text-teal-500" />
+          </span>
+          <span aria-hidden className="glass float-y-slow absolute -bottom-5 -right-5 hidden h-14 w-14 items-center justify-center rounded-2xl lg:flex">
+            <HeartPulse className="h-6 w-6 text-teal-500" />
+          </span>
+          <span aria-hidden className="pathway-node absolute -right-1.5 top-[4%] hidden h-5 w-5 rounded-full bg-aqua ring-8 ring-aqua/25 lg:block" />
         </div>
       </div>
     </section>
@@ -89,11 +105,12 @@ function AppointmentBand({ section }: { section: PageSection }) {
   const steps = section.steps;
   return (
     <section aria-labelledby="appointment-heading" className="container-x mt-24">
-      <div className="grid overflow-hidden rounded-[32px] bg-ink text-white lg:grid-cols-2">
+      <div className="relative grid overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,#102B4E_0%,#163A66_55%,#0B4F5E_100%)] text-white shadow-lift lg:grid-cols-2">
+        <div aria-hidden className="orb -right-16 -top-20 h-72 w-72 bg-aqua/25" />
         <div className="relative min-h-[260px]">
           <Img image={section.image ?? HERO.consultation} sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover object-center" />
         </div>
-        <div className="p-8 sm:p-12">
+        <div className="relative p-8 sm:p-12">
           <h2 id="appointment-heading" className="font-display text-3xl font-semibold leading-tight sm:text-4xl">
             {section.heading}
           </h2>
@@ -102,7 +119,7 @@ function AppointmentBand({ section }: { section: PageSection }) {
           <ol className="mt-8 space-y-5">
             {steps.map((s, i) => (
               <li key={s} className="flex gap-4">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-aqua text-sm font-bold text-ink">{i + 1}</span>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-sm font-bold text-aqua ring-1 ring-white/25 backdrop-blur">{i + 1}</span>
                 <span className="pt-1 text-white/85">{s}</span>
               </li>
             ))}
@@ -130,7 +147,7 @@ function Essentials({ section }: { section: PageSection }) {
       <ul className="mb-8 flex gap-2 overflow-x-auto pb-1">
         {categories.map((c) => (
           <li key={c.slug} className="shrink-0">
-            <Link to={`/store?category=${c.slug}`} className="flex items-center gap-2.5 rounded-full bg-white py-1.5 pl-1.5 pr-4 text-sm font-medium text-ink ring-1 ring-line/70 hover:ring-teal">
+            <Link to={`/store?category=${c.slug}`} className="surface flex items-center gap-2.5 rounded-full py-1.5 pl-1.5 pr-4 text-sm font-medium text-ink hover:ring-teal">
               {c.icon ? <img src={c.icon} alt="" width={64} height={64} className="h-8 w-8" loading="lazy" /> : <span className="w-2" />}
               {c.name}
             </Link>
@@ -152,18 +169,26 @@ function Essentials({ section }: { section: PageSection }) {
 
 function WhyUs({ section }: { section: PageSection }) {
   return (
-    <section aria-labelledby="why-heading" className="container-x mt-24">
+    <section aria-labelledby="why-heading" className="container-x relative isolate mt-24">
+      <div aria-hidden className="pointer-events-none absolute inset-x-4 inset-y-0 -z-10 overflow-hidden rounded-[40px]">
+        <div className="orb -bottom-16 right-10 h-72 w-72 bg-aqua/25" />
+        <div className="orb -top-10 left-1/3 h-56 w-56 bg-teal-500/10" />
+      </div>
       <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <div className="overflow-hidden rounded-[28px] shadow-card ring-1 ring-line/60">
-          <Img image={section.image ?? HERO.reception} sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[16/11] w-full object-cover object-center" />
+        <div className="glass rounded-[32px] p-2.5 sm:p-3">
+          <div className="overflow-hidden rounded-[24px]">
+            <Img image={section.image ?? HERO.reception} sizes="(min-width: 1024px) 46vw, 92vw" className="aspect-[16/11] w-full object-cover object-center" />
+          </div>
         </div>
         <div>
           <SectionHeading id="why-heading" title={section.heading} intro={section.body || undefined} />
           {section.features.length > 0 && (
-            <ul className="grid gap-6 sm:grid-cols-2">
+            <ul className="grid gap-4 sm:grid-cols-2">
               {section.features.map((f) => (
-                <li key={f.title}>
-                  <FeatureIcon name={f.icon} className="h-6 w-6 text-teal" />
+                <li key={f.title} className="glass rounded-2xl p-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500/10 ring-1 ring-teal-500/15">
+                    <FeatureIcon name={f.icon} className="h-5 w-5 text-teal" />
+                  </span>
                   <h3 className="mt-3 font-semibold text-ink">{f.title}</h3>
                   {f.body && <p className="mt-1 text-[15px] leading-relaxed text-slate">{f.body}</p>}
                 </li>
@@ -182,10 +207,12 @@ function Visit({ section }: { section: PageSection }) {
     <section aria-labelledby="visit-heading" className="container-x mt-24">
       <SectionHeading id="visit-heading" title={section.heading} intro={section.body || undefined} />
       <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
-        <div className="overflow-hidden rounded-[28px] shadow-card ring-1 ring-line/60">
-          <Img image={HERO.exterior} sizes="(min-width: 1024px) 56vw, 92vw" className="aspect-[16/10] h-full w-full object-cover object-center" />
+        <div className="glass rounded-[32px] p-2.5 sm:p-3">
+          <div className="h-full overflow-hidden rounded-[24px]">
+            <Img image={HERO.exterior} sizes="(min-width: 1024px) 56vw, 92vw" className="aspect-[16/10] h-full w-full object-cover object-center" />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 rounded-[28px] bg-white p-7 shadow-card ring-1 ring-line/60">
+        <div className="surface flex flex-col gap-4 rounded-[28px] p-7">
           <LocationPanel />
           <div className="border-t border-line/70 pt-4">
             <h3 className="flex items-center gap-2 font-semibold text-ink">
@@ -217,7 +244,7 @@ function Visit({ section }: { section: PageSection }) {
 function Specialties({ section }: { section: PageSection }) {
   const { status, specialties } = useCare(true);
   return (
-    <section aria-labelledby="specialties-heading" className="container-x mt-20">
+    <section aria-labelledby="specialties-heading" className="container-x mt-8 sm:mt-14 lg:mt-20">
       <SectionHeading id="specialties-heading" title={section.heading} intro={section.body || undefined} action={<LinkButton to="/specialties" variant="outline">All specialties</LinkButton>} />
       {status === 'ready' ? (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
