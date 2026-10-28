@@ -1,3 +1,5 @@
+import { DEFAULT_HERO_EXTRAS, type HeroExtras } from './hero';
+
 // Central configuration. Everything a customer would change lives here.
 // Values marked "demo" are placeholders and must be replaced with verified
 // details before the site is used for a real organisation.
@@ -43,6 +45,9 @@ export const site = {
 
   /** Optional credit line in the footer. */
   credit: 'Illustrations are original artwork created for this demo.',
+
+  /** Badge, floating cards and figures around the homepage hero (Admin -> Homepage -> Hero highlights). */
+  hero: DEFAULT_HERO_EXTRAS as HeroExtras,
 };
 
 export type SiteConfig = typeof site;

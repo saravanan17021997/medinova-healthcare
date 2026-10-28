@@ -99,6 +99,87 @@
   .float-y-slow {
     animation: float-y 9s ease-in-out 1.5s infinite alternate;
   }
+  /* staggered drift for the hero's floating cards, so they never move in step */
+  .float-a {
+    animation: float-y 6.5s ease-in-out infinite alternate;
+  }
+  .float-b {
+    animation: float-y 8s ease-in-out 1.2s infinite alternate;
+  }
+  .float-c {
+    animation: float-y 7.2s ease-in-out 0.6s infinite alternate;
+  }
+  .float-d {
+    animation: float-y 9s ease-in-out 2s infinite alternate;
+  }
+  /* the hero image frame: a smaller, slower rise */
+  .float-frame {
+    animation: float-frame 7s ease-in-out infinite alternate;
+  }
+
+  /* Stronger frosted glass for the hero's floating pieces. */
+  .glass-hero {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    backdrop-filter: blur(24px) saturate(170%);
+    box-shadow:
+      0 0 0 1px rgba(16, 43, 78, 0.04),
+      0 2px 4px rgba(16, 43, 78, 0.04),
+      0 22px 46px -20px rgba(16, 43, 78, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  /* A slow highlight that sweeps across a glass panel now and then. */
+  .sheen {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .sheen::after {
+    content: '';
+    position: absolute;
+    inset: -20% auto -20% -60%;
+    width: 45%;
+    background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-14deg) translateX(0);
+    animation: sheen 11s ease-in-out 2s infinite;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* The main action: deep teal into teal, lit by a cyan glow. White text stays above 4.5:1. */
+  .btn-gradient {
+    background-image: linear-gradient(135deg, #0a6e72 0%, #0c7c7e 50%, #0e7f89 100%);
+    color: #fff;
+    box-shadow:
+      0 10px 26px -10px rgba(37, 197, 208, 0.75),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      filter 0.2s ease;
+  }
+  .btn-gradient:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.06);
+    box-shadow:
+      0 14px 30px -10px rgba(37, 197, 208, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+  /* Large display text only: every colour in this gradient is at least 3:1 on the hero background. */
+  .text-brand-gradient {
+    background-image: linear-gradient(100deg, #0a7a80 0%, #0f8f9c 55%, #1499a8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .wave-drift {
+    animation: wave-drift 18s ease-in-out infinite alternate;
+  }
+  .wave-drift-slow {
+    animation: wave-drift 26s ease-in-out 3s infinite alternate-reverse;
+  }
 }
 
 /* Without backdrop blur, glass becomes a calm near-white surface so text stays readable. */
@@ -109,12 +190,16 @@
   .glass-panel {
     background-color: rgba(255, 255, 255, 0.97);
   }
+  .glass-hero {
+    background: rgba(255, 255, 255, 0.93);
+  }
 }
 @media (prefers-reduced-transparency: reduce) {
   .glass,
   .glass-panel,
+  .glass-hero,
   .surface {
-    background-color: #fff;
+    background: #fff;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
@@ -128,24 +213,29 @@
   }
 }
 
-/* The one orchestrated moment: the hero's care-pathway line draws once. */
-.pathway-line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw-pathway 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.25s forwards;
-}
-.pathway-node {
-  opacity: 0;
-  animation: node-in 0.4s ease-out 1.9s forwards;
-}
-@keyframes draw-pathway {
+@keyframes float-frame {
+  from {
+    transform: translateY(0);
+  }
   to {
-    stroke-dashoffset: 0;
+    transform: translateY(-6px);
   }
 }
-@keyframes node-in {
+@keyframes sheen {
+  0% {
+    transform: skewX(-14deg) translateX(0);
+  }
+  28%,
+  100% {
+    transform: skewX(-14deg) translateX(420%);
+  }
+}
+@keyframes wave-drift {
+  from {
+    transform: translateX(-1.5%);
+  }
   to {
-    opacity: 1;
+    transform: translateX(1.5%);
   }
 }
 
@@ -158,18 +248,25 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .pathway-line {
-    stroke-dashoffset: 0;
-  }
   .float-y,
-  .float-y-slow {
+  .float-y-slow,
+  .float-a,
+  .float-b,
+  .float-c,
+  .float-d,
+  .float-frame,
+  .wave-drift,
+  .wave-drift-slow {
     animation: none !important;
+  }
+  .sheen::after {
+    display: none;
+  }
+  .btn-gradient:hover {
+    transform: none;
   }
   .lift:hover,
   .lift:focus-visible {
     transform: none;
-  }
-  .pathway-node {
-    opacity: 1;
   }
 }

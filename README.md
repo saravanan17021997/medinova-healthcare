@@ -147,7 +147,7 @@ All objects use the `sd_` prefix, so other apps in the same Supabase project are
 2. Restart `npm run dev`, or redeploy.
 3. Open `/admin/login`.
 
-**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) and `npm run verify:orders` (checkout, the contact form, orders, messages and admin users) and `npm run verify:slider` (the hero image slider and its admin screen) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
+**Tests:** `npm run verify:admin` (sign-in and dashboard), `npm run verify:catalog` (products, categories, images and the database-backed store) `npm run verify:care` (doctors, specialties, appointment requests and the public pages that use them) and `npm run verify:content` (site settings, menus, homepage sections and facilities) and `npm run verify:orders` (checkout, the contact form, orders, messages and admin users) and `npm run verify:slider` (the hero image slider and its admin screen) and `npm run verify:hero` (the hero's badge, floating cards, figures, motion and the Hero highlights admin screen) run the browser tests. They use a fake Supabase inside the browser, so they never touch real accounts or data. Build with test values first, then preview:
 
 ```bash
 VITE_SUPABASE_URL=https://test-project.supabase.co VITE_SUPABASE_ANON_KEY=<any anon-role JWT> npx vite build --outDir dist-test
@@ -158,6 +158,7 @@ BASE_URL=http://localhost:4181 npm run verify:care
 BASE_URL=http://localhost:4181 npm run verify:content
 BASE_URL=http://localhost:4181 npm run verify:orders
 BASE_URL=http://localhost:4181 npm run verify:slider
+BASE_URL=http://localhost:4181 npm run verify:hero
 ```
 
 ## Images

@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import {
-  Building2, CalendarCheck, Images, ExternalLink, HeartPulse, House, LayoutDashboard, ListTree, LogOut, Menu, MessageSquare, Package,
+  Building2, CalendarCheck, Images, ExternalLink, Sparkles, HeartPulse, House, LayoutDashboard, ListTree, LogOut, Menu, MessageSquare, Package,
   Settings, ShoppingBag, Stethoscope, Tags, UserCog, X, type LucideIcon,
 } from 'lucide-react';
 import { BRAND } from '@/data/img';
 import { cx } from '@/lib/format';
 import { useAdminAuth } from './auth';
 
-interface NavItem { label: string; to?: string; icon: LucideIcon; ownerOnly?: boolean; notOn?: string }
+interface NavItem { label: string; to?: string; icon: LucideIcon; ownerOnly?: boolean; notOn?: string[] }
 
 // Sections that are not built yet are shown as "Soon". Owner-only sections are hidden from editors.
 const NAV: { heading: string; items: NavItem[] }[] = [
@@ -19,8 +19,9 @@ const NAV: { heading: string; items: NavItem[] }[] = [
   {
     heading: 'Website',
     items: [
-      { label: 'Homepage', to: '/admin/homepage', icon: House, notOn: '/admin/homepage/slider' },
+      { label: 'Homepage', to: '/admin/homepage', icon: House, notOn: ['/admin/homepage/slider', '/admin/homepage/highlights'] },
       { label: 'Hero slider', to: '/admin/homepage/slider', icon: Images },
+      { label: 'Hero highlights', to: '/admin/homepage/highlights', icon: Sparkles },
       { label: 'Navigation', to: '/admin/navigation', icon: ListTree },
       { label: 'Facilities', to: '/admin/facilities', icon: Building2 },
       { label: 'Site settings', to: '/admin/settings', icon: Settings },
@@ -53,7 +54,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
                       to={to}
                       onClick={onNavigate}
                       className={({ isActive }) =>
-                        cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium', isActive && !(notOn && pathname.startsWith(notOn)) ? 'bg-white/10 text-white ring-1 ring-white/15' : 'text-white/80 hover:bg-white/5 hover:text-white')
+                        cx('flex items-center gap-3 rounded-xl px-3 py-2.5 text-[15px] font-medium', isActive && !notOn?.some((p) => pathname.startsWith(p)) ? 'bg-white/10 text-white ring-1 ring-white/15' : 'text-white/80 hover:bg-white/5 hover:text-white')
                       }
                     >
                       <Icon className="h-[18px] w-[18px]" aria-hidden />
@@ -91,6 +92,7 @@ const titleFor = (path: string) =>
   : path.startsWith('/admin/specialties') ? 'Specialties'
   : path.startsWith('/admin/appointments') ? 'Appointments'
   : path.startsWith('/admin/homepage/slider') ? 'Hero image slider'
+  : path.startsWith('/admin/homepage/highlights') ? 'Hero highlights'
   : path.startsWith('/admin/homepage/') ? 'Edit homepage section'
   : path.startsWith('/admin/homepage') ? 'Homepage'
   : path.startsWith('/admin/navigation') ? 'Navigation'

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Phone, Search, ShoppingBag, X } from 'lucide-react';
+import { CalendarCheck, Menu, Phone, Search, ShoppingBag, X } from 'lucide-react';
 import { useNav, useSite } from '@/state/content';
 import { SiteLink } from '@/components/SiteLink';
 import { BRAND } from '@/data/img';
@@ -43,7 +43,7 @@ export function Header() {
   return (
     // A floating frosted bar: the page shows through it as it scrolls underneath.
     <header className="sticky top-0 z-40 px-3 pt-3 sm:px-4">
-      <div className="glass mx-auto flex h-16 max-w-content items-center gap-4 rounded-2xl px-3 sm:px-5 lg:h-[68px]">
+      <div className="glass-hero mx-auto flex h-16 max-w-content items-center gap-4 rounded-[20px] px-3 sm:px-5 lg:h-[72px] lg:rounded-[22px] lg:px-6">
         <Link to="/" className="shrink-0" aria-label={`${site.name} home`}>
           <img src={BRAND.logo} alt={site.name} width={220} height={64} className="h-9 w-auto sm:h-10" />
         </Link>
@@ -66,8 +66,8 @@ export function Header() {
             <ShoppingBag className="h-5 w-5" aria-hidden />
             {count > 0 && <span className="absolute right-0.5 top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-teal px-1 text-[11px] font-bold text-white ring-2 ring-white">{count}</span>}
           </Link>
-          <Link to="/appointment" className={buttonClass('primary', 'md', 'hidden whitespace-nowrap sm:inline-flex')}>
-            Book an appointment
+          <Link to="/appointment" className={buttonClass('gradient', 'md', 'ml-1 hidden whitespace-nowrap sm:inline-flex')}>
+            <CalendarCheck className="h-[18px] w-[18px]" aria-hidden /> Book an appointment
           </Link>
           <button type="button" className={cx('flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-white/80', long ? 'xl:hidden' : 'lg:hidden')} aria-expanded={open} aria-controls="mobile-nav" aria-label="Open menu" onClick={() => setOpen(true)}>
             <Menu className="h-6 w-6" aria-hidden />
@@ -91,8 +91,8 @@ export function Header() {
             ))}
           </nav>
           <div className="mt-auto flex flex-col gap-2">
-            <Link to="/appointment" tabIndex={open ? 0 : -1} className={buttonClass('primary', 'lg')}>
-              Book an appointment
+            <Link to="/appointment" tabIndex={open ? 0 : -1} className={buttonClass('gradient', 'lg')}>
+              <CalendarCheck className="h-5 w-5" aria-hidden /> Book an appointment
             </Link>
             <a href={telUrl()} tabIndex={open ? 0 : -1} className={buttonClass('outline', 'lg')}>
               <Phone className="h-4 w-4" aria-hidden /> Call {site.contact.phoneDisplay}

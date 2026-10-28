@@ -169,8 +169,9 @@ await test('Appointment: validation, doctor filtered by specialty, WhatsApp mess
   expect((await alert.count()) === 1, 'no error summary');
   const items = await alert.locator('li').count();
   expect(items === 5, `expected 5 errors, got ${items}`);
-  const focused = await page.evaluate(() => document.activeElement?.getAttribute('role'));
-  expect(focused === 'alert', 'error summary did not receive focus');
+  // focus moves on the next frame, just after the summary appears
+  const focused = await page.waitForFunction(() => document.activeElement?.getAttribute('role') === 'alert', null, { timeout: 3000 }).then(() => true, () => false);
+  expect(focused, 'error summary did not receive focus');
   await page.fill('#name', 'Asha Test');
   await page.fill('#phone', '98765 43210');
   await page.selectOption('#specialty', 'cardiology');

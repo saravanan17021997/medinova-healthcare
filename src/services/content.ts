@@ -1,5 +1,6 @@
 import type { Facility, ImageAsset } from '@/types';
 import { site as builtIn, type SiteConfig } from '@/config/site';
+import { buildHeroExtras } from '@/config/hero';
 import { HERO } from '@/data/img';
 import { facilities as sampleFacilities } from '@/data/facilities';
 import { SUPABASE_KEY, SUPABASE_URL, supabaseReady } from '@/lib/supabaseConfig';
@@ -69,6 +70,7 @@ export function buildSite(rows: SettingRow[]): SiteConfig {
     },
     features: { testimonials: bool(features.testimonials, builtIn.features.testimonials) },
     credit: typeof footer.credit === 'string' ? optStr(footer.credit, 160) : builtIn.credit,
+    hero: by.has('home_hero') ? buildHeroExtras(by.get('home_hero')) : builtIn.hero,
   };
 }
 

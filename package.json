@@ -18,6 +18,7 @@
     "verify:content": "node scripts/verify-content.mjs",
     "verify:orders": "node scripts/verify-orders.mjs",
     "verify:slider": "node scripts/verify-slider.mjs",
+    "verify:hero": "node scripts/verify-hero.mjs",
     "serve:vercel": "node scripts/serve-vercel.mjs"
   },
   "dependencies": {

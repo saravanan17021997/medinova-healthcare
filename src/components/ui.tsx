@@ -4,9 +4,11 @@ import { AlertCircle, Info, Minus, Plus } from 'lucide-react';
 import { cx } from '@/lib/format';
 
 // ---------------------------------------------------------------- buttons
-const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-[color,background-color,border-color,box-shadow] duration-200 disabled:cursor-not-allowed disabled:opacity-50';
+const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-[color,background-color,border-color,box-shadow,transform,filter] duration-200 disabled:cursor-not-allowed disabled:opacity-50';
 const variants = {
   primary: 'bg-teal text-white shadow-glow hover:bg-teal-700',
+  /** the main call to action: teal gradient with a cyan glow */
+  gradient: 'btn-gradient',
   dark: 'bg-ink text-white hover:bg-navy',
   outline: 'border border-ink/15 bg-white/80 text-ink hover:border-teal/50 hover:bg-white hover:text-teal-700',
   ghost: 'text-ink hover:bg-ink/5',

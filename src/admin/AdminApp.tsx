@@ -13,6 +13,7 @@ import { AdminSpecialties, AdminSpecialtyForm } from './pages/Specialties';
 import { AdminAppointments } from './pages/Appointments';
 import { AdminHomepage, AdminSectionForm } from './pages/Homepage';
 import { AdminHeroSlides } from './pages/HeroSlides';
+import { AdminHeroHighlights } from './pages/HeroHighlights';
 import { AdminNavigation } from './pages/Navigation';
 import { AdminFacilities, AdminFacilityForm } from './pages/Facilities';
 import { AdminSettings } from './pages/Settings';
@@ -63,6 +64,7 @@ export default function AdminApp() {
           <Route path="appointments" element={<AdminAppointments />} />
           <Route path="homepage" element={<AdminHomepage />} />
           <Route path="homepage/slider" element={<AdminHeroSlides />} />
+          <Route path="homepage/highlights" element={<AdminHeroHighlights />} />
           <Route path="homepage/:key" element={<AdminSectionForm />} />
           <Route path="navigation" element={<AdminNavigation />} />
           <Route path="facilities" element={<AdminFacilities />} />

@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, Images, Loader2, Pencil, Pin, Plus, Trash2 } from 'lucide-react';
+import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, Images, Loader2, Pencil, Pin, Plus, Sparkles, Trash2 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { TextArea, TextField, buttonClass } from '@/components/ui';
-import { FEATURE_ICONS, FeatureIcon } from '@/components/FeatureIcon';
+import { FEATURE_ICONS, FeatureIcon, iconLabel } from '@/components/FeatureIcon';
 import { cx } from '@/lib/format';
 import { SITE_PAGES, checkLink } from '@/lib/links';
 import { SECTION_KEYS, buildSlides, type SectionKey } from '@/services/content';
@@ -96,6 +96,16 @@ export function AdminHomepage() {
           <span className="block text-sm text-slate">{slideNote}</span>
         </span>
         <span className="text-sm font-semibold text-teal-700">Manage slides</span>
+      </Link>
+      <Link to="/admin/homepage/highlights" className="mb-5 flex items-center gap-4 rounded-2xl bg-white p-4 shadow-card ring-1 ring-line/70 hover:ring-teal sm:p-5" data-testid="highlights-link">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-aqua-50 text-teal">
+          <Sparkles className="h-5 w-5" aria-hidden />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold text-ink">Hero highlights</span>
+          <span className="block text-sm text-slate">The badge, the cards around the hero image and the figures under it.</span>
+        </span>
+        <span className="text-sm font-semibold text-teal-700">Edit highlights</span>
       </Link>
       {error ? (
         <LoadError message={error} onRetry={load} />
@@ -375,7 +385,7 @@ export function AdminSectionForm() {
                           <FeatureIcon name={x.icon} className="h-6 w-6 shrink-0 text-teal" />
                           <select id={`sc-ficon-${i}`} value={x.icon} onChange={(e) => upd({ icon: e.target.value })} className={field()}>
                             {FEATURE_ICONS.map((n) => (
-                              <option key={n} value={n}>{n.replace(/([a-z])([A-Z])/g, '$1 $2')}</option>
+                              <option key={n} value={n}>{iconLabel(n)}</option>
                             ))}
                           </select>
                         </div>

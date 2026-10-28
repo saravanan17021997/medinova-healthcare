@@ -35,7 +35,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
 /** Banner used at the top of inner pages: text left, a wide image right. */
 export function PageHeader({ title, intro, image, crumbs, children }: { title: string; intro: string; image?: ImageAsset; crumbs: Crumb[]; children?: ReactNode }) {
   return (
-    <header className="relative -mt-[76px] overflow-hidden pt-[76px] lg:-mt-[80px] lg:pt-[80px]">
+    <header className="relative -mt-[76px] overflow-hidden pt-[76px] lg:-mt-[84px] lg:pt-[84px]">
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(760px_420px_at_85%_20%,rgba(99,209,206,0.22),transparent_62%),linear-gradient(180deg,#ffffff_0%,#f2fafa_100%)]" />
       <div aria-hidden className="orb -right-24 top-0 h-80 w-80 bg-teal-500/15" />
       <div className="container-x relative grid items-center gap-8 py-10 lg:grid-cols-[1.05fr_1fr] lg:py-14">
